@@ -2,9 +2,9 @@
 require ('../../../wp-load.php');
 
 require ('class/KoboldcouponSendData.php');
-// test
+
 global $wpdb;
-//test
+
 $data = base64_decode( $_POST['data'] );
 
 parse_str($data, $arr);

@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: federsammler-1.0\n"
 "POT-Creation-Date: 2021-04-05 14:29+0200\n"
-"PO-Revision-Date: 2021-04-05 14:30+0200\n"
+"PO-Revision-Date: 2021-05-03 17:25+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -34,7 +34,7 @@ msgstr "anzeigen"
 
 #: class/Customers_List.php:238
 msgid "cancel"
-msgstr "stonieren"
+msgstr "stornieren"
 
 #: class/Customers_List.php:248 class/Customers_List.php:445
 msgid "open"

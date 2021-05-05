@@ -37,5 +37,12 @@ jQuery(document).ready(function($){
     
     
 });
+function setCurrencyShippingCost() {
+	  var x = document.getElementById("currency").value;
+	  if (x == 'euro'){c = '€'};
+	  if (x == 'dollar'){c = '$'};
+	  if (x == 'british_pound'){c = '£'};
+	  document.getElementById("curr_shipping").innerHTML = c;
+	}
 
 

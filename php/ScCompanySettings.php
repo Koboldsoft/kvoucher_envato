@@ -96,7 +96,7 @@ function koboldcoupon_textfield_shipping_costs_callback()
         
     }
     
-    $html = '<input type="text" id="shipping_costs" maxlength="8" size="8" name="koboldcoupon_plugin_company_textfiels[shipping_costs]" value="' . esc_attr($shipping_costs) . '"/> €';
+    $html = '<input type="text" id="shipping_costs" maxlength="8" size="8" name="koboldcoupon_plugin_company_textfiels[shipping_costs]" value="' . esc_attr($shipping_costs) . '"/> <b id="curr_shipping">€</b>';
     
     echo $html;
 }
@@ -306,7 +306,7 @@ function koboldcoupon_textfield_currency_callback(){
     }
     
     
-    $html = '<select name="koboldcoupon_plugin_company_textfiels[currency]" id="currency">
+    $html = '<select name="koboldcoupon_plugin_company_textfiels[currency]" id="currency" onchange="setCurrencyShippingCost()">
                 <option value="euro" '.($currency == 'euro' ? "selected" : "").'>€</option>
                 <option value="dollar" '.($currency == 'dollar' ? "selected" : "").'>$</option>
                 <option value="british_pound" '.($currency == 'british_pound' ? "selected" : "").'>£</option>

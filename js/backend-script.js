@@ -43,6 +43,6 @@ function setCurrencyShippingCost() {
 	  if (x == 'dollar'){c = '$'};
 	  if (x == 'british_pound'){c = '£'};
 	  document.getElementById("curr_shipping").innerHTML = c;
-	}
+}
 
 

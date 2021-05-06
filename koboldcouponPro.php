@@ -366,6 +366,8 @@ function koboldcoupon_plugin_display()
 		<a href="?page=koboldcoupon_options&tab=terms_of_service_options" class="nav-tab <?php echo $active_tab == 'terms_of_service_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Terms of Service', 'koboldcouponpro' );?></a>
 		
 		<a href="?page=koboldcoupon_options&tab=style_options" class="nav-tab <?php echo $active_tab == 'style_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Style Settings', 'koboldcouponpro' );?></a>
+		
+		<a href="https://koboldsoft.com/kcouponpro/" target="_blank"><img alt="<?php _e( 'Handbook', 'koboldcouponpro' );?>" src="<?php echo esc_url( plugins_url( 'img/help_kcoupon.png', __FILE__ ) )?>" width="35" height="35"></a>
 	</h2>
 
 	<form method="post" action="options.php">

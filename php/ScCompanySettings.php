@@ -96,7 +96,7 @@ function koboldcoupon_textfield_shipping_costs_callback()
         
     }
     
-    $html = '<input type="text" id="shipping_costs" maxlength="8" size="8" name="koboldcoupon_plugin_company_textfiels[shipping_costs]" value="' . esc_attr($shipping_costs) . '"/> <b id="curr_shipping">€</b>';
+    $html = '<input type="text" id="shipping_costs" maxlength="8" size="8" name="koboldcoupon_plugin_company_textfiels[shipping_costs]" value="' . esc_attr($shipping_costs) . '"/> <b id="curr_shipping">'.getCurrency().'</b>';
     
     echo $html;
 }
@@ -451,6 +451,22 @@ function koboldcouponPregMatchValueaddedTax($valueaddedtax){
         return $valueaddedtax;
         
     }
+    
+}
+
+function getCurrency(){
+    
+    $currency = get_option('koboldcouponlite_plugin_company_textfiels')['currency'];
+    
+    if( empty( $currency ) ){ $output = "€"; };
+    
+    if( strcmp( $currency, 'euro' ) == 0 ){ $output = " €"; };
+    
+    if( strcmp( $currency, 'dollar' ) == 0 ){ $output = " $"; };
+    
+    if( strcmp( $currency, 'british_pound' ) == 0 ){ $output = " £"; };
+    
+    return $output;
     
 }
     

@@ -456,7 +456,7 @@ function koboldcouponPregMatchValueaddedTax($valueaddedtax){
 
 function getCurrency(){
     
-    $currency = get_option('koboldcouponlite_plugin_company_textfiels')['currency'];
+    $currency = get_option('koboldcoupon_plugin_company_textfiels')['currency'];
     
     if( empty( $currency ) ){ $output = "€"; };
     

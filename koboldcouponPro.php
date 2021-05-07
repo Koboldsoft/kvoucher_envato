@@ -334,7 +334,10 @@ function koboldcoupon_plugin_display()
 <div class="wrap">
 
 	<div id="icon-themes" class="icon32"></div>
-	<h2><?php __('KoboldCoupon Options','koboldcouponpro')?></h2>
+	
+	<a href="https://koboldsoft.com" target="_blank"><img alt="Koboldsoft.com" src="<?php echo esc_url( plugins_url( 'img/koboldsoft_black_solutions.png', __FILE__ ) )?>" height="25"></a>
+	
+	<h2><?php _e('KCouponPro Options','koboldcouponpro')?></h2>
 	
 		<?php // infoKoboldCouponPro() ?>
 	

@@ -44,6 +44,7 @@ class KoboldcouponCustomers {
 				<div id="post-body" class="metabox-holder columns-2">
 					<div id="post-body-content">
 						<div class="meta-box-sortables ui-sortable">
+							<a href="https://koboldsoft.com" target="_blank"><img alt="Koboldsoft.com" src="<?php echo plugin_dir_url( __DIR__ ).'img/koboldsoft_black_solutions.png' ?>" height="25"></a>
 						 	<form method="post">
 							<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
     							<?php

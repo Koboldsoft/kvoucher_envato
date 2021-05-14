@@ -190,7 +190,7 @@ add_action( 'wp_enqueue_scripts', 'load_frontend_scripts' );
 
 function koboldcoupon_add_frontpage() {
     
-    add_shortcode('koboldcouponpro', 'KoboldcouponFrontendStuff\KoboldcouponForm::koboldcouponBillingAdress');
+    add_shortcode('kcouponpro', 'KoboldcouponFrontendStuff\KoboldcouponForm::koboldcouponBillingAdress');
 }
 
 add_action( 'init', 'koboldcoupon_add_frontpage' );

@@ -689,7 +689,7 @@ if (! class_exists('KoboldcouponForm')) {
                                              
                                  var data = "' . $data . '";
                                      
-                                 var saveusrdataurl = "' . plugins_url() . '/kvoucher/saveUsrData.php";
+                                 var saveusrdataurl = "' . plugins_url() . '/kvoucherPro/saveUsrData.php";
                                      
                                  saveUserData(data,saveusrdataurl);
                                      

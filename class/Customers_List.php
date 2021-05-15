@@ -39,11 +39,11 @@ class Customers_List extends WP_List_Table {
         global $wpdb;
         if($view == ''){
             
-            $sql = "SELECT * FROM {$wpdb->prefix}usr_koboldcoupon";
+            $sql = "SELECT * FROM {$wpdb->prefix}usr_kvoucherpro";
             
         }else{
         
-            $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_koboldcoupon WHERE del LIKE 0 AND action LIKE %s" , $view);
+            $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_kvoucherpro WHERE del LIKE 0 AND action LIKE %s" , $view);
             
         }
         
@@ -71,7 +71,7 @@ class Customers_List extends WP_List_Table {
         
         global $wpdb;
         
-        $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_koboldcoupon WHERE id LIKE %s
+        $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_kvoucherpro WHERE id LIKE %s
                                                                              OR fname LIKE %s 
                                                                              OR nname LIKE %s
                                                                              OR streetname LIKE %s
@@ -107,7 +107,7 @@ class Customers_List extends WP_List_Table {
     public static function get_customer( $id ) {
         global $wpdb;
         
-        $result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}usr_koboldcoupon WHERE id = %d", $id )  );
+        $result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}usr_kvoucherpro WHERE id = %d", $id )  );
         
         return $result;
         
@@ -125,19 +125,19 @@ class Customers_List extends WP_List_Table {
         
         if(!empty($view) || $view == '0' && empty($search_id)){
         
-            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_koboldcoupon WHERE del LIKE 0 AND action LIKE %s" , $view);
+            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro WHERE del LIKE 0 AND action LIKE %s" , $view);
             
         }
         
         if(empty($search_id) && empty($view) && $view != '0'){
         
-            $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}usr_koboldcoupon";
+            $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro";
             
         }
         
         if(!empty($search_id) && empty($view)){
         
-            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_koboldcoupon WHERE id LIKE %s
+            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro WHERE id LIKE %s
                                                                                 OR fname LIKE %s
                                                                                 OR nname LIKE %s
                                                                                 OR streetname LIKE %s
@@ -154,7 +154,7 @@ class Customers_List extends WP_List_Table {
         
         if(!empty($search_id) && !empty($view)){
             
-            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_koboldcoupon WHERE id LIKE %s
+            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro WHERE id LIKE %s
                                                                                 OR fname LIKE %s
                                                                                 OR nname LIKE %s
                                                                                 OR streetname LIKE %s
@@ -234,8 +234,8 @@ class Customers_List extends WP_List_Table {
         $title = '<strong>' . $item['id'] . '</strong>';
         
         $actions = [
-            'show' => sprintf( '<a href="?page=%s&action=%s&customer=%s&key=%s">'.__('show','koboldcouponpro').'</a>', esc_attr( $_REQUEST['page'] ), 'show', absint( $item['id'] ), $item['key_koboldcoupon'] ),
-            'cancel' => sprintf( '<a href="?page=%s&action=%s&customer=%s&_wpnonce=%s">'.__('cancel','koboldcouponpro').'</a>', esc_attr( $_REQUEST['page'] ), 'cancel', absint( $item['id'] ), $cancel_nonce )
+            'show' => sprintf( '<a href="?page=%s&action=%s&customer=%s&key=%s">'.__('show','kvoucherpro').'</a>', esc_attr( $_REQUEST['page'] ), 'show', absint( $item['id'] ), $item['key_kvoucher'] ),
+            'cancel' => sprintf( '<a href="?page=%s&action=%s&customer=%s&_wpnonce=%s">'.__('cancel','kvoucherpro').'</a>', esc_attr( $_REQUEST['page'] ), 'cancel', absint( $item['id'] ), $cancel_nonce )
         ];
         
         return $title . $this->row_actions( $actions );
@@ -245,14 +245,14 @@ class Customers_List extends WP_List_Table {
         
         switch ($item['action']) {
             case 0:
-                $output =  "<b style='color:green;'>".__('open','koboldcouponpro')."</b>";
+                $output =  "<b style='color:green;'>".__('open','kvoucherpro')."</b>";
                 break;
             case 1:
-                $output = "<b style='color:Maroon;'>".__('redeemed','koboldcouponpro')."</b>";
+                $output = "<b style='color:Maroon;'>".__('redeemed','kvoucherpro')."</b>";
                 break;
                 
             case 2:
-                $output = "<b style='color:Orange;'>".__('canceled','koboldcouponpro')."</b>";
+                $output = "<b style='color:Orange;'>".__('canceled','kvoucherpro')."</b>";
                 break;
             
         }
@@ -278,22 +278,22 @@ class Customers_List extends WP_List_Table {
         
         $coupon_data['buyer_data']['value_added_tax'] =  $item['vat'];
         
-        $coupon_data['company_data'] = get_option('koboldcoupon_plugin_company_textfiels');
+        $coupon_data['company_data'] = get_option('kvoucher_plugin_company_textfiels');
         
         $coupon_data['company_data']['email_admin'] = get_option('admin_email');
         
-        $coupon_data['style_data'] = get_option('koboldcoupon_plugin_style_textfiels');
+        $coupon_data['style_data'] = get_option('kvoucher_plugin_style_textfiels');
         
         $dataencrypt = encrytURLVarables($coupon_data);
         
         if (strcmp($item['shipping'], 'E-mail') === 0) {
         
-            $output = '<a alt='.__('Coupon','koboldcouponpro').'" target="_blank" title="'.__('Coupon','koboldcouponpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=coupon&'.http_build_query( $dataencrypt ).'"><img style="margin-right:5px" src="' . esc_url( plugins_url( 'img/file-pdf-solid.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
+            $output = '<a alt='.__('Coupon','kvoucherpro').'" target="_blank" title="'.__('Coupon','kvoucherpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=coupon&'.http_build_query( $dataencrypt ).'"><img style="margin-right:5px" src="' . esc_url( plugins_url( 'img/file-pdf-solid.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
         }
   
-        $output .= '<a alt="'.__('Bill','koboldcouponpro').'" target="_blank" title="'.__('Bill','koboldcouponpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=bill&'.http_build_query( $dataencrypt ).'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
+        $output .= '<a alt="'.__('Bill','kvoucherpro').'" target="_blank" title="'.__('Bill','kvoucherpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=bill&'.http_build_query( $dataencrypt ).'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
   
-  //$output .= '<a alt="'.__('Bill','koboldcouponpro').'" target="_blank" title="'.__('Bill','koboldcouponpro').'" href="http://localhost/createpdf/documents.php?document=bill&'.$dataencrypt.'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
+  //$output .= '<a alt="'.__('Bill','kvoucherpro').'" target="_blank" title="'.__('Bill','kvoucherpro').'" href="http://localhost/createpdf/documents.php?document=bill&'.$dataencrypt.'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
 
         return $output;
     }
@@ -307,16 +307,16 @@ class Customers_List extends WP_List_Table {
     function get_columns() {
         $columns = [
             'cb'      => '<input type="checkbox" />',
-            'id'    =>  __('ID','koboldcouponpro'),
-            'price'    =>  __('Value','koboldcouponpro'),
-            'title'    => __('Title','koboldcouponpro'),
-            'nname'    => __('Last Name','koboldcouponpro'),
-            'streetname' =>  __('Street','koboldcouponpro'),
-            'city'    => __( 'City', 'koboldcouponpro' ),
-            'shipping'    => __( 'Shipping', 'koboldcouponpro' ),
-            'date'    => __( 'Date', 'koboldcouponpro' ),
-            'action'    => __( 'Status', 'koboldcouponpro' ),
-            'documents'    => __( 'Documents', 'koboldcouponpro' )
+            'id'    =>  __('ID','kvoucherpro'),
+            'price'    =>  __('Value','kvoucherpro'),
+            'title'    => __('Title','kvoucherpro'),
+            'nname'    => __('Last Name','kvoucherpro'),
+            'streetname' =>  __('Street','kvoucherpro'),
+            'city'    => __( 'City', 'kvoucherpro' ),
+            'shipping'    => __( 'Shipping', 'kvoucherpro' ),
+            'date'    => __( 'Date', 'kvoucherpro' ),
+            'action'    => __( 'Status', 'kvoucherpro' ),
+            'documents'    => __( 'Documents', 'kvoucherpro' )
         ];
         
         return $columns;
@@ -417,7 +417,7 @@ class Customers_List extends WP_List_Table {
         
         $wpdb->update(
             
-            $wpdb->prefix.'usr_koboldcoupon',
+            $wpdb->prefix.'usr_kvoucherpro',
             array(
                 'action' => $action,
             ),
@@ -441,10 +441,10 @@ class Customers_List extends WP_List_Table {
     
     protected function get_views() {
         $status_links = array(
-            "all"       => "<a href='/wp-admin/admin.php?page=customers'>".__("all","koboldcouponpro")."</a>",
-            "open" => "<a href='/wp-admin/admin.php?page=customers&view=0'>".__("open","koboldcouponpro")."</a>",
-            "redeemed"   =>"<a href='/wp-admin/admin.php?page=customers&view=1'>".__("redeemed","koboldcouponpro")."</a>",
-            "cancel"   =>"<a href='/wp-admin/admin.php?page=customers&view=2'>".__("canceled","koboldcouponpro")."</a>"
+            "all"       => "<a href='/wp-admin/admin.php?page=customers'>".__("all","kvoucherpro")."</a>",
+            "open" => "<a href='/wp-admin/admin.php?page=customers&view=0'>".__("open","kvoucherpro")."</a>",
+            "redeemed"   =>"<a href='/wp-admin/admin.php?page=customers&view=1'>".__("redeemed","kvoucherpro")."</a>",
+            "cancel"   =>"<a href='/wp-admin/admin.php?page=customers&view=2'>".__("canceled","kvoucherpro")."</a>"
         );
         return $status_links;
     }
@@ -509,23 +509,23 @@ class Customers_List extends WP_List_Table {
             
             $result = self::get_customer(absint(  $id) );
             
-            self::checkCustomer($_REQUEST['key'], $result -> key_koboldcoupon);
+            self::checkCustomer($_REQUEST['key'], $result -> key_kvoucher);
             
-            echo ($result->action == '0' ? "<p style='color:green;'>".__('The voucher has not yet been redeemed','koboldcouponpro')."</p>." : "");
+            echo ($result->action == '0' ? "<p style='color:green;'>".__('The voucher has not yet been redeemed','kvoucherpro')."</p>." : "");
             
-            echo ($result->action == '1' ? "<p style='color:red;'>".__('The voucher is redeemed','koboldcouponpro')."</p>.":"");
+            echo ($result->action == '1' ? "<p style='color:red;'>".__('The voucher is redeemed','kvoucherpro')."</p>.":"");
             
-            echo ($result->action == '2' ? "<p style='color:Orange;'>".__('The voucher has been canceled','koboldcouponpro')."</p>." : "");
+            echo ($result->action == '2' ? "<p style='color:Orange;'>".__('The voucher has been canceled','kvoucherpro')."</p>." : "");
             
-            if( $result->action == '0' ){ echo self::setSingleButtonAction('redeem',__('Redeem voucher','koboldcouponpro'),'#0085ba',__("'Are you sure you want to redeem the voucher?'",'koboldcouponpro')); };
+            if( $result->action == '0' ){ echo self::setSingleButtonAction('redeem',__('Redeem voucher','kvoucherpro'),'#0085ba',__("'Are you sure you want to redeem the voucher?'",'kvoucherpro')); };
             
-            if( $result->action == '0' ){ echo self::setSingleButtonAction('sto',__('Cancel voucher','koboldcouponpro'),'Red',__("'Are you sure you want to cancel the voucher?'",'koboldcouponpro')); };
+            if( $result->action == '0' ){ echo self::setSingleButtonAction('sto',__('Cancel voucher','kvoucherpro'),'Red',__("'Are you sure you want to cancel the voucher?'",'kvoucherpro')); };
             
-            if( $result->action != '0' ){ echo self::setSingleButtonAction('ret',__('Mark the voucher as OPEN again','koboldcouponpro'),'#0085ba',__("'Are you sure you want to mark the voucher as OPEN again?'",'koboldcouponpro')); };
+            if( $result->action != '0' ){ echo self::setSingleButtonAction('ret',__('Mark the voucher as OPEN again','kvoucherpro'),'#0085ba',__("'Are you sure you want to mark the voucher as OPEN again?'",'kvoucherpro')); };
             
             echo '</p>';
             
-            echo '<h3>'.__('Voucher recipient','koboldcouponpro').':</h3>';
+            echo '<h3>'.__('Voucher recipient','kvoucherpro').':</h3>';
             
             echo '<table class="form-table" role="presentation"';
             
@@ -533,45 +533,45 @@ class Customers_List extends WP_List_Table {
             
             echo '<tr><th scope="row">ID:</th><td>'. $result->id .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Issued on','koboldcouponpro').':</th><td>'. $result->date .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Issued on','kvoucherpro').':</th><td>'. $result->date .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Title','koboldcouponpro').':</th><td>'. $result->for_title .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Title','kvoucherpro').':</th><td>'. $result->for_title .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('First name','koboldcouponpro').':</th><td>'. $result->for_fname .'</td></tr>';
+            echo '<tr><th scope="row">'.__('First name','kvoucherpro').':</th><td>'. $result->for_fname .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Last Name','koboldcouponpro').':</th><td>'. $result->for_nname .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Last Name','kvoucherpro').':</th><td>'. $result->for_nname .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Occasion','koboldcouponpro').':</th><td>'. $result->occasion .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Occasion','kvoucherpro').':</th><td>'. $result->occasion .'</td></tr>';
             
             echo '</tbody>';
             
             echo '</table>';
             
-            echo '<h3>'.__('Billing address','koboldcouponpro').':</h3>';
+            echo '<h3>'.__('Billing address','kvoucherpro').':</h3>';
             
             echo '<table class="form-table" role="presentation"';
             
             echo '<tbody>';
             
-            echo '<tr><th scope="row">'.__('Value','koboldcouponpro').':</th><td>'. number_format( $result->price, 2, ',', ' ') .' '.self::checkCurrency($result->currency).'</td></tr>';
+            echo '<tr><th scope="row">'.__('Value','kvoucherpro').':</th><td>'. number_format( $result->price, 2, ',', ' ') .' '.self::checkCurrency($result->currency).'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Shipping','koboldcouponpro').':</th><td>'. $result->shipping .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Shipping','kvoucherpro').':</th><td>'. $result->shipping .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Title','koboldcouponpro').':</th><td>'. $result->title .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Title','kvoucherpro').':</th><td>'. $result->title .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('First Name','koboldcouponpro').':</th><td>'. $result->fname .'</td></tr>';
+            echo '<tr><th scope="row">'.__('First Name','kvoucherpro').':</th><td>'. $result->fname .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Last Name','koboldcouponpro').':</th><td>'. $result->nname .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Last Name','kvoucherpro').':</th><td>'. $result->nname .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Street','koboldcouponpro').':</th><td>'. $result->streetname .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Street','kvoucherpro').':</th><td>'. $result->streetname .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('City','koboldcouponpro').':</th><td>' . $result->plz . ' ' . $result->city .'</td></tr>';
+            echo '<tr><th scope="row">'.__('City','kvoucherpro').':</th><td>' . $result->plz . ' ' . $result->city .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Country','koboldcouponpro').':</th><td>'. $result->country .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Country','kvoucherpro').':</th><td>'. $result->country .'</td></tr>';
                 
             echo '<tr><th scope="row">E-mail:</th><td>'. $result->email .'</td></tr>';
             
-            echo '<tr><th scope="row">'.__('Phone','koboldcouponpro').':</th><td>'. $result->phone .'</td></tr>';
+            echo '<tr><th scope="row">'.__('Phone','kvoucherpro').':</th><td>'. $result->phone .'</td></tr>';
             
             echo '</tbody>';
             
@@ -579,23 +579,23 @@ class Customers_List extends WP_List_Table {
             
             if(!empty($result->dif_email)){
         
-                echo '<h3>'.__('Differing Shipping Address','koboldcouponpro').':</h3>';
+                echo '<h3>'.__('Differing Shipping Address','kvoucherpro').':</h3>';
             
                 echo '<table class="form-table" role="presentation"';
             
                 echo '<tbody>';
             
-                echo '<tr><th scope="row">'.__('Title','koboldcouponpro').':</th><td>'. $result->dif_title .'</td></tr>';
+                echo '<tr><th scope="row">'.__('Title','kvoucherpro').':</th><td>'. $result->dif_title .'</td></tr>';
             
-                echo '<tr><th scope="row">'.__('First Name','koboldcouponpro').':</th><td>'. $result->dif_fname .'</td></tr>';
+                echo '<tr><th scope="row">'.__('First Name','kvoucherpro').':</th><td>'. $result->dif_fname .'</td></tr>';
             
-                echo '<tr><th scope="row">'.__('Last Name','koboldcouponpro').':</th><td>'. $result->dif_nname .'</td></tr>';
+                echo '<tr><th scope="row">'.__('Last Name','kvoucherpro').':</th><td>'. $result->dif_nname .'</td></tr>';
             
-                echo '<tr><th scope="row">'.__('Street','koboldcouponpro').':</th><td>'. $result->dif_streetname .'</td></tr>';
+                echo '<tr><th scope="row">'.__('Street','kvoucherpro').':</th><td>'. $result->dif_streetname .'</td></tr>';
             
-                echo '<tr><th scope="row">'.__('City','koboldcouponpro').':</th><td>' . $result->dif_plz . ' ' . $result->dif_city .'</td></tr>';
+                echo '<tr><th scope="row">'.__('City','kvoucherpro').':</th><td>' . $result->dif_plz . ' ' . $result->dif_city .'</td></tr>';
             
-                echo '<tr><th scope="row">'.__('Country','koboldcouponpro').':</th><td>'. $result->dif_country .'</td></tr>';
+                echo '<tr><th scope="row">'.__('Country','kvoucherpro').':</th><td>'. $result->dif_country .'</td></tr>';
             
                 echo '<tr><th scope="row">E-mail:</th><td>'. $result->dif_email .'</td></tr>';
             

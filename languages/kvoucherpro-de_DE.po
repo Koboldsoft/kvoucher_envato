@@ -74,7 +74,7 @@ msgstr "Titel"
 #: class/Customers_List.php:564 class/Customers_List.php:592
 #: class/KoboldcouponFrontStuff.php:208 class/KoboldcouponFrontStuff.php:241
 #: class/KoboldcouponFrontStuff.php:281 class/KoboldcouponFrontStuff.php:295
-#: class/KoboldcouponFrontStuff.php:392 koboldcouponPro.php:229
+#: class/KoboldcouponFrontStuff.php:392 kvoucherPro.php:229
 #: php/ScCompanySettings.php:16
 msgid "Last Name"
 msgstr "Nachname"
@@ -88,7 +88,7 @@ msgstr "Straße"
 #: class/Customers_List.php:315 class/Customers_List.php:568
 #: class/Customers_List.php:596 class/KoboldcouponFrontStuff.php:214
 #: class/KoboldcouponFrontStuff.php:247 class/KoboldcouponFrontStuff.php:299
-#: class/KoboldcouponFrontStuff.php:321 koboldcouponPro.php:232
+#: class/KoboldcouponFrontStuff.php:321 kvoucherPro.php:232
 #: php/ScCompanySettings.php:22
 msgid "City"
 msgstr "Stadt"
@@ -178,7 +178,7 @@ msgstr "Rechnungsadresse"
 #: class/Customers_List.php:562 class/Customers_List.php:590
 #: class/KoboldcouponFrontStuff.php:206 class/KoboldcouponFrontStuff.php:239
 #: class/KoboldcouponFrontStuff.php:279 class/KoboldcouponFrontStuff.php:293
-#: class/KoboldcouponFrontStuff.php:390 koboldcouponPro.php:228
+#: class/KoboldcouponFrontStuff.php:390 kvoucherPro.php:228
 #: php/ScCompanySettings.php:14
 msgid "First Name"
 msgstr "Vorname"
@@ -186,7 +186,7 @@ msgstr "Vorname"
 #: class/Customers_List.php:570 class/Customers_List.php:598
 #: class/KoboldcouponFrontStuff.php:216 class/KoboldcouponFrontStuff.php:249
 #: class/KoboldcouponFrontStuff.php:301 class/KoboldcouponFrontStuff.php:323
-#: koboldcouponPro.php:233 php/ScCompanySettings.php:24
+#: kvoucherPro.php:233 php/ScCompanySettings.php:24
 msgid "Country"
 msgstr "Land"
 
@@ -235,7 +235,7 @@ msgid "Street + No."
 msgstr "Straße + Nr"
 
 #: class/KoboldcouponFrontStuff.php:212 class/KoboldcouponFrontStuff.php:245
-#: koboldcouponPro.php:231 php/ScCompanySettings.php:20
+#: kvoucherPro.php:231 php/ScCompanySettings.php:20
 msgid "Postal-Code"
 msgstr "Postleitzahl"
 
@@ -324,51 +324,51 @@ msgstr ""
 "Leider ist unser Online- Gutscheindienst momentan nicht verfügbar. Wir "
 "bitten vielmals um Entschuldigung"
 
-#: koboldcouponPro.php:230 php/ScCompanySettings.php:18
+#: kvoucherPro.php:230 php/ScCompanySettings.php:18
 msgid "Streetname"
 msgstr "Straße"
 
-#: koboldcouponPro.php:234 php/ScCompanySettings.php:28
+#: kvoucherPro.php:234 php/ScCompanySettings.php:28
 msgid "Phonenumber"
 msgstr "Telefon"
 
-#: koboldcouponPro.php:235 php/ScCompanySettings.php:30
+#: kvoucherPro.php:235 php/ScCompanySettings.php:30
 msgid "Company Domain"
 msgstr "Firmen Domain"
 
-#: koboldcouponPro.php:236 php/ScCompanySettings.php:32
+#: kvoucherPro.php:236 php/ScCompanySettings.php:32
 msgid "Company E-mail"
 msgstr "Firmen E-mail"
 
-#: koboldcouponPro.php:242
+#: kvoucherPro.php:242
 msgid "is required!"
 msgstr "ist erforderlich!"
 
-#: koboldcouponPro.php:251
+#: kvoucherPro.php:251
 msgid "cUrl is not installed on the web server but is required"
 msgstr "cUrl ist nicht auf dem Web-Server installiert aber erforderlich"
 
-#: koboldcouponPro.php:268
+#: kvoucherPro.php:268
 msgid "The creation of the general terms and conditions is recommended!"
 msgstr "Die Erstellung der Allgemeinen Geschäftsbedingungen wird empfohlen!"
 
-#: koboldcouponPro.php:337
+#: kvoucherPro.php:337
 msgid "KoboldCoupon Options"
 msgstr "KoboldCoupon Einstellungen"
 
-#: koboldcouponPro.php:362
+#: kvoucherPro.php:362
 msgid "Company Settings"
 msgstr "Firmen-Einstellungen"
 
-#: koboldcouponPro.php:364
+#: kvoucherPro.php:364
 msgid "PayPal Settings"
 msgstr "PayPal Einstellungen"
 
-#: koboldcouponPro.php:366 php/ScTermsOfServiceSettings.php:14
+#: kvoucherPro.php:366 php/ScTermsOfServiceSettings.php:14
 msgid "Terms of Service"
 msgstr "Nutzungsbedingungen"
 
-#: koboldcouponPro.php:368
+#: kvoucherPro.php:368
 msgid "Style Settings"
 msgstr "Stil Einstellungen"
 

@@ -12,7 +12,7 @@ function openToc() {
     
     var browser_height = window.innerHeight*0.90;
     
-    var width = document.getElementById("koboldcouponBillingAdress").offsetWidth;
+    var width = document.getElementById("kvoucherBillingAdress").offsetWidth;
     
     document.getElementById("toc").style.height=browser_height +"px";
     
@@ -26,7 +26,7 @@ function openThxMsg() {
 	
     var browser_height = window.innerHeight*0.90;
     
-    var width = document.getElementById("koboldcouponBillingAdress").offsetWidth;
+    var width = document.getElementById("kvoucherBillingAdress").offsetWidth;
     
     document.getElementById("thanks_message").style.height = browser_height +"px";
     

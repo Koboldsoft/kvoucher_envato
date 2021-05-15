@@ -1,7 +1,7 @@
 <?php
 require ('../../../wp-load.php');
 
-require ('class/KoboldcouponSendData.php');
+require ('class/KVoucherSendData.php');
 
 global $wpdb;
 
@@ -14,7 +14,7 @@ if ($arr['action'] == 'save3') {
     // emailadress wp-admin
     $email_admin = get_option('admin_email');
 
-    $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_koboldcoupon ");
+    $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_kvoucherpro ");
 
     $id = $last_id->MAX_ID + 1;
 
@@ -153,19 +153,19 @@ if ($arr['action'] == 'save3') {
     }
     ;
 
-    $key_koboldcoupon = md5($id + $arr['fname'] + $arr['nname'] + date("His"));
+    $key_kvoucher = md5($id + $arr['fname'] + $arr['nname'] + date("His"));
 
     $date = date("Y-m-d H:i:s");
 
-    $validity = get_option('koboldcoupon_plugin_company_textfiels')['validity'];
+    $validity = get_option('kvoucher_plugin_company_textfiels')['validity'];
 
-    $currency = get_option('koboldcoupon_plugin_company_textfiels')['currency'];
+    $currency = get_option('kvoucher_plugin_company_textfiels')['currency'];
     
-    $vat = get_option('koboldcoupon_plugin_company_textfiels')['value_added_tax'];
+    $vat = get_option('kvoucher_plugin_company_textfiels')['value_added_tax'];
 
     $futuredate = date('d-m-Y', strtotime('+' . $validity . ' year'));
 
-    $wpdb->insert($wpdb->prefix . 'usr_koboldcoupon', array(
+    $wpdb->insert($wpdb->prefix . 'usr_kvoucherpro', array(
         'id' => $id,
         'price' => $price,
         'shipping' => $shipping,
@@ -193,7 +193,7 @@ if ($arr['action'] == 'save3') {
         'dif_city' => $dif_city,
         'dif_country' => $dif_country,
         'dif_email' => $dif_email,
-        'key_koboldcoupon' => $key_koboldcoupon,
+        'key_kvoucher' => $key_kvoucher,
         'date' => $date,
         'validity' => $validity,
         'vat' => $vat,
@@ -212,11 +212,11 @@ if ($arr['action'] == 'save3') {
 
     $coupon_data['coupon_data']['lang'] = get_locale();
 
-    $coupon_data['company_data'] = get_option('koboldcoupon_plugin_company_textfiels');
+    $coupon_data['company_data'] = get_option('kvoucher_plugin_company_textfiels');
 
     $coupon_data['company_data']['email_admin'] = $email_admin;
 
-    $coupon_data['style_data'] = get_option('koboldcoupon_plugin_style_textfiels');
+    $coupon_data['style_data'] = get_option('kvoucher_plugin_style_textfiels');
 
     $coupon_data['buyer_data']['title'] = $title;
 
@@ -272,7 +272,7 @@ if ($arr['action'] == 'save3') {
 
     $coupon_data['buyer_data']['dif_email'] = $dif_email;
 
-    $coupon_data['buyer_data']['key_koboldcoupon'] = $key_koboldcoupon;
+    $coupon_data['buyer_data']['key_kvoucher'] = $key_kvoucher;
 
     $coupon_data['buyer_data']['date'] = $date;
 
@@ -280,7 +280,7 @@ if ($arr['action'] == 'save3') {
 
     // #####################
 
-    $send = new KoboldcouponSendData($coupon_data);
+    $send = new KVoucherSendData($coupon_data);
 
     $send->sendDataCurl(); // send data
 }

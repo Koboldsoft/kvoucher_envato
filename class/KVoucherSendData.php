@@ -1,5 +1,5 @@
 <?php
-class KoboldcouponSendData{
+class KVoucherSendData{
         
         private $data;
         

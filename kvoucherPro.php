@@ -1,11 +1,11 @@
 <?php
 /*
- * Plugin Name: KoboldCouponPro
+ * Plugin Name: KVoucherPro
  * Plugin URI: http://www.koboldsoft.com
  * Description: Couponplugin for Wordpress Websites
  * Version: 1.0
  * Author: KoboldSoft
- * Text Domain: koboldcouponpro
+ * Text Domain: kvoucherpro
  * Domain Path: /languages
  * Author URI: http://www.koboldsoft.com
  */
@@ -24,33 +24,33 @@ defined('ABSPATH') or die('Are you ok?');
 
 // load FrontendStuff class
 define( 'PLUGIN_ROOT_DIR', plugin_dir_path( __FILE__ ) );
-include( PLUGIN_ROOT_DIR . 'class/KoboldcouponFrontStuff.php');
+include( PLUGIN_ROOT_DIR . 'class/KVoucherFrontStuff.php');
 
 // load Customer_List class
 include( PLUGIN_ROOT_DIR . 'class/Customers_List.php');
 
 //load KoboldcouponCustomers class
-include( PLUGIN_ROOT_DIR . 'class/KoboldcouponCustomers.php');
+include( PLUGIN_ROOT_DIR . 'class/KVoucherCustomers.php');
 
 // ####################################################################################################################
 
 use FrontendStuff\KoboldcouponForm;
 
 
-register_activation_hook(__FILE__, 'koboldcoupon_install');
+register_activation_hook(__FILE__, 'kvoucher_install');
 
-function koboldcoupon_install()
+function kvoucher_install()
 {
     global $wpdb;
 
     
-    $table_name_usr = $wpdb->prefix . "usr_koboldcoupon";
+    $table_name_usr = $wpdb->prefix . "usr_kvoucherpro";
     
     $charset_collate = $wpdb->get_charset_collate();
     // create table for template
 
     // create table usr data
-    $sql_usr_koboldcoupon = "CREATE TABLE $table_name_usr (
+    $sql_usr_kvoucherpro = "CREATE TABLE $table_name_usr (
     id int(9) NOT NULL AUTO_INCREMENT,
     price int(20) NOT NULL,
     shipping varchar(6) NULL,
@@ -78,7 +78,7 @@ function koboldcoupon_install()
     dif_city varchar(50) NULL,
     dif_country varchar(50) NULL,
     dif_email varchar(50) NULL,
-    key_koboldcoupon char(32) NOT NULL,
+    key_kvoucher char(32) NOT NULL,
     date datetime NOT NULL,
     validity int(1) DEFAULT 3,
     vat decimal(2, 1) DEFAULT 0,
@@ -90,14 +90,14 @@ function koboldcoupon_install()
 
     require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
     
-    dbDelta($sql_usr_koboldcoupon);
+    dbDelta($sql_usr_kvoucherpro);
     
 }
 
-function koboldcouponpro_load_plugin_textdomain() {
-    load_plugin_textdomain( 'koboldcouponpro', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
+function kvoucherpro_load_plugin_textdomain() {
+    load_plugin_textdomain( 'kvoucherpro', FALSE, basename( dirname( __FILE__ ) ) . '/languages/' );
 }
-add_action( 'plugins_loaded', 'koboldcouponpro_load_plugin_textdomain' );
+add_action( 'plugins_loaded', 'kvoucherpro_load_plugin_textdomain' );
 
 
 function encryptData($dataToEncrypt){
@@ -188,32 +188,32 @@ add_action( 'wp_enqueue_scripts', 'load_frontend_scripts' );
 
 // add fronpage site #############################################
 
-function koboldcoupon_add_frontpage() {
+function kvoucher_add_frontpage() {
     
-    add_shortcode('kcouponpro', 'KoboldcouponFrontendStuff\KoboldcouponForm::koboldcouponBillingAdress');
+    add_shortcode('kcouponpro', 'KoboldcouponFrontendStuff\KoboldcouponForm::kvoucherBillingAdress');
 }
 
-add_action( 'init', 'koboldcoupon_add_frontpage' );
+add_action( 'init', 'kvoucher_add_frontpage' );
 
 // ################################################################
 
-add_action('admin_menu', 'koboldcoupon_settings_menu');
+add_action('admin_menu', 'kvoucher_settings_menu');
 
-function koboldcoupon_settings_menu()
+function kvoucher_settings_menu()
 {
     add_menu_page(
-        'KCouponPro', // The title to be displayed in the browser window for this page.
-        'KCouponPro', // The text to be displayed for this menu item
+        'KVoucherPro', // The title to be displayed in the browser window for this page.
+        'KVoucherPro', // The text to be displayed for this menu item
         'administrator', // Which type of users can see this menu item
-        'koboldcoupon_options', // The unique ID - that is, the slug - for this menu item
-        'koboldcoupon_plugin_display', // The name of the function to call when rendering this menu's page
-        plugin_dir_url( __FILE__ ) . 'img/koboldcouponpro.png'
+        'kvoucher_options', // The unique ID - that is, the slug - for this menu item
+        'kvoucher_plugin_display', // The name of the function to call when rendering this menu's page
+        plugin_dir_url( __FILE__ ) . 'img/kvoucherpro.png'
         );
     
-    //add_submenu_page('koboldcoupon_options', 'Customers', 'Coupons', 'manage_options', 'coupons', 'koboldcoupon_edit_coupons_init');
+    //add_submenu_page('kvoucher_options', 'Customers', 'Coupons', 'manage_options', 'coupons', 'kvoucher_edit_coupons_init');
 }
 
-function koboldcoupon_edit_coupons_init()
+function kvoucher_edit_coupons_init()
 {
     include 'edit_coupons.php';
 }
@@ -222,24 +222,24 @@ function checkCompanyData(){
     
     $company_data = array();
     
-    $company_data = get_option('koboldcoupon_plugin_company_textfiels');
+    $company_data = get_option('kvoucher_plugin_company_textfiels');
     
     $required_data_company = array('Firmenname'=>'company',
-        __( 'First Name', 'koboldcouponpro' )=>'first_name',
-        __( 'Last Name', 'koboldcouponpro' )=>'last_name',
-        __( 'Streetname', 'koboldcouponpro' )=>'street_name',
-        __( 'Postal-Code', 'koboldcouponpro' )=>'postal_code',
-        __( 'City', 'koboldcouponpro' )=>'city',
-        __( 'Country', 'koboldcouponpro' )=>'country',
-        __( 'Phonenumber', 'koboldcouponpro')=>'phone_number',
-        __( 'Company Domain', 'koboldcouponpro' )=>'company_url',
-        __( 'Company E-mail', 'koboldcouponpro' )=>'company_email'
+        __( 'First Name', 'kvoucherpro' )=>'first_name',
+        __( 'Last Name', 'kvoucherpro' )=>'last_name',
+        __( 'Streetname', 'kvoucherpro' )=>'street_name',
+        __( 'Postal-Code', 'kvoucherpro' )=>'postal_code',
+        __( 'City', 'kvoucherpro' )=>'city',
+        __( 'Country', 'kvoucherpro' )=>'country',
+        __( 'Phonenumber', 'kvoucherpro')=>'phone_number',
+        __( 'Company Domain', 'kvoucherpro' )=>'company_url',
+        __( 'Company E-mail', 'kvoucherpro' )=>'company_email'
                            );
     
     // output all errors
     foreach( $required_data_company as $required => $value ){
         
-        if(empty($company_data[$value]) || $company_data[$value] == null || $company_data[$value] == '' ) { echo '<i style="color:red">'.$required.' '.__('is required!','koboldcouponpro').'</i><br>';}
+        if(empty($company_data[$value]) || $company_data[$value] == null || $company_data[$value] == '' ) { echo '<i style="color:red">'.$required.' '.__('is required!','kvoucherpro').'</i><br>';}
         
      }
     
@@ -248,7 +248,7 @@ function checkCompanyData(){
 function checkcUrlinstalled() {
     if  (!in_array  ('curl', get_loaded_extensions())) {
         
-        echo '<i style="color:red">'.__('cUrl is not installed on the web server but is required','koboldcouponpro').'!</i><br>';
+        echo '<i style="color:red">'.__('cUrl is not installed on the web server but is required','kvoucherpro').'!</i><br>';
         
     }
     
@@ -258,21 +258,21 @@ function checkTermsOfServiceData(){
     
     $terms_of_service_data = array();
     
-    $terms_of_service_data = get_option('koboldcoupon_plugin_terms_of_service_textfields');
+    $terms_of_service_data = get_option('kvoucher_plugin_terms_of_service_textfields');
     
     $required_data_terms_of_service = array('AGB`s'=>'terms_of_service');
     
     // output all errors
     foreach( $required_data_terms_of_service as $required => $value ){
         
-        if(empty($terms_of_service_data[$value]) || $terms_of_service_data[$value] == null || $terms_of_service_data[$value] == '' ) { echo '<i style="color:orange">'.__('The creation of the general terms and conditions is recommended!','koboldcouponpro').'</i><br>';}
+        if(empty($terms_of_service_data[$value]) || $terms_of_service_data[$value] == null || $terms_of_service_data[$value] == '' ) { echo '<i style="color:orange">'.__('The creation of the general terms and conditions is recommended!','kvoucherpro').'</i><br>';}
         
     }
     
 }
 function infoKoboldCouponPro(){
     
-    $sendurl = 'https://couponsystem.koboldsoft.com/koboldcouponProInfo.php';
+    $sendurl = 'https://couponsystem.koboldsoft.com/kvoucherProInfo.php';
     
     if(@file_get_contents($sendurl)){
         
@@ -315,7 +315,7 @@ function check_paypal_data(){
     
     $paypal_data = array();
     
-    $paypal_data = get_option('koboldcoupon_plugin_paypal_textfiels');
+    $paypal_data = get_option('kvoucher_plugin_paypal_textfiels');
     
     $required_data = array('Paypal Client-ID'=>'paypal_client_id');
     
@@ -327,7 +327,7 @@ function check_paypal_data(){
     }
 }
 
-function koboldcoupon_plugin_display()
+function kvoucher_plugin_display()
 {
     ?>
 <!-- Create a header in the default WordPress 'wrap' container -->
@@ -337,7 +337,7 @@ function koboldcoupon_plugin_display()
 	
 	<a href="https://koboldsoft.com" target="_blank"><img alt="Koboldsoft.com" src="<?php echo esc_url( plugins_url( 'img/koboldsoft_black_solutions.png', __FILE__ ) )?>" height="25"></a>
 	
-	<h2><?php _e('KCouponPro Options','koboldcouponpro')?></h2>
+	<h2><?php _e('KCouponPro Options','kvoucherpro')?></h2>
 	
 		<?php // infoKoboldCouponPro() ?>
 	
@@ -362,15 +362,15 @@ function koboldcoupon_plugin_display()
     ?>
          
     <h2 class="nav-tab-wrapper">
-		<a href="?page=koboldcoupon_options&tab=company_options" class="nav-tab <?php echo $active_tab == 'company_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Company Settings', 'koboldcouponpro' );?></a>
+		<a href="?page=kvoucher_options&tab=company_options" class="nav-tab <?php echo $active_tab == 'company_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Company Settings', 'kvoucherpro' );?></a>
 			
-		<a href="?page=koboldcoupon_options&tab=paypal_options" class="nav-tab <?php echo $active_tab == 'paypal_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'PayPal Settings', 'koboldcouponpro' );?></a>
+		<a href="?page=kvoucher_options&tab=paypal_options" class="nav-tab <?php echo $active_tab == 'paypal_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'PayPal Settings', 'kvoucherpro' );?></a>
 		
-		<a href="?page=koboldcoupon_options&tab=terms_of_service_options" class="nav-tab <?php echo $active_tab == 'terms_of_service_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Terms of Service', 'koboldcouponpro' );?></a>
+		<a href="?page=kvoucher_options&tab=terms_of_service_options" class="nav-tab <?php echo $active_tab == 'terms_of_service_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Terms of Service', 'kvoucherpro' );?></a>
 		
-		<a href="?page=koboldcoupon_options&tab=style_options" class="nav-tab <?php echo $active_tab == 'style_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Style Settings', 'koboldcouponpro' );?></a>
+		<a href="?page=kvoucher_options&tab=style_options" class="nav-tab <?php echo $active_tab == 'style_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Style Settings', 'kvoucherpro' );?></a>
 		
-		<a href="https://koboldsoft.com/kcouponpro/" target="_blank"><img alt="<?php _e( 'Handbook', 'koboldcouponpro' );?>" src="<?php echo esc_url( plugins_url( 'img/help_kcoupon.png', __FILE__ ) )?>" width="35" height="35"></a>
+		<a href="https://koboldsoft.com/kcouponpro/" target="_blank"><img alt="<?php _e( 'Handbook', 'kvoucherpro' );?>" src="<?php echo esc_url( plugins_url( 'img/help_kcoupon.png', __FILE__ ) )?>" width="35" height="35"></a>
 	</h2>
 
 	<form method="post" action="options.php">
@@ -378,20 +378,20 @@ function koboldcoupon_plugin_display()
             <?php
     switch ($active_tab) {
         case "company_options":
-            settings_fields('koboldcoupon_plugin_company_textfiels');
-            do_settings_sections('koboldcoupon_plugin_company_textfiels');
+            settings_fields('kvoucher_plugin_company_textfiels');
+            do_settings_sections('kvoucher_plugin_company_textfiels');
             break;
         case "paypal_options":
-            settings_fields('koboldcoupon_plugin_paypal_textfiels');
-            do_settings_sections('koboldcoupon_plugin_paypal_textfiels');
+            settings_fields('kvoucher_plugin_paypal_textfiels');
+            do_settings_sections('kvoucher_plugin_paypal_textfiels');
             break;
         case "style_options":
-            settings_fields('koboldcoupon_plugin_style_textfiels');
-            do_settings_sections('koboldcoupon_plugin_style_textfiels');
+            settings_fields('kvoucher_plugin_style_textfiels');
+            do_settings_sections('kvoucher_plugin_style_textfiels');
             break;
         case "terms_of_service_options":
-            settings_fields('koboldcoupon_plugin_terms_of_service_textfields');
-            do_settings_sections('koboldcoupon_plugin_terms_of_service_textfields');
+            settings_fields('kvoucher_plugin_terms_of_service_textfields');
+            do_settings_sections('kvoucher_plugin_terms_of_service_textfields');
             break;
     }
 

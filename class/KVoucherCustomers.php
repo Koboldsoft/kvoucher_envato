@@ -1,5 +1,5 @@
 <?php
-class KoboldcouponCustomers {
+class KVoucherCustomers {
     
     // class instance
     static $instance;
@@ -21,9 +21,9 @@ class KoboldcouponCustomers {
     public function plugin_menu() {
         
         $hook = add_submenu_page(
-            'koboldcoupon_options',
+            'kvoucher_options',
             'Customers',
-            __('Customers','koboldcouponpro'),
+            __('Customers','kvoucherpro'),
             'manage_options',
             'customers',
             [ $this, 'scPlugin_settings_page' ]
@@ -51,7 +51,7 @@ class KoboldcouponCustomers {
     							//infoKoboldCouponPro();
     							//checkisUrlValide();
     							$this->customers_obj->prepare_items();
-								$this->customers_obj->search_box(__('search','koboldcouponpro'), 'search_id');
+								$this->customers_obj->search_box(__('search','kvoucherpro'), 'search_id');
 								$this->customers_obj->display(); 
 								?>
 							</form>
@@ -94,5 +94,5 @@ class KoboldcouponCustomers {
 }
 
 add_action( 'plugins_loaded', function () {
-	KoboldcouponCustomers::get_instance();
+	KVoucherCustomers::get_instance();
 } );

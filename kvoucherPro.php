@@ -337,7 +337,7 @@ function kvoucher_plugin_display()
 	
 	<a href="https://koboldsoft.com" target="_blank"><img alt="Koboldsoft.com" src="<?php echo esc_url( plugins_url( 'img/koboldsoft_black_solutions.png', __FILE__ ) )?>" height="25"></a>
 	
-	<h2><?php _e('KCouponPro Options','kvoucherpro')?></h2>
+	<h2><?php _e('KVoucherPro Options','kvoucherpro')?></h2>
 	
 		<?php // infoKoboldCouponPro() ?>
 	
@@ -370,7 +370,7 @@ function kvoucher_plugin_display()
 		
 		<a href="?page=kvoucher_options&tab=style_options" class="nav-tab <?php echo $active_tab == 'style_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Style Settings', 'kvoucherpro' );?></a>
 		
-		<a href="https://koboldsoft.com/kcouponpro/" target="_blank"><img alt="<?php _e( 'Handbook', 'kvoucherpro' );?>" src="<?php echo esc_url( plugins_url( 'img/help_kcoupon.png', __FILE__ ) )?>" width="35" height="35"></a>
+		<a href="https://koboldsoft.com/kvoucherpro/" target="_blank"><img alt="<?php _e( 'Handbook', 'kvoucherpro' );?>" title="<?php _e( 'Handbook', 'kvoucherpro' );?>" src="<?php echo esc_url( plugins_url( 'img/help_kcoupon.png', __FILE__ ) )?>" width="35" height="35"></a>
 	</h2>
 
 	<form method="post" action="options.php">

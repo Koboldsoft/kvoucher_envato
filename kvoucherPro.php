@@ -2,7 +2,7 @@
 /*
  * Plugin Name: KVoucherPro
  * Plugin URI: http://www.koboldsoft.com
- * Description: Couponplugin for Wordpress Websites
+ * Description: Voucher plugin for Wordpress Websites
  * Version: 1.0
  * Author: KoboldSoft
  * Text Domain: kvoucherpro
@@ -190,7 +190,7 @@ add_action( 'wp_enqueue_scripts', 'load_frontend_scripts' );
 
 function kvoucher_add_frontpage() {
     
-    add_shortcode('kcouponpro', 'KoboldcouponFrontendStuff\KoboldcouponForm::kvoucherBillingAdress');
+    add_shortcode('kvoucherpro', 'KoboldcouponFrontendStuff\KoboldcouponForm::kvoucherBillingAdress');
 }
 
 add_action( 'init', 'kvoucher_add_frontpage' );
@@ -224,7 +224,8 @@ function checkCompanyData(){
     
     $company_data = get_option('kvoucher_plugin_company_textfiels');
     
-    $required_data_company = array('Firmenname'=>'company',
+    $required_data_company = array( 
+        __( 'Company name', 'kvoucherpro' )=>'company',
         __( 'First Name', 'kvoucherpro' )=>'first_name',
         __( 'Last Name', 'kvoucherpro' )=>'last_name',
         __( 'Streetname', 'kvoucherpro' )=>'street_name',
@@ -322,7 +323,7 @@ function check_paypal_data(){
     // output all errors
     foreach( $required_data as $required => $value ){
         
-        if(empty($paypal_data[$value]) || $paypal_data[$value] == null || $paypal_data[$value] == '' ) { echo '<i style="color:red">'.$required.' ist erforderlich!</i><br>';}
+        if(empty($paypal_data[$value]) || $paypal_data[$value] == null || $paypal_data[$value] == '' ) { echo '<i style="color:red">'.$required.' '.__('is required!','kvoucherpro').'</i><br>';}
         
     }
 }

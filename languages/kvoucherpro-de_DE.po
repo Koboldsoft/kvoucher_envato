@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: federsammler-1.0\n"
-"POT-Creation-Date: 2021-05-16 11:03+0200\n"
-"PO-Revision-Date: 2021-05-25 15:47+0200\n"
+"POT-Creation-Date: 2021-05-28 14:18+0200\n"
+"PO-Revision-Date: 2021-05-28 15:57+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de\n"
@@ -74,7 +74,7 @@ msgstr "Titel"
 #: class/Customers_List.php:564 class/Customers_List.php:592
 #: class/KVoucherFrontStuff.php:208 class/KVoucherFrontStuff.php:241
 #: class/KVoucherFrontStuff.php:281 class/KVoucherFrontStuff.php:295
-#: class/KVoucherFrontStuff.php:392 kvoucherPro.php:229
+#: class/KVoucherFrontStuff.php:392 kvoucherPro.php:230
 #: php/ScCompanySettings.php:16
 msgid "Last Name"
 msgstr "Nachname"
@@ -88,7 +88,7 @@ msgstr "Straße"
 #: class/Customers_List.php:315 class/Customers_List.php:568
 #: class/Customers_List.php:596 class/KVoucherFrontStuff.php:214
 #: class/KVoucherFrontStuff.php:247 class/KVoucherFrontStuff.php:299
-#: class/KVoucherFrontStuff.php:321 kvoucherPro.php:232
+#: class/KVoucherFrontStuff.php:321 kvoucherPro.php:233
 #: php/ScCompanySettings.php:22
 msgid "City"
 msgstr "Stadt"
@@ -178,7 +178,7 @@ msgstr "Rechnungsadresse"
 #: class/Customers_List.php:562 class/Customers_List.php:590
 #: class/KVoucherFrontStuff.php:206 class/KVoucherFrontStuff.php:239
 #: class/KVoucherFrontStuff.php:279 class/KVoucherFrontStuff.php:293
-#: class/KVoucherFrontStuff.php:390 kvoucherPro.php:228
+#: class/KVoucherFrontStuff.php:390 kvoucherPro.php:229
 #: php/ScCompanySettings.php:14
 msgid "First Name"
 msgstr "Vorname"
@@ -186,7 +186,7 @@ msgstr "Vorname"
 #: class/Customers_List.php:570 class/Customers_List.php:598
 #: class/KVoucherFrontStuff.php:216 class/KVoucherFrontStuff.php:249
 #: class/KVoucherFrontStuff.php:301 class/KVoucherFrontStuff.php:323
-#: kvoucherPro.php:233 php/ScCompanySettings.php:24
+#: kvoucherPro.php:234 php/ScCompanySettings.php:24
 msgid "Country"
 msgstr "Land"
 
@@ -231,7 +231,7 @@ msgid "Street + No."
 msgstr "Straße + Nr"
 
 #: class/KVoucherFrontStuff.php:212 class/KVoucherFrontStuff.php:245
-#: kvoucherPro.php:231 php/ScCompanySettings.php:20
+#: kvoucherPro.php:232 php/ScCompanySettings.php:20
 msgid "Postal-Code"
 msgstr "Postleitzahl"
 
@@ -320,61 +320,69 @@ msgstr ""
 "Leider ist unser Online- Gutscheindienst momentan nicht verfügbar. Wir "
 "bitten vielmals um Entschuldigung"
 
-#: kvoucherPro.php:230 php/ScCompanySettings.php:18
+#: kvoucherPro.php:228
+msgid "Company name"
+msgstr "Firma"
+
+#: kvoucherPro.php:231
 msgid "Streetname"
 msgstr "Straße"
 
-#: kvoucherPro.php:234 php/ScCompanySettings.php:28
+#: kvoucherPro.php:235 php/ScCompanySettings.php:28
 msgid "Phonenumber"
 msgstr "Telefon"
 
-#: kvoucherPro.php:235 php/ScCompanySettings.php:30
+#: kvoucherPro.php:236 php/ScCompanySettings.php:30
 msgid "Company Domain"
 msgstr "Firmen Domain"
 
-#: kvoucherPro.php:236 php/ScCompanySettings.php:32
+#: kvoucherPro.php:237 php/ScCompanySettings.php:32
 msgid "Company E-mail"
 msgstr "Firmen E-mail"
 
-#: kvoucherPro.php:242
+#: kvoucherPro.php:243 kvoucherPro.php:326
 msgid "is required!"
 msgstr "ist erforderlich!"
 
-#: kvoucherPro.php:251
+#: kvoucherPro.php:252
 msgid "cUrl is not installed on the web server but is required"
 msgstr "cUrl ist nicht auf dem Web-Server installiert aber erforderlich"
 
-#: kvoucherPro.php:268
+#: kvoucherPro.php:269
 msgid "The creation of the general terms and conditions is recommended!"
 msgstr "Die Erstellung der Allgemeinen Geschäftsbedingungen wird empfohlen!"
 
-#: kvoucherPro.php:340
+#: kvoucherPro.php:341
 msgid "KVoucherPro Options"
 msgstr "KVoucherPro Einstellungen"
 
-#: kvoucherPro.php:365
+#: kvoucherPro.php:366
 msgid "Company Settings"
 msgstr "Firmen-Einstellungen"
 
-#: kvoucherPro.php:367
+#: kvoucherPro.php:368
 msgid "PayPal Settings"
 msgstr "PayPal Einstellungen"
 
-#: kvoucherPro.php:369 php/ScTermsOfServiceSettings.php:14
+#: kvoucherPro.php:370 php/ScTermsOfServiceSettings.php:14
 msgid "Terms of Service"
 msgstr "Nutzungsbedingungen"
 
-#: kvoucherPro.php:371
+#: kvoucherPro.php:372
 msgid "Style Settings"
 msgstr "Stil Einstellungen"
 
-#: kvoucherPro.php:373
+#: kvoucherPro.php:374
 msgid "Handbook"
 msgstr "Handbuch"
 
 #: php/ScCompanySettings.php:10
 msgid "Company Options"
 msgstr "Firmenoptionen"
+
+#: php/ScCompanySettings.php:18
+msgid "No. /Streetname"
+msgstr "Straße /Nr."
 
 #: php/ScCompanySettings.php:26
 msgid "Tax number"
@@ -468,6 +476,9 @@ msgstr "Geben Sie Ihre Nutzungsbedingungen an"
 #: php/ScTermsOfServiceSettings.php:23
 msgid "You can use HTML Code"
 msgstr "Sie können HTML-Code verwenden"
+
+#~ msgid "Streetname/No."
+#~ msgstr "Straße/Nr."
 
 #~ msgid "Koboldcoupon Customers"
 #~ msgstr "KoboldCoupon Kunden"

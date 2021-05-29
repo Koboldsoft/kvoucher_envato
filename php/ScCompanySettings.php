@@ -15,7 +15,7 @@ function kvoucher_initialize_company_options()
 
     add_settings_field('last_name',__( 'Last Name', 'kvoucherpro').'*', 'kvoucher_textfield_last_name_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('street_name',__( 'Streetname', 'kvoucherpro').'*', 'kvoucher_textfield_street_name_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('street_name',__( 'No. /Streetname', 'kvoucherpro').'*', 'kvoucher_textfield_street_name_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
     add_settings_field('postal_code',__( 'Postal-Code', 'kvoucherpro').'*', 'kvoucher_textfield_postal_code_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
@@ -248,7 +248,7 @@ function kvoucher_textfield_company_url_callback()
     }
     ;
 
-    $html = '<input type="text" id="company_url" name="kvoucher_plugin_company_textfiels[company_url]" value="' . esc_attr($company_url) . '" required/>'.$msg;
+    $html = '<input type="text" id="company_url" placeholder="example.com" name="kvoucher_plugin_company_textfiels[company_url]" value="' . esc_attr($company_url) . '" required/>'.$msg;
 
     echo $html;
 }
@@ -265,7 +265,7 @@ function kvoucher_textfield_company_email_callback()
     }
     ;
 
-    $html = '<input type="email" id="company_email" name="kvoucher_plugin_company_textfiels[company_email]" value="' . esc_attr($company_email) . '" required/>'.$msg;
+    $html = '<input type="email" id="company_email" placeholder="example@example.com" name="kvoucher_plugin_company_textfiels[company_email]" value="' . esc_attr($company_email) . '" required/>'.$msg;
 
     echo $html;
 }

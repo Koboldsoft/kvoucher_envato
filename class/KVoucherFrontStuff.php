@@ -147,6 +147,9 @@ if (! class_exists('KoboldcouponForm')) {
                        
                       </style>';
             
+            // This IF block will be auto removed from the Free Version and will only get executed if the user on a trial or have a valid license.
+            if ( kvo_fs()->can_use_premium_code__premium_only() ) {
+            
             $output .= '<fieldset class="radio-toolbar">
 
                        <legend>'.__('Value','kvoucherpro').'</legend>
@@ -182,6 +185,32 @@ if (! class_exists('KoboldcouponForm')) {
                        <input type="hidden" id="post" name="shipping" value="E-mail">
                 
 	                   </fieldset>';
+            
+            } // end if ( kvo_fs()->can_use_premium_code__premium_only() )
+                
+            if ( kvo_fs()->is_not_paying() ) {
+                
+                $output .= '<fieldset class="radio-toolbar">
+                    
+                       <legend>'.__('Value','kvoucherpro').'</legend>
+                           
+                       <input class="price" type="radio" id="twenty" name="price" value="20" ' . (empty($_SESSION['price']) || $_SESSION['price'] == '20' ? 'checked' : '') . '>
+                           
+    	               <label for="twenty">20,00 '.$currency.'</label>
+    	                   
+    	               <input class="price" type="radio" id="fifty" name="price" value="50" ' . ($_SESSION['price'] == '50' ? 'checked' : '') . '>
+    	                   
+    	               <label for="fifty">50,00 '.$currency.'</label>
+    	                   
+    	               <input class="price" type="radio" id="onehundred" name="price" value="100" ' . ($_SESSION['price'] == '100' ? 'checked' : '') . '>
+    	                   
+    	               <label for="onehundred">100,00 '.$currency.'</label>
+    	                   
+    	               <input type="hidden" id="post" name="shipping" value="E-mail">
+    	                   
+	                   </fieldset>';
+                
+            }
 
             return $output;
         }

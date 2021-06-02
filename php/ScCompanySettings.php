@@ -198,7 +198,7 @@ function kvoucher_textfield_country_callback()
     }
     ;
     
-    $html = '<input type="text" id="country" name="kvoucher_plugin_company_textfiels[country]" value="' . esc_attr($country) . '" required/>'.$msg;
+    $html = '<input type="text" id="country" placeholder="'.__( 'your country', 'kvoucherpro').'" name="kvoucher_plugin_company_textfiels[country]" value="' . esc_attr($country) . '" required/>'.$msg;
     
     echo $html;
 }

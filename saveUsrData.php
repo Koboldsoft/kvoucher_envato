@@ -14,7 +14,7 @@ if ($arr['action'] == 'save3') {
     // emailadress wp-admin
     $email_admin = get_option('admin_email');
 
-    $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_kvoucherpro");
+    $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_kvoucher");
 
     $id = $last_id->MAX_ID + 1;
 
@@ -165,7 +165,7 @@ if ($arr['action'] == 'save3') {
 
     $futuredate = date('d-m-Y', strtotime('+' . $validity . ' year'));
 
-    $wpdb->insert($wpdb->prefix.'usr_kvoucherpro', array(
+    $wpdb->insert($wpdb->prefix.'usr_kvoucher', array(
         'id' => $id,
         'price' => $price,
         'shipping' => $shipping,

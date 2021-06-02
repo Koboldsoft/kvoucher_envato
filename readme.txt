@@ -1,8 +1,8 @@
 === KCouponPro ===
 Contributors: R. Friedrich
 Tags: Voucher, Wordpress, Vocher, Plugin
-Requires at least: 5.5
-Tested up to: 5.6
+Requires at least: 5.2
+Tested up to: 5.7
 Requires PHP: 5.6
 Stable tag: 1.0
 License: GPLv2 or later

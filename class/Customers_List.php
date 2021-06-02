@@ -39,11 +39,11 @@ class Customers_List extends WP_List_Table {
         global $wpdb;
         if($view == ''){
             
-            $sql = "SELECT * FROM {$wpdb->prefix}usr_kvoucherpro";
+            $sql = "SELECT * FROM {$wpdb->prefix}usr_kvoucher";
             
         }else{
         
-            $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_kvoucherpro WHERE del LIKE 0 AND action LIKE %s" , $view);
+            $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_kvoucher WHERE del LIKE 0 AND action LIKE %s" , $view);
             
         }
         
@@ -71,7 +71,7 @@ class Customers_List extends WP_List_Table {
         
         global $wpdb;
         
-        $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_kvoucherpro WHERE id LIKE %s
+        $sql = $wpdb->prepare("SELECT * FROM {$wpdb->prefix}usr_kvoucher WHERE id LIKE %s
                                                                              OR fname LIKE %s 
                                                                              OR nname LIKE %s
                                                                              OR streetname LIKE %s
@@ -107,7 +107,7 @@ class Customers_List extends WP_List_Table {
     public static function get_customer( $id ) {
         global $wpdb;
         
-        $result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}usr_kvoucherpro WHERE id = %d", $id )  );
+        $result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}usr_kvoucher WHERE id = %d", $id )  );
         
         return $result;
         
@@ -125,19 +125,19 @@ class Customers_List extends WP_List_Table {
         
         if(!empty($view) || $view == '0' && empty($search_id)){
         
-            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro WHERE del LIKE 0 AND action LIKE %s" , $view);
+            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucher WHERE del LIKE 0 AND action LIKE %s" , $view);
             
         }
         
         if(empty($search_id) && empty($view) && $view != '0'){
         
-            $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro";
+            $sql = "SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucher";
             
         }
         
         if(!empty($search_id) && empty($view)){
         
-            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro WHERE id LIKE %s
+            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucher WHERE id LIKE %s
                                                                                 OR fname LIKE %s
                                                                                 OR nname LIKE %s
                                                                                 OR streetname LIKE %s
@@ -154,7 +154,7 @@ class Customers_List extends WP_List_Table {
         
         if(!empty($search_id) && !empty($view)){
             
-            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucherpro WHERE id LIKE %s
+            $sql = $wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}usr_kvoucher WHERE id LIKE %s
                                                                                 OR fname LIKE %s
                                                                                 OR nname LIKE %s
                                                                                 OR streetname LIKE %s
@@ -417,7 +417,7 @@ class Customers_List extends WP_List_Table {
         
         $wpdb->update(
             
-            $wpdb->prefix.'usr_kvoucherpro',
+            $wpdb->prefix.'usr_kvoucher',
             array(
                 'action' => $action,
             ),

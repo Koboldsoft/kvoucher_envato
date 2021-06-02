@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: KVoucherPro
+ * Plugin Name: KVoucher
  * Plugin URI: http://www.koboldsoft.com
  * Description: Voucher plugin for Wordpress Websites
  * Version: 1.0
@@ -9,6 +9,51 @@
  * Domain Path: /languages
  * Author URI: http://www.koboldsoft.com
  */
+
+
+
+
+if ( ! function_exists( 'kvo_fs' ) ) {
+    // Create a helper function for easy SDK access.
+    function kvo_fs() {
+        global $kvo_fs;
+        
+        if ( ! isset( $kvo_fs ) ) {
+            // Include Freemius SDK.
+            require_once dirname(__FILE__) . '/freemius/start.php';
+            
+            $kvo_fs = fs_dynamic_init( array(
+                'id'                  => '8433',
+                'slug'                => 'kvoucher',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_7e454d0c83f91e766649447851394',
+                'is_premium'          => true,
+                'premium_suffix'      => 'Premium',
+                // If your plugin is a serviceware, set this option to false.
+                'has_premium_version' => true,
+                'has_addons'          => false,
+                'has_paid_plans'      => true,
+                'menu'                => array(
+                    'slug'           => 'kvoucher_options',
+                ),
+                // Set the SDK to work in a sandbox mode (for development & testing).
+                // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+                'secret_key'          => 'sk_o)$?Y>^^7$)^7ngavDq74mv]^q5cf',
+            ) );
+        }
+        
+        return $kvo_fs;
+    }
+    
+    // Init Freemius.
+    kvo_fs();
+    // Signal that SDK was initiated.
+    do_action( 'kvo_fs_loaded' );
+}
+
+
+
+
 
 // this function please remove after debug-session ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Permalink
@@ -19,7 +64,7 @@
  }
 */
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//
+
 defined('ABSPATH') or die('Are you ok?');
 
 // load FrontendStuff class
@@ -36,61 +81,69 @@ include( PLUGIN_ROOT_DIR . 'class/KVoucherCustomers.php');
 
 use FrontendStuff\KoboldcouponForm;
 
+// This IF block will be auto removed from the Free version.
+if ( kvo_fs()->is__premium_only() ) {
+    // This IF will be executed only if the user in a trial mode or have a valid license.
+    if ( kvo_fs()->can_use_premium_code() ) {
 
-register_activation_hook(__FILE__, 'kvoucher_install');
+    register_activation_hook(__FILE__, 'kvoucher_install');
 
-function kvoucher_install()
-{
-    global $wpdb;
-
+    function kvoucher_install()
     
-    $table_name_usr = $wpdb->prefix . "usr_kvoucherpro";
-    
-    $charset_collate = $wpdb->get_charset_collate();
-    // create table for template
+    {
+        global $wpdb;
 
-    // create table usr data
-    $sql_usr_kvoucherpro = "CREATE TABLE $table_name_usr (
-    id int(9) NOT NULL AUTO_INCREMENT,
-    price int(20) NOT NULL,
-    shipping varchar(6) NULL,
-    shipping_costs varchar(6) NULL,
-    kind_of_adress varchar(6) NOT NULL,
-    occasion varchar(100) NULL,
-    title varchar(4) NOT NULL,
-    fname varchar(30) NOT NULL,
-    nname varchar(30) NOT NULL,
-    company varchar(40) NULL,
-    for_title varchar(4) NOT NULL,
-    for_fname varchar(30) NOT NULL,
-    for_nname varchar(30) NOT NULL,
-    streetname varchar(50) NOT NULL,
-    plz varchar(8) NOT NULL,
-    city varchar(50) NOT NULL,
-    country varchar(50) NOT NULL,
-    phone varchar(20) NOT NULL,
-    email varchar(50) NOT NULL,
-    dif_title varchar(4) NULL,
-    dif_fname varchar(30) NULL,
-    dif_nname varchar(30) NULL,
-    dif_streetname varchar(50) NULL,
-    dif_plz varchar(8) NULL,
-    dif_city varchar(50) NULL,
-    dif_country varchar(50) NULL,
-    dif_email varchar(50) NULL,
-    key_kvoucher char(32) NOT NULL,
-    date datetime NOT NULL,
-    validity int(1) DEFAULT 3,
-    vat decimal(2, 1) DEFAULT 0,
-    currency varchar(20) DEFAULT 'euro',
-    action int(1) DEFAULT 0,
-    del int(1) DEFAULT 0,
-    PRIMARY KEY  (id)
-    ) $charset_collate;";
-
-    require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+        $table_name_usr = $wpdb->prefix . "usr_kvoucher";
     
-    dbDelta($sql_usr_kvoucherpro);
+        $charset_collate = $wpdb->get_charset_collate();
+        // create table for template
+
+        // create table usr data
+        $sql_usr_kvoucher = "CREATE TABLE $table_name_usr (
+        id int(9) NOT NULL AUTO_INCREMENT,
+        price int(20) NOT NULL,
+        shipping varchar(6) NULL,
+        shipping_costs varchar(6) NULL,
+        kind_of_adress varchar(6) NOT NULL,
+        occasion varchar(100) NULL,
+        title varchar(4) NOT NULL,
+        fname varchar(30) NOT NULL,
+        nname varchar(30) NOT NULL,
+        company varchar(40) NULL,
+        for_title varchar(4) NOT NULL,
+        for_fname varchar(30) NOT NULL,
+        for_nname varchar(30) NOT NULL,
+        streetname varchar(50) NOT NULL,
+        plz varchar(8) NOT NULL,
+        city varchar(50) NOT NULL,
+        country varchar(50) NOT NULL,
+        phone varchar(20) NOT NULL,
+        email varchar(50) NOT NULL,
+        dif_title varchar(4) NULL,
+        dif_fname varchar(30) NULL,
+        dif_nname varchar(30) NULL,
+        dif_streetname varchar(50) NULL,
+        dif_plz varchar(8) NULL,
+        dif_city varchar(50) NULL,
+        dif_country varchar(50) NULL,
+        dif_email varchar(50) NULL,
+        key_kvoucher char(32) NOT NULL,
+        date datetime NOT NULL,
+        validity int(1) DEFAULT 3,
+        vat decimal(2, 1) DEFAULT 0,
+        currency varchar(20) DEFAULT 'euro',
+        action int(1) DEFAULT 0,
+        del int(1) DEFAULT 0,
+        PRIMARY KEY  (id)
+        ) $charset_collate;";
+
+        require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+    
+        dbDelta($sql_usr_kvoucher);
+    
+}
+
+    }
     
 }
 
@@ -190,7 +243,7 @@ add_action( 'wp_enqueue_scripts', 'load_frontend_scripts' );
 
 function kvoucher_add_frontpage() {
     
-    add_shortcode('kvoucherpro', 'KoboldcouponFrontendStuff\KoboldcouponForm::kvoucherBillingAdress');
+    add_shortcode('kvoucher', 'KoboldcouponFrontendStuff\KoboldcouponForm::kvoucherBillingAdress');
 }
 
 add_action( 'init', 'kvoucher_add_frontpage' );
@@ -202,8 +255,8 @@ add_action('admin_menu', 'kvoucher_settings_menu');
 function kvoucher_settings_menu()
 {
     add_menu_page(
-        'KVoucherPro', // The title to be displayed in the browser window for this page.
-        'KVoucherPro', // The text to be displayed for this menu item
+        'KVoucher', // The title to be displayed in the browser window for this page.
+        'KVoucher', // The text to be displayed for this menu item
         'administrator', // Which type of users can see this menu item
         'kvoucher_options', // The unique ID - that is, the slug - for this menu item
         'kvoucher_plugin_display', // The name of the function to call when rendering this menu's page
@@ -338,7 +391,7 @@ function kvoucher_plugin_display()
 	
 	<a href="https://koboldsoft.com" target="_blank"><img alt="Koboldsoft.com" src="<?php echo esc_url( plugins_url( 'img/koboldsoft_black_solutions.png', __FILE__ ) )?>" height="25"></a>
 	
-	<h2><?php _e('KVoucherPro Options','kvoucherpro')?></h2>
+	<h2><?php _e('KVoucher Options','kvoucherpro')?></h2>
 	
 		<?php // infoKoboldCouponPro() ?>
 	

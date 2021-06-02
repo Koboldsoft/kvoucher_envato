@@ -190,7 +190,7 @@ if (! class_exists('KoboldcouponForm')) {
                 
             if ( kvo_fs()->is_not_paying() ) {
                 
-                $output .= '<fieldset class="radio-toolbar bla">
+                $output .= '<fieldset class="radio-toolbar blu">
                     
                        <legend>'.__('Value','kvoucherpro').'</legend>
                            

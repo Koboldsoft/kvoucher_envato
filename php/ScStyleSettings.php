@@ -67,13 +67,30 @@ function sandbox_style_button_preview_callback(){
 function kvoucher_textfield_style_background_color_callback()
 {
     if(empty(get_option('kvoucher_plugin_style_textfiels')['background_color'])){
+        
         $background_color ='#ffffff';
+        
     }else{
+        
         $background_color = get_option('kvoucher_plugin_style_textfiels')['background_color'];
+        
     };
     
+    // This IF block will be auto removed from the Free Version and will only get executed if the user on a trial or have a valid license.
+    if ( kvo_fs()->can_use_premium_code__premium_only() ) {
+        
     // Render the output
-    echo '<input type="color" id="style_background_color" name="kvoucher_plugin_style_textfiels[background_color]" value="' . $background_color . '"/>';
+        echo '<input type="color" id="style_background_color" name="kvoucher_plugin_style_textfiels[background_color]" value="' . $background_color . '"/>';
+        
+    }
+    
+    if ( kvo_fs()->is_not_paying() ) {
+        
+        // Render the output
+        echo '<input type="color" value="#ffffff" id="style_background_color" disabled/><i style="color:grey;">'.__('(available in KVoucher Premium)','kvoucherpro').'</i><a href="' . kvo_fs()->get_upgrade_url() . '">' . __(' Upgrade Now!', 'kvoucherpro') . '</a>';
+        
+    }
+    
 }
 
 function kvoucher_textfield_style_font_color_callback()
@@ -84,8 +101,18 @@ function kvoucher_textfield_style_font_color_callback()
         $font_color = get_option('kvoucher_plugin_style_textfiels')['font_color'];
     };
     
-    // Render the output
-    echo '<input type="color" id="style_font_color" name="kvoucher_plugin_style_textfiels[font_color]" value="' . $font_color . '"/>';
+    // This IF block will be auto removed from the Free Version and will only get executed if the user on a trial or have a valid license.
+    if ( kvo_fs()->can_use_premium_code__premium_only() ) {
+    
+        // Render the output
+        echo '<input type="color" id="style_font_color" name="kvoucher_plugin_style_textfiels[font_color]" value="' . $font_color . '"/>';
+    
+    }
+    if ( kvo_fs()->is_not_paying() ) {
+        
+        echo '<input type="color" id="style_font_color" disabled/><i style="color:grey;">'.__('(available in KVoucher Premium)','kvoucherpro').'</i><a href="' . kvo_fs()->get_upgrade_url() . '">' . __(' Upgrade Now!', 'kvoucherpro') . '</a>';
+        
+    }
 }
 
 function kvoucher_textfield_style_logo_callback()

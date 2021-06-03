@@ -5,18 +5,30 @@ require ('class/KVoucherSendData.php');
 
 global $wpdb;
 
-$data = base64_decode( $_POST['data'] );
+$data = base64_decode($_POST['data']);
 
 parse_str($data, $arr);
 
 if ($arr['action'] == 'save3') {
-    
+
     // emailadress wp-admin
     $email_admin = get_option('admin_email');
 
-    $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_kvoucher");
+    if (kvo_fs()->can_use_premium_code__premium_only()) {
 
-    $id = $last_id->MAX_ID + 1;
+        $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_kvoucher");
+
+        $id = $last_id->MAX_ID + 1;
+    }
+
+    if (kvo_fs()->is_not_paying()) {
+
+        $last_id = get_option('kvoucher_coupon_id');
+
+        $id = $last_id + 1;
+
+        update_option('kvoucher_coupon_id', $id);
+    }
 
     if (isset($arr['price'])) {
         $price = sanitize_text_field($arr['price']);
@@ -160,45 +172,49 @@ if ($arr['action'] == 'save3') {
     $validity = get_option('kvoucher_plugin_company_textfiels')['validity'];
 
     $currency = get_option('kvoucher_plugin_company_textfiels')['currency'];
-    
+
     $vat = get_option('kvoucher_plugin_company_textfiels')['value_added_tax'];
 
     $futuredate = date('d-m-Y', strtotime('+' . $validity . ' year'));
 
-    $wpdb->insert($wpdb->prefix.'usr_kvoucher', array(
-        'id' => $id,
-        'price' => $price,
-        'shipping' => $shipping,
-        'shipping_costs' => $shipping_costs,
-        'kind_of_adress' => $kind_of_adress,
-        'occasion' => $occasion,
-        'for_title' => $for_title,
-        'for_fname' => $for_fname,
-        'for_nname' => $for_nname,
-        'title' => $title,
-        'fname' => $fname,
-        'nname' => $nname,
-        'company' => $company,
-        'streetname' => $streetname,
-        'plz' => $plz,
-        'city' => $city,
-        'country' => $country,
-        'phone' => $phone,
-        'email' => $email,
-        'dif_title' => $dif_title,
-        'dif_fname' => $dif_fname,
-        'dif_nname' => $dif_nname,
-        'dif_streetname' => $dif_streetname,
-        'dif_plz' => $dif_plz,
-        'dif_city' => $dif_city,
-        'dif_country' => $dif_country,
-        'dif_email' => $dif_email,
-        'key_kvoucher' => $key_kvoucher,
-        'date' => $date,
-        'validity' => $validity,
-        'vat' => $vat,
-        'currency' => $currency
-    ));
+    // This IF block will be auto removed from the Free Version and will only get executed if the user on a trial or have a valid license.
+    if (kvo_fs()->can_use_premium_code__premium_only()) {
+
+        $wpdb->insert($wpdb->prefix . 'usr_kvoucher', array(
+            'id' => $id,
+            'price' => $price,
+            'shipping' => $shipping,
+            'shipping_costs' => $shipping_costs,
+            'kind_of_adress' => $kind_of_adress,
+            'occasion' => $occasion,
+            'for_title' => $for_title,
+            'for_fname' => $for_fname,
+            'for_nname' => $for_nname,
+            'title' => $title,
+            'fname' => $fname,
+            'nname' => $nname,
+            'company' => $company,
+            'streetname' => $streetname,
+            'plz' => $plz,
+            'city' => $city,
+            'country' => $country,
+            'phone' => $phone,
+            'email' => $email,
+            'dif_title' => $dif_title,
+            'dif_fname' => $dif_fname,
+            'dif_nname' => $dif_nname,
+            'dif_streetname' => $dif_streetname,
+            'dif_plz' => $dif_plz,
+            'dif_city' => $dif_city,
+            'dif_country' => $dif_country,
+            'dif_email' => $dif_email,
+            'key_kvoucher' => $key_kvoucher,
+            'date' => $date,
+            'validity' => $validity,
+            'vat' => $vat,
+            'currency' => $currency
+        ));
+    }
 
     // ##################################################
 
@@ -211,13 +227,21 @@ if ($arr['action'] == 'save3') {
     $coupon_data['coupon_data']['url'] = home_url();
 
     $coupon_data['coupon_data']['lang'] = get_locale();
-
+    
     $coupon_data['company_data'] = get_option('kvoucher_plugin_company_textfiels');
 
     $coupon_data['company_data']['email_admin'] = $email_admin;
 
     $coupon_data['style_data'] = get_option('kvoucher_plugin_style_textfiels');
-
+    
+    if (kvo_fs()->is_not_paying()) {
+       
+        $coupon_data['style_data']['background_color'] = '#ffffff';
+        
+        $coupon_data['style_data']['font_color'] = '#000000';
+        
+     }
+    
     $coupon_data['buyer_data']['title'] = $title;
 
     $coupon_data['buyer_data']['fname'] = $fname;
@@ -271,8 +295,13 @@ if ($arr['action'] == 'save3') {
     $coupon_data['buyer_data']['dif_country'] = $dif_country;
 
     $coupon_data['buyer_data']['dif_email'] = $dif_email;
+    
+    // This IF block will be auto removed from the Free Version and will only get executed if the user on a trial or have a valid license.
+    if (kvo_fs()->can_use_premium_code__premium_only()) {
 
-    $coupon_data['buyer_data']['key_kvoucher'] = $key_kvoucher;
+        $coupon_data['buyer_data']['key_kvoucher'] = $key_kvoucher;
+        
+    }
 
     $coupon_data['buyer_data']['date'] = $date;
 

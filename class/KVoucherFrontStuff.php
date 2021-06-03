@@ -1,10 +1,10 @@
 <?php
 
-namespace KoboldcouponFrontendStuff;
+namespace KVoucherFrontendStuff;
 
-if (! class_exists('KoboldcouponForm')) {
+if (! class_exists('KVoucherForm')) {
 
-    class KoboldcouponForm
+    class KVoucherForm
 
     {
         private static function kvoucherPostToSession(){
@@ -718,7 +718,7 @@ if (! class_exists('KoboldcouponForm')) {
                                              
                                  var data = "' . $data . '";
                                      
-                                 var saveusrdataurl = "' . plugins_url() . '/kvoucherPro/saveUsrData.php";
+                                 var saveusrdataurl = "' . plugins_url() . '/kvoucher/saveUsrData.php";
                                      
                                  saveUserData(data,saveusrdataurl);
                                      
@@ -827,6 +827,6 @@ if (! class_exists('KoboldcouponForm')) {
 
             return $output;
         } // end
-    } // end class KoboldcouponForm
-} // end if class_exists('KoboldcouponForm')
+    } // end class KVoucherForm
+} // end if class_exists('KVoucherForm')
 

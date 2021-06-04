@@ -77,21 +77,17 @@ use FrontendStuff\KVoucherForm;
 
 register_activation_hook(__FILE__, 'kvoucher_install');
 
-function kvoucher_install(){
-    
+function kvoucher_install()
+{
     global $wpdb;
-    
-    if (kvo_fs()->can_use_premium_code__premium_only()) {
 
-        
+    $table_name_usr = $wpdb->prefix . "usr_kvoucher";
 
-        $table_name_usr = $wpdb->prefix . "usr_kvoucher";
+    $charset_collate = $wpdb->get_charset_collate();
+    // create table for template
 
-        $charset_collate = $wpdb->get_charset_collate();
-        // create table for template
-
-        // create table usr data
-        $sql_usr_kvoucher = "CREATE TABLE $table_name_usr (
+    // create table usr data
+    $sql_usr_kvoucher = "CREATE TABLE $table_name_usr (
         id int(9) NOT NULL AUTO_INCREMENT,
         price int(20) NOT NULL,
         shipping varchar(6) NULL,
@@ -129,17 +125,13 @@ function kvoucher_install(){
         PRIMARY KEY  (id)
         ) $charset_collate;";
 
-        require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
+    require_once (ABSPATH . 'wp-admin/includes/upgrade.php');
 
-        dbDelta($sql_usr_kvoucher);
-    }
-    
-    if ( kvo_fs()->is_not_paying() ) {
-        
-        if (false == get_option('kvoucher_coupon_id')) {
-            
-            add_option('kvoucher_coupon_id','0');
-        }
+    dbDelta($sql_usr_kvoucher);
+
+    if (false == get_option('kvoucher_coupon_id')) {
+
+        add_option('kvoucher_coupon_id', '0');
     }
 }
 
@@ -249,7 +241,7 @@ function kvoucher_settings_menu()
     'kvoucher_plugin_display', // The name of the function to call when rendering this menu's page
     plugin_dir_url(__FILE__) . 'img/kvoucherpro.png');
 
-    // add_submenu_page('kvoucher_options', 'Customers', 'Coupons', 'manage_options', 'coupons', 'kvoucher_edit_coupons_init');
+    
 }
 
 function kvoucher_edit_coupons_init()
@@ -312,42 +304,6 @@ function checkTermsOfServiceData()
     }
 }
 
-function infoKoboldCouponPro()
-{
-    $sendurl = 'https://couponsystem.koboldsoft.com/kvoucherProInfo.php';
-
-    if (@file_get_contents($sendurl)) {
-
-        $data = file_get_contents($sendurl);
-
-        $decodedData = json_decode($data);
-
-        echo $decodedData->info;
-    }
-}
-
-function checkisUrlValide()
-{
-    $encryptedurl = encryptURL($_SERVER['SERVER_NAME']);
-
-    $sendurl = 'https://couponsystem.koboldsoft.com/validationCustomers.php?' . http_build_query($encryptedurl);
-
-    if (@file_get_contents($sendurl)) {
-
-        $data = file_get_contents($sendurl);
-
-        $decodedData = json_decode($data);
-
-        if ($decodedData->status != true) {
-
-            die($decodedData->message);
-        } else if ($decodedData->status == true) {
-
-            echo $decodedData->message;
-        }
-    }
-}
-
 function check_paypal_data()
 {
     $paypal_data = array();
@@ -374,11 +330,6 @@ function kvoucher_plugin_display()
 <div class="wrap">
 
 	<div id="icon-themes" class="icon32"></div>
-
-	<a href="https://koboldsoft.com" target="_blank"><img
-		alt="Koboldsoft.com"
-		src="<?php echo esc_url( plugins_url( 'img/koboldsoft_black_solutions.png', __FILE__ ) )?>"
-		height="25"></a>
 
 	<h2><?php _e('KVoucher Options','kvoucherpro')?></h2>
 	

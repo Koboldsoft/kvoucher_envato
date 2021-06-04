@@ -739,6 +739,8 @@ if (! class_exists('KVoucherForm')) {
         {
             $output = '<div id="kvoucherBillingAdress">';
             
+            $output .= '<noscript style="color:red;">'.__('Please enable javascript in your browser. Otherwise it is not possible to buy a voucher.','kvoucherpro').'</noscript>';
+            
             self::kvoucherPostToSession();
             
             $check_required_data = self::kvoucherCheckAllCompanyData();// check all required company data
@@ -746,7 +748,7 @@ if (! class_exists('KVoucherForm')) {
             if ($check_required_data == true) {
 
                 if ($_POST['action'] == 'save1' || $_POST['action'] == 'back1' || empty($_POST['action']) || ! isset($_POST['action'])) {
-
+                    
                     $output .= '<form action="" method="post">';
 
                     $output .= self::kvoucherBillingAdressPrice();

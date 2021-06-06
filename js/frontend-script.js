@@ -106,55 +106,6 @@ function dif_del_adress() {
 	}
 }
 
-/*
-
-function saveUserData(price, shipping,shipping_costs, kind_of_adress,for_title,for_fname,for_nname,occasion, title, fname,
-		nname, company, streetname, plz, city, country, phone, email, dif_title,
-		dif_fname, dif_nname, dif_streetname, dif_plz, dif_city, dif_country,
-		dif_email, action,checkbox_del_shipping_adress, sendurl) {
-	
-	
-
-	var ajaxRequest; // The variable that makes Ajax possible!
-
-	try {
-		// Opera 8.0+, Firefox, Safari
-		ajaxRequest = new XMLHttpRequest();
-	} catch (e) {
-		// Internet Explorer Browsers
-		try {
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		} catch (e) {
-			try {
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch (e) {
-				// Something went wrong
-				alert("Your browser broke!");
-				return false;
-			}
-		}
-
-	}
-	// Wenn Request-Objekt vorhanden, dann Anfrage senden:
-	if (ajaxRequest != null) {
-		ajaxRequest.open('POST', sendurl, true);
-		ajaxRequest.setRequestHeader('Content-Type',
-				'application/x-www-form-urlencoded');
-		ajaxRequest.send('price=' + price + '&shipping=' + shipping + '&shipping_costs=' + shipping_costs
-				+ '&kind_of_adress=' + kind_of_adress + '&for_title=' + for_title + '&for_fname=' + for_fname + '&for_nname=' + for_nname + '&occasion=' + occasion
-				+ '&title=' + title + '&fname=' + fname + '&nname=' + nname
-				+ '&company=' + company
-				+ '&streetname=' + streetname + '&plz=' + plz + '&city=' + city
-				+ '&country=' + country + '&phone=' + phone + '&email=' + email
-				+ '&dif_title=' + dif_title + '&dif_fname=' + dif_fname
-				+ '&dif_nname=' + dif_nname + '&dif_streetname='
-				+ dif_streetname + '&dif_plz=' + dif_plz + '&dif_city='
-				+ dif_city + '&dif_country=' + dif_country + '&dif_email='
-				+ dif_email + '&action=' + action + '&checkbox_del_shipping_adress=' + checkbox_del_shipping_adress);
-		}
-	
-}
-*/
 
 function saveUserData(data,sendurl) {
 	

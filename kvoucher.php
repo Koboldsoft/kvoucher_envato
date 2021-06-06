@@ -49,15 +49,6 @@ if (! function_exists('kvo_fs')) {
     do_action('kvo_fs_loaded');
 }
 
-// this function please remove after debug-session ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Permalink
-/*
- * add_action ( 'init', 'stop_heartbeat', 1 );
- * function stop_heartbeat() {
- * wp_deregister_script ( 'heartbeat' );
- * }
- */
-// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 defined('ABSPATH') or die('Are you ok?');
 

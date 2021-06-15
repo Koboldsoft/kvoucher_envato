@@ -1,4 +1,6 @@
 <?php
+namespace KVoucherSendUsrData;
+
 class KVoucherSendData{
         
         private $data;

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * Plugin Name: KVoucher
  * Plugin URI: http://www.koboldsoft.com
@@ -7,7 +8,6 @@
  * Author: KoboldSoft
  * Text Domain: kvoucherpro
  * Domain Path: /languages
- * Author URI: http://www.koboldsoft.com
  */
 if (! function_exists('kvo_fs')) {
 
@@ -49,7 +49,6 @@ if (! function_exists('kvo_fs')) {
     do_action('kvo_fs_loaded');
 }
 
-
 defined('ABSPATH') or die('Are you ok?');
 
 // load FrontendStuff class
@@ -62,9 +61,19 @@ include (PLUGIN_ROOT_DIR . 'class/Customers_List.php');
 // load KoboldcouponCustomers class
 include (PLUGIN_ROOT_DIR . 'class/KVoucherCustomers.php');
 
+// load KVoucherSaveUsrData class
+include (PLUGIN_ROOT_DIR . 'class/KVoucherSaveUsrData.php');
+
+// load KVoucherSendData class
+include (PLUGIN_ROOT_DIR . 'class/KVoucherSendData.php');
+
 // ####################################################################################################################
 
 use FrontendStuff\KVoucherForm;
+
+use KVoucherSaveUsrData\SaveUsrData;
+
+use KVoucherSendUsrData\KVoucherSendData;
 
 register_activation_hook(__FILE__, 'kvoucher_install');
 
@@ -137,6 +146,7 @@ function encryptData($dataToEncrypt)
     $cipher = 'aes-256-ofb';
 
     if (in_array($cipher, openssl_get_cipher_methods())) {
+        
         $ivlen = openssl_cipher_iv_length($cipher);
 
         $iv = openssl_random_pseudo_bytes($ivlen);
@@ -184,27 +194,56 @@ function load_frontend_scripts()
 {
     wp_enqueue_media();
     // load js admin-script
-    wp_register_script('frontend_js_script', plugins_url('/js/frontend-script.js', __FILE__));
+    wp_register_script('frontend_js_script', plugins_url('/js/frontend-script.js', __FILE__), array(
+        'jquery'
+    ));
+
     wp_enqueue_script('frontend_js_script');
+
+   wp_localize_script('frontend_js_script', 'usr_data_obj', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('ajax-nonce')
+    ));
     // load css admin-script
     wp_register_style('frontend_css_script', plugins_url('/css/frontend-style.css', __FILE__));
+
     wp_enqueue_style('frontend_css_script');
 }
 
-// create a session
-function register_session()
+function usr_data_request()
 {
-    if (! session_id())
-        session_start();
+    $nonce = $_POST['nonce'];
+
+    if (! wp_verify_nonce($nonce, 'ajax-nonce')) {
+        
+        die('Nonce value cannot be verified.');
+    }
+
+    if (isset($_POST)) {
+        
+        $coupon_data = SaveUsrData::saveData( $_POST['data'] );
+        
+        $send = new KVoucherSendData($coupon_data);
+        
+        $send->sendDataCurl(); // send data
+        
+        }
+
+    die();
 }
 
-add_action('init', 'register_session');
+add_action( 'wp_ajax_usr_data_request', 'usr_data_request' );
+
+add_action('wp_ajax_nopriv_usr_data_request', 'usr_data_request');
+
+// create a session
 
 function load_backend_scripts()
 {
     wp_enqueue_media();
     // load js admin-script
     wp_register_script('backend_js_script', plugins_url('/js/backend-script.js', __FILE__));
+
     wp_enqueue_script('backend_js_script');
 }
 add_action('admin_enqueue_scripts', 'load_backend_scripts');
@@ -219,6 +258,7 @@ function kvoucher_add_frontpage()
 
 add_action('init', 'kvoucher_add_frontpage');
 
+
 // ################################################################
 
 add_action('admin_menu', 'kvoucher_settings_menu');
@@ -231,8 +271,6 @@ function kvoucher_settings_menu()
     'kvoucher_options', // The unique ID - that is, the slug - for this menu item
     'kvoucher_plugin_display', // The name of the function to call when rendering this menu's page
     plugin_dir_url(__FILE__) . 'img/kvoucherpro.png');
-
-    
 }
 
 function kvoucher_edit_coupons_init()
@@ -334,13 +372,7 @@ function kvoucher_plugin_display()
         
         <?php checkTermsOfServiceData()?>
         
-        <?php
-    $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'company_options';
-
-    if (isset($_GET['tab'])) {
-        $active_tab = $_GET['tab'];
-    } // end if
-    ?>
+        <?php $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'company_options'; ?>
          
     <h2 class="nav-tab-wrapper">
 		<a href="?page=kvoucher_options&tab=company_options"

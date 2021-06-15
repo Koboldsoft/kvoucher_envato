@@ -1,84 +1,84 @@
-function submitForms(id){
-	
+function submitForms(id) {
+
 	document.getElementById(id).submit();
 
 }
 
-
 // open terms of conditions (toc)
 function openToc() {
-	
-    document.getElementById("toc").style.display = "block";
-    
-    var browser_height = window.innerHeight*0.90;
-    
-    var width = document.getElementById("kvoucherBillingAdress").offsetWidth;
-    
-    document.getElementById("toc").style.height=browser_height +"px";
-    
-    document.getElementById("toc").style.width = width+"px"; 
-    
-    document.getElementById("toc_content").style.height=browser_height - 40+"px"; 
-    
+
+	document.getElementById("toc").style.display = "block";
+
+	var browser_height = window.innerHeight * 0.90;
+
+	var width = document.getElementById("kvoucherBillingAdress").offsetWidth;
+
+	document.getElementById("toc").style.height = browser_height + "px";
+
+	document.getElementById("toc").style.width = width + "px";
+
+	document.getElementById("toc_content").style.height = browser_height - 40
+			+ "px";
+
 }
 
 function openThxMsg() {
-	
-    var browser_height = window.innerHeight*0.90;
-    
-    var width = document.getElementById("kvoucherBillingAdress").offsetWidth;
-    
-    document.getElementById("thanks_message").style.height = browser_height +"px";
-    
-    document.getElementById("thanks_message").style.width = width+"px"; 
-    
-    document.getElementById("thanks_message").style.display = "block";
 
-    
+	var browser_height = window.innerHeight * 0.90;
+
+	var width = document.getElementById("kvoucherBillingAdress").offsetWidth;
+
+	document.getElementById("thanks_message").style.height = browser_height
+			+ "px";
+
+	document.getElementById("thanks_message").style.width = width + "px";
+
+	document.getElementById("thanks_message").style.display = "block";
+
 }
 
 function closeToc() {
-    document.getElementById("toc").style.display = "none"; 
+	document.getElementById("toc").style.display = "none";
 }
 
 function toggleDisableDelShippingAdress(checkbox) {
-    
+
 	var fieldset = document.getElementById("fieldset_del_shipping_adress");
-    
-    var checkbox = document.getElementById("checkbox_del_shipping_adress");
-    
-    if (fieldset.style.display === "none" && checkbox.checked === true ) {
-    	fieldset.style.display = "block";
-    	fieldset.disabled = false;
-    } else {
-    	fieldset.style.display = "none";
-    	fieldset.disabled = true;
-    }
-  } 
+
+	var checkbox = document.getElementById("checkbox_del_shipping_adress");
+
+	if (fieldset.style.display === "none" && checkbox.checked === true) {
+		fieldset.style.display = "block";
+		fieldset.disabled = false;
+	} else {
+		fieldset.style.display = "none";
+		fieldset.disabled = true;
+	}
+}
 
 function toggleEnableDelCompany(radiobox) {
-    
+
 	var fieldset = document.getElementById("company_input_field");
-    
-    var radiobox = document.getElementById("radiobox_company_en");
-    
-    fieldset.style.display = "block";
-    
-    fieldset.disabled = false;
-    
-  } 
+
+	var radiobox = document.getElementById("radiobox_company_en");
+
+	fieldset.style.display = "block";
+
+	fieldset.disabled = false;
+
+}
 
 function toggleDisableDelCompany(radiobox) {
-    
+
 	var fieldset = document.getElementById("company_input_field");
-    
-    var radiobox = document.getElementById("radiobox_company_dis");
-    
-    fieldset.style.display = "none";
-    
-    fieldset.disabled = true;
-    
-  } 
+
+	var radiobox = document.getElementById("radiobox_company_dis");
+
+	fieldset.style.display = "none";
+
+	fieldset.disabled = true;
+
+}
 
 function dif_del_adress() {
 	var checkbox = document
@@ -106,38 +106,33 @@ function dif_del_adress() {
 	}
 }
 
+var saveUserData;
 
-function saveUserData(data,sendurl) {
-	
-	console.log(data);
-
-	var ajaxRequest; // The variable that makes Ajax possible!
-
-	try {
-		// Opera 8.0+, Firefox, Safari
-		ajaxRequest = new XMLHttpRequest();
-	} catch (e) {
-		// Internet Explorer Browsers
-		try {
-			ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-		} catch (e) {
-			try {
-				ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-			} catch (e) {
-				// Something went wrong
-				alert("Your browser broke!");
-				return false;
-			}
-		}
-
-	}
-	// Wenn Request-Objekt vorhanden, dann Anfrage senden:
-	if (ajaxRequest != null) {
-		ajaxRequest.open('POST', sendurl, true);
-		ajaxRequest.setRequestHeader('Content-Type',
-				'application/x-www-form-urlencoded');
-		ajaxRequest.send('data=' + data);
-		}
-	
-}
+//this is jQuery function
+jQuery(function(){
+	saveUserData = function( data )
+  {
+  	 // We'll pass this variable to the PHP function usr_data_request
+      
+       
+      // This does the ajax request
+      jQuery.ajax({
+      	type: 'POST',
+          url: usr_data_obj.ajaxurl,
+          data: {
+              'action': 'usr_data_request',
+              'data' : data,
+              'nonce' : usr_data_obj.nonce
+          },
+          success:function(data) {
+              // This outputs the result of the ajax request
+              console.log(data);
+          },
+          error: function(errorThrown){
+              console.log(errorThrown);
+          }
+      });  
+      
+  }
+})
 

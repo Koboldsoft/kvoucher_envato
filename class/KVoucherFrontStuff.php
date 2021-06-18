@@ -7,21 +7,14 @@ if (! class_exists('KVoucherForm')) {
 
     {
 
-        private static function kvoucherPostToSession()
-        {
-            foreach ($_POST as $content => $value) {
-
-                $_POST[$content] = $value;
-            }
-        }
-
         private static function kvoucherPostToHiddenField()
+        
         {
             foreach ($_POST as $content => $value) {
 
                 if ( $content != 'action'){
 
-                    $output .= ' <input type="hidden" name="' . $content . '" value="' . $value . '">';
+                    $output .= ' <input type="hidden" name="' . sanitize_text_field( $content ) . '" value="' . sanitize_text_field ($value ) . '">';
                     
                 }
                 

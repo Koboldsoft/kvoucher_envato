@@ -327,6 +327,7 @@ if (! class_exists('SaveUsrData')) {
                 $coupon_data['buyer_data']['futuredate'] = $futuredate;
                 
                 return $coupon_data;
+
                 
             }
             

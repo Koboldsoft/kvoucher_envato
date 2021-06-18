@@ -78,9 +78,7 @@ function kvoucher_textfield_company_callback()
     }
     ;
 
-    $html = '<input type="text" id="show_company" name="kvoucher_plugin_company_textfiels[company]" value="' . esc_attr($company) . '" required/>'.$msg;
-
-    echo $html;
+    echo '<input type="text" id="show_company" name="kvoucher_plugin_company_textfiels[company]" value="' . esc_attr($company) . '" required/>'.$msg;
 }
 
 function kvoucher_textfield_shipping_costs_callback()
@@ -96,9 +94,9 @@ function kvoucher_textfield_shipping_costs_callback()
         
     }
     
-    $html = '<input type="text" id="shipping_costs" maxlength="8" size="8" name="kvoucher_plugin_company_textfiels[shipping_costs]" value="' . esc_attr($shipping_costs) . '"/> <b id="curr_shipping">'.getCurrency().'</b>';
+    echo '<input type="text" id="shipping_costs" maxlength="8" size="8" name="kvoucher_plugin_company_textfiels[shipping_costs]" value="' . esc_attr($shipping_costs) . '"/> <b id="curr_shipping">'.getCurrency().'</b>';
     
-    echo $html;
+
 }
 
 // end kvoucher_textfield_company_callback
@@ -112,9 +110,9 @@ function kvoucher_textfield_first_name_callback($args)
     }
     ;
 
-    $html = '<input type="text" id="show_firstname" name="kvoucher_plugin_company_textfiels[first_name]" value="' . esc_attr($first_name) . '" required/>'.$msg;
+    echo '<input type="text" id="show_firstname" name="kvoucher_plugin_company_textfiels[first_name]" value="' . esc_attr($first_name) . '" required/>'.$msg;
 
-    echo $html;
+
 }
 
 // end kvoucher_textfield_first_name_callback
@@ -129,9 +127,8 @@ function kvoucher_textfield_last_name_callback()
     }
     ;
 
-    $html = '<input type="text" id="last_name" name="kvoucher_plugin_company_textfiels[last_name]" value="' . esc_attr($last_name) . '" required/>'.$msg;
+    echo '<input type="text" id="last_name" name="kvoucher_plugin_company_textfiels[last_name]" value="' . esc_attr($last_name) . '" required/>'.$msg;
 
-    echo $html;
 }
 
 // end kvoucher_textfield_first_name_callback
@@ -146,9 +143,8 @@ function kvoucher_textfield_street_name_callback()
     }
     ;
 
-    $html = '<input type="text" id="street_name" name="kvoucher_plugin_company_textfiels[street_name]" value="' . esc_attr($street_name) . '" required/>'.$msg;
+    echo '<input type="text" id="street_name" name="kvoucher_plugin_company_textfiels[street_name]" value="' . esc_attr($street_name) . '" required/>'.$msg;
 
-    echo $html;
 }
 
 // end kvoucher_textfield_street_name_callback
@@ -165,9 +161,9 @@ function kvoucher_textfield_postal_code_callback()
     }
     ;
 
-    $html = '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[postal_code]" value="' . esc_attr($postal_code) . '" required/>'.$msg;
+    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[postal_code]" value="' . esc_attr($postal_code) . '" required/>'.$msg;
 
-    echo $html;
+
 }
 
 // end kvoucher_textfield_post_code_callback
@@ -182,9 +178,9 @@ function kvoucher_textfield_city_callback()
     }
     ;
 
-    $html = '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[city]" value="' . esc_attr($city) . '" required/>'.$msg;
+    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[city]" value="' . esc_attr($city) . '" required/>'.$msg;
 
-echo $html;
+
 }
 
 function kvoucher_textfield_country_callback()
@@ -198,9 +194,8 @@ function kvoucher_textfield_country_callback()
     }
     ;
     
-    $html = '<input type="text" id="country" placeholder="'.__( 'your country', 'kvoucherpro').'" name="kvoucher_plugin_company_textfiels[country]" value="' . esc_attr($country) . '" required/>'.$msg;
-    
-    echo $html;
+    echo '<input type="text" id="country" placeholder="'.__( 'your country', 'kvoucherpro').'" name="kvoucher_plugin_company_textfiels[country]" value="' . esc_attr($country) . '" required/>'.$msg;
+;
 }
 
 // end kvoucher_textfield_city_callback
@@ -214,9 +209,8 @@ function kvoucher_textfield_tax_number_callback($args)
         
     }
 
-    $html = '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[tax_number]" value="' . esc_attr($tax_number) . '"/>';
+    echo'<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[tax_number]" value="' . esc_attr($tax_number) . '"/>';
 
-    echo $html;
 }
 
 // end kvoucher_textfield_tax_number_callback
@@ -231,9 +225,8 @@ function kvoucher_textfield_phone_number_callback()
     }
     ;
 
-    $html = '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[phone_number]" value="' . esc_attr($phone_number) . '" required/>'.$msg;
+    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[phone_number]" value="' . esc_attr($phone_number) . '" required/>'.$msg;
 
-    echo $html;
 }
 
 // end kvoucher_textfield_phone_number_callback
@@ -248,9 +241,8 @@ function kvoucher_textfield_company_url_callback()
     }
     ;
 
-    $html = '<input type="text" id="company_url" placeholder="example.com" name="kvoucher_plugin_company_textfiels[company_url]" value="' . esc_attr($company_url) . '" required/>'.$msg;
+    echo '<input type="text" id="company_url" placeholder="example.com" name="kvoucher_plugin_company_textfiels[company_url]" value="' . esc_attr($company_url) . '" required/>'.$msg;
 
-    echo $html;
 }
 
 // end kvoucher_textfield_companx_url_callback
@@ -265,9 +257,8 @@ function kvoucher_textfield_company_email_callback()
     }
     ;
 
-    $html = '<input type="email" id="company_email" placeholder="example@example.com" name="kvoucher_plugin_company_textfiels[company_email]" value="' . esc_attr($company_email) . '" required/>'.$msg;
+    echo '<input type="email" id="company_email" placeholder="example@example.com" name="kvoucher_plugin_company_textfiels[company_email]" value="' . esc_attr($company_email) . '" required/>'.$msg;
 
-    echo $html;
 }
 
 // end kvoucher_textfield_company_email_callback
@@ -285,11 +276,11 @@ function kvoucher_textfield_company_shipping_callback(){
     }
 
     
-    $html = '<p><input type="radio" id="post+email" name="kvoucher_plugin_company_textfiels[shipping]" value="post+email" '.($kind_of_shipping == 'post+email' ? "checked" : "").'><label for="post+email">Post + E-mail</label></p>
+    echo '<p><input type="radio" id="post+email" name="kvoucher_plugin_company_textfiels[shipping]" value="post+email" '.($kind_of_shipping == 'post+email' ? "checked" : "").'><label for="post+email">Post + E-mail</label></p>
              <p><input type="radio" id="post" name="kvoucher_plugin_company_textfiels[shipping]" value="post" '.($kind_of_shipping == 'post' ? "checked" : "").'><label for="male">Post</label></p>
              <p><input type="radio" id="email" name="kvoucher_plugin_company_textfiels[shipping]" value="email" '.($kind_of_shipping == 'email' ? "checked" : "").'><label for="email">E-mail</label></p>';
     
-    echo $html;
+
     
 }
 
@@ -306,13 +297,12 @@ function kvoucher_textfield_currency_callback(){
     }
     
     
-    $html = '<select name="kvoucher_plugin_company_textfiels[currency]" id="currency" onchange="setCurrencyShippingCost()">
+    echo '<select name="kvoucher_plugin_company_textfiels[currency]" id="currency" onchange="setCurrencyShippingCost()">
                 <option value="euro" '.($currency == 'euro' ? "selected" : "").'>€</option>
                 <option value="dollar" '.($currency == 'dollar' ? "selected" : "").'>$</option>
                 <option value="british_pound" '.($currency == 'british_pound' ? "selected" : "").'>£</option>
             </select>';
-    
-    echo $html;
+
     
 }
 
@@ -329,15 +319,14 @@ function kvoucher_textfield_validity_callback(){
     }
     
     
-    $html = '<select name="kvoucher_plugin_company_textfiels[validity]" id="validity">
+    echo '<select name="kvoucher_plugin_company_textfiels[validity]" id="validity">
                 <option value="1" '.($validity == '1' ? "selected" : "").'>1</option>
                 <option value="2" '.($validity == '2' ? "selected" : "").'>2</option>
                 <option value="3" '.($validity == '3' ? "selected" : "").'>3</option>
                 <option value="4" '.($validity == '4' ? "selected" : "").'>4</option>
                 <option value="5" '.($validity == '5' ? "selected" : "").'>5</option>
             </select> '.__('Year(s)','kvoucherpro');
-    
-    echo $html;
+
     
 }
 
@@ -353,9 +342,8 @@ function kvoucher_textfield_value_added_tax_callback()
         $value_added_tax = get_option('kvoucher_plugin_company_textfiels')['value_added_tax'];
     }
 
-    $html = '<input type="number" step=0.1 id="value_added_tax" min="0" max="100" maxlength="2" size="2" name="kvoucher_plugin_company_textfiels[value_added_tax]" value="' . esc_attr($value_added_tax) . '" required/>%';
+    echo '<input type="number" step=0.1 id="value_added_tax" min="0" max="100" maxlength="2" size="2" name="kvoucher_plugin_company_textfiels[value_added_tax]" value="' . esc_attr($value_added_tax) . '" required/>%';
 
-    echo $html;
     
 }
 
@@ -438,7 +426,7 @@ function kvoucherPregMatchShippingCosts($shipping_costs){
 
 function kvoucherPregMatchValueaddedTax($valueaddedtax){
     
-    $valueaddedTax = str_replace('.', ',', $valueaddedtax);
+    $valueaddedtax = str_replace('.', ',', $valueaddedtax);
     
     if(preg_match('/^[0-9]*\.[0-9]{0,2}$/', $valueaddedtax)){
         

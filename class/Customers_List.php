@@ -227,15 +227,14 @@ class Customers_List extends WP_List_Table {
      */
     function column_id( $item ) {
         
-        $delete_nonce = wp_create_nonce( 'sp_delete_customer' );
         
         $cancel_nonce = wp_create_nonce( 'sp_cancel_customer' );
         
         $title = '<strong>' . $item['id'] . '</strong>';
         
         $actions = [
-            'show' => sprintf( '<a href="?page=%s&action=%s&customer=%s&key=%s">'.__('show','kvoucherpro').'</a>', esc_attr( $_REQUEST['page'] ), 'show', absint( $item['id'] ), $item['key_kvoucher'] ),
-            'cancel' => sprintf( '<a href="?page=%s&action=%s&customer=%s&_wpnonce=%s">'.__('cancel','kvoucherpro').'</a>', esc_attr( $_REQUEST['page'] ), 'cancel', absint( $item['id'] ), $cancel_nonce )
+            'show' => sprintf( '<a href="?page=%s&action=%s&customer=%s&key=%s">'.__('show','kvoucherpro').'</a>', esc_attr( sanitize_text_field( $_REQUEST['page']) ), 'show', absint( $item['id'] ), $item['key_kvoucher'] ),
+            'cancel' => sprintf( '<a href="?page=%s&action=%s&customer=%s&_wpnonce=%s">'.__('cancel','kvoucherpro').'</a>', esc_attr( sanitize_text_field( $_REQUEST['page'] ) ), 'cancel', absint( $item['id'] ), $cancel_nonce )
         ];
         
         return $title . $this->row_actions( $actions );

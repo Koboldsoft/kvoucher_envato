@@ -8,6 +8,8 @@
  * Author: KoboldSoft
  * Text Domain: kvoucherpro
  * Domain Path: /languages
+ * 
+ * * @fs_premium_only /class/Customer_List.php
  */
 if (! function_exists('kvo_fs')) {
 

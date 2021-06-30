@@ -12,7 +12,7 @@ class KVoucherSendData{
            
         }
         
-        function encryptData($dataToEncrypt){
+        function kvencryptData($dataToEncrypt){
             
             $cipher = 'aes-256-ofb';
             
@@ -32,17 +32,17 @@ class KVoucherSendData{
             
         }
         
-        function encrytURLVarables( $array ){
+        function kvencrytURLVarables( $array ){
             
-            $data = encryptData( http_build_query( $array ) );
+            $data = kvencryptData( http_build_query( $array ) );
             
             return  http_build_query( $data );
             
         }
         
-        public function sendDataCurl(){
+        public function kvsendDataCurl(){
             
-            $data = self::encrytURLVarables($this->data);
+            $data = self::kvencrytURLVarables($this->data);
             
             $ch = curl_init("https://couponsystem.koboldsoft.com/createpdf.php"); // cURL ínitialisieren
             

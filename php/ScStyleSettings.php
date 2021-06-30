@@ -56,7 +56,7 @@ function sandbox_style_button_preview_callback(){
     
     $data['style_data'] = get_option('kvoucher_plugin_style_textfiels');
     
-    $arrquery = @encrytURLVarables( $data );
+    $arrquery = @kvencrytURLVarables( $data );
     
     echo '<a style="margin: 0px 5px 0px 0px;" href="https://couponsystem.koboldsoft.com/preview.php?preview=coupon&'.http_build_query( $arrquery ).'" target="_blank" title="'.__('Preview Coupon','kvoucherpro').'">'.__('Preview Coupon','kvoucherpro').'</a>';
 
@@ -80,7 +80,7 @@ function kvoucher_textfield_style_background_color_callback()
     if ( kvo_fs()->can_use_premium_code__premium_only() ) {
         
     // Render the output
-        echo '<input type="color" id="style_background_color" name="kvoucher_plugin_style_textfiels[background_color]" value="' . $background_color . '"/>';
+        echo '<input type="color" id="style_background_color" name="kvoucher_plugin_style_textfiels[background_color]" value="' . esc_attr( $background_color ) . '"/>';
         
     }
     
@@ -105,7 +105,7 @@ function kvoucher_textfield_style_font_color_callback()
     if ( kvo_fs()->can_use_premium_code__premium_only() ) {
     
         // Render the output
-        echo '<input type="color" id="style_font_color" name="kvoucher_plugin_style_textfiels[font_color]" value="' . $font_color . '"/>';
+        echo '<input type="color" id="style_font_color" name="kvoucher_plugin_style_textfiels[font_color]" value="' . esc_attr( $font_color ) . '"/>';
     
     }
     if ( kvo_fs()->is_not_paying() ) {
@@ -123,7 +123,7 @@ function kvoucher_textfield_style_logo_callback()
         $logo = get_option('kvoucher_plugin_style_textfiels')['logo'];
     };
     
-    echo '<input id="style_logo" type="text" size="36" name="kvoucher_plugin_style_textfiels[logo]" value="' . $logo . '" />';
+    echo '<input id="style_logo" type="text" size="36" name="kvoucher_plugin_style_textfiels[logo]" value="' . esc_attr( $logo ) . '" />';
     echo '<input id="upload_image_button" class="button button-primary" class="button" type="button" value="'.__('Upload Image','kvoucherpro').'" />';
 }
 

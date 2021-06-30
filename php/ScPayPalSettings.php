@@ -36,7 +36,7 @@ function kvoucher_textfield_paypal_client_id_callback()
     };
     
     // Render the output
-    echo '<input type="text" size="80" id="paypal_client_id" name="kvoucher_plugin_paypal_textfiels[paypal_client_id]" placeholder="' . $paypal_client_id . '" required />'.$msg;
+    echo '<input type="text" size="80" id="paypal_client_id" name="kvoucher_plugin_paypal_textfiels[paypal_client_id]" placeholder="' . esc_attr( $paypal_client_id ) . '" required />'.esc_attr( $msg );
 }
 
 function kvoucher_plugin_sanitize_paypal_options($input)

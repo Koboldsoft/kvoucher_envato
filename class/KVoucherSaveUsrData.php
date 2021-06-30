@@ -4,7 +4,7 @@ namespace KVoucherSaveUsrData;
 
 if (! class_exists('SaveUsrData')) {
     
-    class SaveUsrData {
+    class KVoucherSaveData {
         
         function decodeData( $data ){
             
@@ -24,9 +24,11 @@ if (! class_exists('SaveUsrData')) {
             
         }
         
-        function saveData( $data ){
+        function kvsaveData( $data ){
             
             $arr = self::decodeData( $data );
+            
+            global $wpdb;
             
             if ($arr['action'] == 'save3') {
                 

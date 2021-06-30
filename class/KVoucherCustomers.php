@@ -58,7 +58,7 @@ class KVoucherCustomers {
 								<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
 								
     							<?php
-    							$this->customers_obj->prepare_items();
+    							$this->customers_obj->kvprepare_items();
     							
 								$this->customers_obj->search_box(__('search','kvoucherpro'), 'search_id');
 								
@@ -107,8 +107,12 @@ class KVoucherCustomers {
 		];
 
 		add_screen_option( $option, $args );
+		
+		if ( kvo_fs()->can_use_premium_code__premium_only() ) {
 
-		$this->customers_obj = new Customers_List();
+		  $this->customers_obj = new KVoucherCustomers_List();
+		
+		}
 	}
 
 

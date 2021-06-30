@@ -7,14 +7,14 @@ if (! class_exists('KVoucherForm')) {
 
     {
 
-        private static function kvoucherPostToHiddenField()
+        private static function kvPostToHiddenField()
         
         {
             foreach ($_POST as $content => $value) {
 
                 if ( $content != 'action'){
 
-                    $output .= ' <input type="hidden" name="' . sanitize_text_field( $content ) . '" value="' . sanitize_text_field ($value ) . '">';
+                    $output .= ' <input type="hidden" name="' . esc_attr( $content ) . '" value="' . esc_attr( $value ) . '">';
                     
                 }
                 
@@ -23,27 +23,27 @@ if (! class_exists('KVoucherForm')) {
             return $output;
         }
 
-        private function kvoucherButton($value, $label)
+        private function kvButton($value, $label)
         {
-            $output = '<button style="margin:5px;" type="submit" value="' . $value . '" name="action">' . $label . '</button>';
+            $output = '<button style="margin:5px;" type="submit" value="' . esc_attr( $value ) . '" name="action">' . esc_attr( $label ) . '</button>';
 
             return $output;
         }
 
-        // end kvoucherButton($value, $label)
+        // end kvButton($value, $label)
         private function kvoucherSubStr($string, $length)
         {
             return substr($string, 0, $length);
         }
 
         // end substr($string, 0, $length);
-        private static function kvoucherCheckBillingAdressDeliveryShipping()
+        private static function kvCheckBillingAdressDeliveryShipping()
         {
             $output = '<label for="check">' . __('Specify a different delivery address', 'kvoucherpro') . '</label>
 
                        <input type="hidden" name="checkbox_del_shipping_adress" value="0" />
 
-                       <input type="checkbox" onchange="toggleDisableDelShippingAdress(this)" name="checkbox_del_shipping_adress" value="1" ' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'checked' : '') . ' id="checkbox_del_shipping_adress">';
+                       <input type="checkbox" onchange="kvtoggleDisableDelShippingAdress(this)" name="checkbox_del_shipping_adress" value="1" ' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'checked' : '') . ' id="checkbox_del_shipping_adress">';
 
             return $output;
         }
@@ -62,8 +62,8 @@ if (! class_exists('KVoucherForm')) {
             return $output;
         }
 
-        // end kvoucherCheckBillingAdressDeliveryShipping()
-        private static function kvoucherCheckAllCompanyData()
+        // end kvCheckBillingAdressDeliveryShipping()
+        private static function kvCheckAllCompanyData()
 
         {
             $output = true;
@@ -136,8 +136,8 @@ if (! class_exists('KVoucherForm')) {
             }
         }
 
-        // end kvoucherCheckAllCompanyData()
-        private static function kvoucherBillingAdressPrice()
+        // end kvCheckAllCompanyData()
+        private static function kvBillingAdressPrice()
         {
             $currency = self::kvoucherGetCurrencyPaypalHTMLoutput();
 
@@ -164,35 +164,36 @@ if (! class_exists('KVoucherForm')) {
 
                        <input class="price" type="radio" id="twenty" name="price" value="20" ' . (empty($_POST['price']) || $_POST['price'] == '20' ? 'checked' : '') . '>
                 
-    	               <label for="twenty">20,00 ' . $currency . '</label>
+    	               <label for="twenty">20,00 ' . esc_attr( $currency ) . '</label>
                 
     	               <input class="price" type="radio" id="thirty" name="price" value="30" ' . ($_POST['price'] == '30' ? 'checked' : '') . '>
                 
-    	               <label for="thirty">30,00 ' . $currency . '</label>
+    	               <label for="thirty">30,00 ' . esc_attr( $currency ) . '</label>
                 
     	               <input class="price" type="radio" id="fifty" name="price" value="50" ' . ($_POST['price'] == '50' ? 'checked' : '') . '>
                 
-    	               <label for="fifty">50,00 ' . $currency . '</label>
+    	               <label for="fifty">50,00 ' . esc_attr( $currency ) . '</label>
                 
     	               <input class="price" type="radio" id="seventyfive" name="price" value="75" ' . ($_POST['price'] == '75' ? 'checked' : '') . '>
                 
-    	               <label for="seventyfive">75,00 ' . $currency . '</label>
+    	               <label for="seventyfive">75,00 ' . esc_attr( $currency ) . '</label>
                 
     	               <input class="price" type="radio" id="onehundred" name="price" value="100" ' . ($_POST['price'] == '100' ? 'checked' : '') . '>
                 
-    	               <label for="onehundred">100,00 ' . $currency . '</label>
+    	               <label for="onehundred">100,00 ' . esc_attr( $currency ) . '</label>
                 
     	               <input class="price" type="radio" id="onehundredfifty" name="price" value="150" ' . ($_POST['price'] == '150' ? 'checked' : '') . '>
                 
-    	               <label for="onehundredfifty">150,00 ' . $currency . '</label>
+    	               <label for="onehundredfifty">150,00 ' . esc_attr( $currency ) . '</label>
                 
     	               <input class="price" type="radio" id="twohundred" name="price" value="200" ' . ($_POST['price'] == '200' ? 'checked' : '') . '>
                 
-    	               <label for="twohundred">200,00 ' . $currency . '</label>
+    	               <label for="twohundred">200,00 ' . esc_attr( $currency ) . '</label>
 
                        <input type="hidden" id="post" name="shipping" value="E-mail">
                 
 	                   </fieldset>';
+                
             } // end if ( kvo_fs()->can_use_premium_code__premium_only() )
 
             if (kvo_fs()->is_not_paying()) {
@@ -203,15 +204,15 @@ if (! class_exists('KVoucherForm')) {
                            
                        <input class="price" type="radio" id="twenty" name="price" value="20" ' . (empty($_POST['price']) || $_POST['price'] == '20' ? 'checked' : '') . '>
                            
-    	               <label for="twenty">20,00 ' . $currency . '</label>
+    	               <label for="twenty">20,00 ' . esc_attr( $currency ) . '</label>
     	                   
     	               <input class="price" type="radio" id="fifty" name="price" value="50" ' . ($_POST['price'] == '50' ? 'checked' : '') . '>
     	                   
-    	               <label for="fifty">50,00 ' . $currency . '</label>
+    	               <label for="fifty">50,00 ' .  esc_attr( $currency ) . '</label>
     	                   
     	               <input class="price" type="radio" id="onehundred" name="price" value="100" ' . ($_POST['price'] == '100' ? 'checked' : '') . '>
     	                   
-    	               <label for="onehundred">100,00 ' . $currency . '</label>
+    	               <label for="onehundred">100,00 ' . esc_attr( $currency ) . '</label>
     	                   
     	               <input type="hidden" id="post" name="shipping" value="E-mail">
     	                   
@@ -221,46 +222,46 @@ if (! class_exists('KVoucherForm')) {
             return $output;
         }
 
-        // end kvoucherBillingAdressPrice()
-        private static function kvoucherBillingAdressAdress()
+        // end kvBillingAdressPrice()
+        private static function kvBillingAdressAdress()
         {
             $output = '<fieldset>
                 
                         <legend>' . __('Billing address', 'kvoucherpro') . '</legend>
                 
-                        <label for="privat">' . __('Privat', 'kvoucherpro') . ':</label><input type="radio" onchange="toggleDisableDelCompany(this)" id="radiobox_company_dis" id="privat" name="kind_of_adress" value="Privat" ' . (empty($_POST['kind_of_adress']) || $_POST['kind_of_adress'] == 'Privat' ? 'checked' : '') . '>
+                        <label for="privat">' . __('Privat', 'kvoucherpro') . ':</label><input type="radio" onchange="kvtoggleDisableDelCompany(this)" id="radiobox_company_dis" id="privat" name="kind_of_adress" value="Privat" ' . (empty($_POST['kind_of_adress']) || $_POST['kind_of_adress'] == 'Privat' ? 'checked' : '') . '>
                 
-                        <label for="firma">' . __('Company', 'kvoucherpro') . ':</label><input class="kind_of_adress" type="radio" onchange="toggleEnableDelCompany(this)" id="radiobox_company_en" name="kind_of_adress" value="Firma" ' . ($_POST['kind_of_adress'] == 'Firma' ? 'checked' : '') . '><br>
+                        <label for="firma">' . __('Company', 'kvoucherpro') . ':</label><input class="kind_of_adress" type="radio" onchange="kvtoggleEnableDelCompany(this)" id="radiobox_company_en" name="kind_of_adress" value="Firma" ' . ($_POST['kind_of_adress'] == 'Firma' ? 'checked' : '') . '><br>
                 
 		                <label for="herr">' . __('Mr', 'kvoucherpro') . ':</label><input type="radio" id="herr" name="title" value="Herr" ' . (empty($_POST['title']) || $_POST['title'] == 'Herr' ? 'checked' : '') . '>
                 
                         <label for="frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="frau" name="title" value="Frau" ' . ($_POST['title'] == 'Frau' ? 'checked' : '') . '>
 
-                        <p ' . ($_POST['kind_of_adress'] == 'Firma' ? 'style="display:block"' : 'disabled style="display:none"') . ' id="company_input_field"><label style="width: 140px;" for="company">' . __('Company', 'kvoucherpro') . ': </label><input type="text" maxlength="40" name="company" id="company" value="' . (! empty($_POST['company']) ? $_POST['company'] : '') . '"  placeholder="' . __('Company', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p ' . ($_POST['kind_of_adress'] == 'Firma' ? 'style="display:block"' : 'disabled style="display:none"') . ' id="company_input_field"><label style="width: 140px;" for="company">' . __('Company', 'kvoucherpro') . ': </label><input type="text" maxlength="40" name="company" id="company" value="' . (! empty($_POST['company']) ? esc_html ( $_POST['company'] ) : '') . '"  placeholder="' . __('Company', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="fname">' . __('First Name', 'kvoucherpro') . '*: </label><input type="text" maxlength="30" name="fname" id="fname" required="required" value="' . (! empty($_POST['fname']) ? $_POST['fname'] : '') . '"  placeholder="' . __('First Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="fname">' . __('First Name', 'kvoucherpro') . '*: </label><input type="text" maxlength="30" name="fname" id="fname" required="required" value="' . (! empty($_POST['fname']) ? esc_html( $_POST['fname'] ) : '') . '"  placeholder="' . __('First Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="nname">' . __('Last Name', 'kvoucherpro') . '*: </label><input type="text" maxlength="30" name="nname" id="nname" required="required" value="' . (! empty($_POST['nname']) ? $_POST['nname'] : '') . '" placeholder="' . __('Last Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="nname">' . __('Last Name', 'kvoucherpro') . '*: </label><input type="text" maxlength="30" name="nname" id="nname" required="required" value="' . (! empty($_POST['nname']) ? esc_html ( $_POST['nname'] ) : '') . '" placeholder="' . __('Last Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="streetname">' . __('Street + No.', 'kvoucherpro') . '*:</label><input type="text" maxlength="50"  name="streetname" id="streetname" value="' . (! empty($_POST['streetname']) ? $_POST['streetname'] : '') . '" required="required" placeholder="' . __('Street + No.', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="streetname">' . __('Street + No.', 'kvoucherpro') . '*:</label><input type="text" maxlength="50"  name="streetname" id="streetname" value="' . (! empty($_POST['streetname']) ? esc_html ( $_POST['streetname'] ) : '') . '" required="required" placeholder="' . __('Street + No.', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="plz">' . __('Postal-Code', 'kvoucherpro') . '*:</label><input type="text" name="plz" id="plz" value="' . (! empty($_POST['plz']) ? $_POST['plz'] : '') . '" required="required" maxlength="6" placeholder="' . __('Postal-Code', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="plz">' . __('Postal-Code', 'kvoucherpro') . '*:</label><input type="text" name="plz" id="plz" value="' . (! empty($_POST['plz']) ? esc_html( $_POST['plz'] ) : '') . '" required="required" maxlength="6" placeholder="' . __('Postal-Code', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="city">' . __('City', 'kvoucherpro') . '*:</label><input type="text" maxlength="50" name="city"  id="city" value="' . (! empty($_POST['city']) ? $_POST['city'] : '') . '" required="required" placeholder="' . __('City', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="city">' . __('City', 'kvoucherpro') . '*:</label><input type="text" maxlength="50" name="city"  id="city" value="' . (! empty($_POST['city']) ? esc_html( $_POST['city'] ) : '') . '" required="required" placeholder="' . __('City', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="country">' . __('Country', 'kvoucherpro') . '*:</label><input type="text" maxlength="50" name="country" id="country" value="' . (! empty($_POST['country']) ? $_POST['country'] : 'Deutschland') . '" required="required" value="Deutschland" placeholder="' . __('Country', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="country">' . __('Country', 'kvoucherpro') . '*:</label><input type="text" maxlength="50" name="country" id="country" value="' . (! empty($_POST['country']) ? esc_html( $_POST['country'] ) : 'Deutschland') . '" required="required" value="Deutschland" placeholder="' . __('Country', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="phone">' . __('Phone', 'kvoucherpro') . ':</label><input type="tel" maxlength="20" name="phone" id="phone" value="' . (! empty($_POST['phone']) ? $_POST['phone'] : '') . '" placeholder="' . __('Phone', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="phone">' . __('Phone', 'kvoucherpro') . ':</label><input type="tel" maxlength="20" name="phone" id="phone" value="' . (! empty($_POST['phone']) ? esc_html( $_POST['phone'] ) : '') . '" placeholder="' . __('Phone', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
-                        <p><label style="width: 140px;" for="email">' . __('E-mail', 'kvoucherpro') . '*:</label><input type="email" maxlength="50" name="email" id="email" value="' . (! empty($_POST['email']) ? $_POST['email'] : '') . '" required="required" placeholder="' . __('E-mail', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p><label style="width: 140px;" for="email">' . __('E-mail', 'kvoucherpro') . '*:</label><input type="email" maxlength="50" name="email" id="email" value="' . (! empty($_POST['email']) ? esc_html( $_POST['email'] ) : '') . '" required="required" placeholder="' . __('E-mail', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
                         </fieldset>';
 
             return $output;
         }
 
-        // end kvoucherBillingAdressAdress()
-        private static function kvoucherBillingAdressDeliveryShipping()
+        // end kvBillingAdressAdress()
+        private static function kvBillingAdressDeliveryShipping()
 
         {
             $output = '<fieldset id="fieldset_del_shipping_adress"' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'style="display:block' : 'disabled style="display:none') . '">
@@ -271,34 +272,34 @@ if (! class_exists('KVoucherForm')) {
                 
                       <label for="dif_frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="dif_frau" name="dif_title" value="Frau" ' . ($_POST['dif_title'] == 'Frau' ? 'checked' : '') . '>
 
-                      <p><label style="width: 140px;" for="dif_fname">' . __('First Name', 'kvoucherpro') . '*: </label><input type="text" name="dif_fname" id="dif_fname" value ="' . (! empty($_POST['dif_fname']) ? $_POST['dif_fname'] : '') . '" required="required"  placeholder="' . __('First Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                      <p><label style="width: 140px;" for="dif_fname">' . __('First Name', 'kvoucherpro') . '*: </label><input type="text" name="dif_fname" id="dif_fname" value ="' . (! empty($_POST['dif_fname']) ? esc_html( $_POST['dif_fname'] ) : '') . '" required="required"  placeholder="' . __('First Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
-                      <p><label style="width: 140px;" for="dif_nname">' . __('Last Name', 'kvoucherpro') . '*: </label><input type="text" name="dif_nname" id="dif_nname" value ="' . (! empty($_POST['dif_nname']) ? $_POST['dif_nname'] : '') . '" required="required"  placeholder="' . __('Last Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                      <p><label style="width: 140px;" for="dif_nname">' . __('Last Name', 'kvoucherpro') . '*: </label><input type="text" name="dif_nname" id="dif_nname" value ="' . (! empty($_POST['dif_nname']) ? esc_html( $_POST['dif_nname'] ) : '') . '" required="required"  placeholder="' . __('Last Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
-                      <p><label style="width: 140px;" for="dif_streetname">' . __('Street + No.', 'kvoucherpro') . '*:</label><input type="text"  name="dif_streetname" id="dif_streetname" value ="' . (! empty($_POST['dif_nname']) ? $_POST['dif_nname'] : '') . '" placeholder="' . __('Street + No.', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                      <p><label style="width: 140px;" for="dif_streetname">' . __('Street + No.', 'kvoucherpro') . '*:</label><input type="text"  name="dif_streetname" id="dif_streetname" value ="' . (! empty($_POST['dif_nname']) ? esc_html( $_POST['dif_nname'] ) : '') . '" placeholder="' . __('Street + No.', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
-                      <p><label style="width: 140px;" for="dif_plz">' . __('Postal-Code', 'kvoucherpro') . '*:</label><input type="text" name="dif_plz" id="dif_plz" value ="' . (! empty($_POST['dif_plz']) ? $_POST['dif_plz'] : '') . '" required="required" maxlength="6" placeholder="' . __('Postal-Code', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                      <p><label style="width: 140px;" for="dif_plz">' . __('Postal-Code', 'kvoucherpro') . '*:</label><input type="text" name="dif_plz" id="dif_plz" value ="' . (! empty($_POST['dif_plz']) ? esc_html( $_POST['dif_plz'] ) : '') . '" required="required" maxlength="6" placeholder="' . __('Postal-Code', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
-                      <p><label style="width: 140px;" for="dif_city">' . __('City', 'kvoucherpro') . '*:</label><input type="text" name="dif_city"  id="dif_city" value ="' . (! empty($_POST['dif_city']) ? $_POST['dif_city'] : '') . '" required="required" placeholder="' . __('City', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                      <p><label style="width: 140px;" for="dif_city">' . __('City', 'kvoucherpro') . '*:</label><input type="text" name="dif_city"  id="dif_city" value ="' . (! empty($_POST['dif_city']) ? esc_html( $_POST['dif_city'] ) : '') . '" required="required" placeholder="' . __('City', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
-                      <p><label style="width: 140px;" for="dif_country">' . __('Country', 'kvoucherpro') . '*:</label><input type="text" name="dif_country" id="dif_country" value ="' . (! empty($_POST['dif_country']) ? $_POST['dif_country'] : 'Deutschland') . '" required="required" value="Deutschland" placeholder="' . __('Country', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                      <p><label style="width: 140px;" for="dif_country">' . __('Country', 'kvoucherpro') . '*:</label><input type="text" name="dif_country" id="dif_country" value ="' . (! empty($_POST['dif_country']) ? esc_html( $_POST['dif_country'] ) : 'Deutschland') . '" required="required" value="Deutschland" placeholder="' . __('Country', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
-                      <p><label style="width: 140px;" for="dif_email">' . __('E-mail', 'kvoucherpro') . '*:</label><input type="email" name="dif_email" id="dif_email" value ="' . (! empty($_POST['dif_email']) ? $_POST['dif_email'] : '') . '" required="required" placeholder="' . __('E-mail', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                      <p><label style="width: 140px;" for="dif_email">' . __('E-mail', 'kvoucherpro') . '*:</label><input type="email" name="dif_email" id="dif_email" value ="' . (! empty($_POST['dif_email']) ? esc_html( $_POST['dif_email'] ) : '') . '" required="required" placeholder="' . __('E-mail', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
                       </fieldset>';
 
             return $output;
         }
 
-        // end kvoucherBillingAdressDeliveryShipping()
-        private static function kvoucherPayCoupon()
+        // end kvBillingAdressDeliveryShipping()
+        private static function kvPayCoupon()
         {
             $currency = self::kvoucherGetCurrencyPaypalHTMLoutput();
 
-            $wert = floatval($_POST['price']);
+            $wert = floatval(esc_html( $_POST['price'] ));
 
             if ($_POST['shipping'] == 'Post') {
-                $shipping_costs = floatval(str_replace(',', '.', $_POST['shipping_costs']));
+                $shipping_costs = floatval(str_replace(',', '.', esc_html( $_POST['shipping_costs'] ) ) );
             }
             ;
 
@@ -320,54 +321,54 @@ if (! class_exists('KVoucherForm')) {
 
                        <p><i>' . __('Dates appear on the voucher', 'kvoucherpro') . '</i></p>
 
-                        ' . __('First Name', 'kvoucherpro') . ': ' . $_POST['for_fname'] . '<br>
+                        ' . __('First Name', 'kvoucherpro') . ': ' . esc_html( $_POST['for_fname'] ) . '<br>
 
-                        ' . __('Last Name', 'kvoucherpro') . ': ' . $_POST['for_nname'] . '<br>
+                        ' . __('Last Name', 'kvoucherpro') . ': ' . esc_html( $_POST['for_nname'] ) . '<br>
             
-                        ' . __('Occasion', 'kvoucherpro') . ': ' . $_POST['occasion'] . '<br>
+                        ' . __('Occasion', 'kvoucherpro') . ': ' . esc_html( $_POST['occasion'] ) . '<br>
             
-                        ' . __('Value', 'kvoucherpro') . ': ' . number_format($_POST['price'], 2, ',', '.') . ' ' . $currency . '</fieldset>';
+                        ' . __('Value', 'kvoucherpro') . ': ' . number_format(esc_attr( $_POST['price'], 2, ',', '.') ) . ' ' . esc_html( $currency ) . '</fieldset>';
 
             $output .= '<fieldset>
 
                      <legend>' . __('Billing Adress', 'kvoucherpro') . '</legend>
 
-                        ' . (! empty($_POST['company']) ? __('Company', 'kvoucherpro') . ': ' . $_POST['company'] . '<br>' : '') . '
+                        ' . (! empty($_POST['company']) ? __('Company', 'kvoucherpro') . ': ' . esc_html( $_POST['company'] ) . '<br>' : '') . '
 
-                        ' . __('First Name', 'kvoucherpro') . ': ' . $_POST['fname'] . '<br>
+                        ' . __('First Name', 'kvoucherpro') . ': ' . esc_html( $_POST['fname'] ) . '<br>
 
-                        ' . __('Last Name', 'kvoucherpro') . ': ' . $_POST['nname'] . '<br>
+                        ' . __('Last Name', 'kvoucherpro') . ': ' . esc_html( $_POST['nname'] ) . '<br>
 
-                        ' . __('Street', 'kvoucherpro') . ': ' . $_POST['streetname'] . '<br>
+                        ' . __('Street', 'kvoucherpro') . ': ' . esc_html( $_POST['streetname'] ) . '<br>
 
-                        ' . __('City', 'kvoucherpro') . ': ' . $_POST['plz'] . ' ' . $_POST['city'] . '<br>
+                        ' . __('City', 'kvoucherpro') . ': ' . esc_html( $_POST['plz'] ) . ' ' . esc_html( $_POST['city'] ) . '<br>
 
-                        ' . __('Country', 'kvoucherpro') . ': ' . $_POST['country'] . '<br>' . (! empty($_POST['phone']) ? __('Phone', 'kvoucherpro') . ': ' . $_POST['phone'] . '<br>' : '') . '
+                        ' . __('Country', 'kvoucherpro') . ': ' . esc_html( $_POST['country'] ) . '<br>' . (! empty($_POST['phone']) ? __('Phone', 'kvoucherpro') . ': ' . esc_html( $_POST['phone'] ) . '<br>' : '') . '
 
-                        ' . __('E-mail', 'kvoucherpro') . ': ' . $_POST['email'] . '<br>
+                        ' . __('E-mail', 'kvoucherpro') . ': ' . esc_html( $_POST['email'] ) . '<br>
             
-                        ' . __('Shipping costs', 'kvoucherpro') . ': ' . number_format($_POST['shipping_costs'], 2, ',', '.') . ' ' . $currency . '<br>
+                        ' . __('Shipping costs', 'kvoucherpro') . ': ' . number_format(esc_html( $_POST['shipping_costs'] ), 2, ',', '.') . ' ' .  esc_html( $currency ) . '<br>
             
-                        ' . __('Total', 'kvoucherpro') . ': ' . number_format($summe, 2, ',', '.') . ' ' . $currency . '<br>
+                        ' . __('Total', 'kvoucherpro') . ': ' . number_format(esc_html( esc_attr( $summe ) ), 2, ',', '.') . ' ' . esc_html( $currency ) . '<br>
             
-                        ' . __('Shipping', 'kvoucherpro') . ': ' . $_POST['shipping'] . '<br></fieldset>';
+                        ' . __('Shipping', 'kvoucherpro') . ': ' . esc_html( $_POST['shipping'] ) . '<br></fieldset>';
 
             $output .= '<fieldset>
                         
                         <legend>' . __('Shipping Adress', 'kvoucherpro') . '</legend>' . 
-            ($_POST['checkbox_del_shipping_adress'] == '1' ? __('First name', 'kvoucherpro') . ': ' . $_POST['dif_fname'] . '<br>' : __('First name', 'kvoucherpro') . ': ' . $_POST['fname'] . '<br>') . 
-            ($_POST['checkbox_del_shipping_adress'] == '1' ? __('Last name', 'kvoucherpro') . ': ' . $_POST['dif_nname'] . '<br>' : __('Last name', 'kvoucherpro') . ': ' . $_POST['nname'] . '<br>') . 
-            ($_POST['checkbox_del_shipping_adress'] == '1' ? __('Street', 'kvoucherpro') . ': ' . $$_POST['dif_streetname'] . '<br>' : __('Street', 'kvoucherpro') . ': ' . $_POST['streetname'] . '<br>') . 
-            ($_POST['checkbox_del_shipping_adress'] == '1' ? __('City', 'kvoucherpro') . ': ' . $_POST['dif_plz'] . ' ' . $_POST['dif_city'] . '<br>' : __('City', 'kvoucherpro') . ': ' . $_POST['plz'] . ' ' . $_POST['city'] . '<br>') . 
-            ($_POST['checkbox_del_shipping_adress'] == '1' ? __('Country', 'kvoucherpro') . ': ' . $_POST['dif_country'] . '<br>' : __('Country', 'kvoucherpro') . ': ' . $_POST['country'] . '<br>') . 
-            ($_POST['checkbox_del_shipping_adress'] == '1' ? __('E-mail', 'kvoucherpro') . ': ' . $_POST['dif_email'] . '<br>' : __('E-mail', 'kvoucherpro') . ': ' . $_POST['email'] . '<br>') . __('Shipping', 'kvoucherpro') . ': ' . $_POST['shipping'] . 
+                        ($_POST['checkbox_del_shipping_adress'] == '1' ? __('First name', 'kvoucherpro') . ': ' . esc_html( $_POST['dif_fname'] ) . '<br>' : __('First name', 'kvoucherpro') . ': ' . esc_html( $_POST['fname'] ) . '<br>') . 
+                        ($_POST['checkbox_del_shipping_adress'] == '1' ? __('Last name', 'kvoucherpro') . ': ' . esc_html( $_POST['dif_nname'] ) . '<br>' : __('Last name', 'kvoucherpro') . ': ' . esc_html( $_POST['nname'] ) . '<br>') . 
+                        ($_POST['checkbox_del_shipping_adress'] == '1' ? __('Street', 'kvoucherpro') . ': ' . esc_html( $_POST['dif_streetname'] ) . '<br>' : __('Street', 'kvoucherpro') . ': ' . esc_html( $_POST['streetname'] ) . '<br>') . 
+                        ($_POST['checkbox_del_shipping_adress'] == '1' ? __('City', 'kvoucherpro') . ': ' . esc_html( $_POST['dif_plz'] ) . ' ' . esc_html( $_POST['dif_city'] ) . '<br>' : __('City', 'kvoucherpro') . ': ' . esc_html( $_POST['plz'] ) . ' ' .esc_html( $_POST['city'] ) . '<br>') . 
+                        ($_POST['checkbox_del_shipping_adress'] == '1' ? __('Country', 'kvoucherpro') . ': ' . esc_html( $_POST['dif_country'] ) . '<br>' : __('Country', 'kvoucherpro') . ': ' . esc_html( $_POST['country'] ) . '<br>') . 
+                        ($_POST['checkbox_del_shipping_adress'] == '1' ? __('E-mail', 'kvoucherpro') . ': ' . esc_html( $_POST['dif_email'] ) . '<br>' : __('E-mail', 'kvoucherpro') . ': ' . esc_html( $_POST['email'] ) . '<br>') . __('Shipping', 'kvoucherpro') . ': ' . esc_html( $_POST['shipping'] ) . 
             '</fieldset>';
 
             return $output;
         }
 
-        // end kvoucherPayCoupon()
-        private static function kvoucherTermsOfService()
+        // end kvPayCoupon()
+        private static function kvTermsOfService()
         {
             $terms_of_service_data = get_option('kvoucher_plugin_terms_of_service_textfields');
 
@@ -379,37 +380,37 @@ if (! class_exists('KVoucherForm')) {
                 $terms = '';
             }
 
-            $output .= '<p><label for="checkbox_terms_of_sevice">' . __('Please confirm our', 'kvoucherpro') . ' ' . (self::kvoucherCheckTermsOfServiceData() == true ? '<a onclick="openToc();">' . __('terms and conditions', 'kvoucherpro') . '</a>' : 'AGB´s') . '</label>
+            $output .= '<p><label for="checkbox_terms_of_sevice">' . __('Please confirm our', 'kvoucherpro') . ' ' . (self::kvoucherCheckTermsOfServiceData() == true ? '<a onclick="kvopenToc();">' . __('terms and conditions', 'kvoucherpro') . '</a>' : 'AGB´s') . '</label>
                        <input type="checkbox" required="required" name="checkbox_terms_of_sevice" value="1" ' . (! empty($_POST['checkbox_terms_of_sevice']) || $_POST['checkbox_terms_of_sevice'] == '1' ? 'checked' : '') . ' id="checkbox_terms_of_sevice"></p>';
 
             $output .= '<div id="toc">
 
-                            <div style="background-color: #ffffff; color: #000000;" id="toc_content">' . $terms . '</div>
+                            <div style="background-color: #ffffff; color: #000000;" id="toc_content">' . esc_html( $terms ) . '</div>
 
-                            <div style="background-color: #ffffff" id="toc_close"><a style="color: DodgerBlue;" onclick="closeToc();">' . __('close', 'kvoucherpro') . '</a></div>
+                            <div style="background-color: #ffffff" id="toc_close"><a style="color: DodgerBlue;" onclick="kvcloseToc();">' . __('close', 'kvoucherpro') . '</a></div>
             
                         </div>';
 
             return $output;
         }
 
-        private static function kvoucherThxForBuy()
+        private static function kvThxForBuy()
         {
             $output = '<div id="thanks_message">
 
-                               <p style="text-align: center; background-color: #ffffff; color: #000000;">' . __('Thank you for shopping at', 'kvoucherpro') . ' ' . get_bloginfo('name') . '</p>
+                               <p style="text-align: center; background-color: #ffffff; color: #000000;">' . __('Thank you for shopping at', 'kvoucherpro') . ' ' . esc_html( get_bloginfo('name') ) . '</p>
 
 	                           <p style="text-align: center">
 
-		                      <a style="color: DodgerBlue;" href="' . ($_SERVER['REQUEST_URI']) . '">' . __('Back to selection', 'kvoucherpro') . '</a>
+		                      <a style="color: DodgerBlue;" href="' . ( esc_html( $_SERVER['REQUEST_URI'] )) . '">' . __('Back to selection', 'kvoucherpro') . '</a>
 
                       </div>';
 
             return $output;
         }
 
-        // end kvoucherTermsOfService()
-        private function kvoucherCouponFor()
+        // end kvTermsOfService()
+        private function kvCouponFor()
         {
             $output = '<fieldset>
                         
@@ -432,7 +433,7 @@ if (! class_exists('KVoucherForm')) {
             return $output;
         }
 
-        private static function kvoucherkindOfShipping()
+        private static function kvkindOfShipping()
         {
             $currency = self::kvoucherGetCurrencyPaypalHTMLoutput(); // load currency
 
@@ -449,7 +450,7 @@ if (! class_exists('KVoucherForm')) {
                 
                             <input type="radio" id="post" name="shipping" value="Post" ' . (empty($_POST['shipping']) || $_POST['shipping'] == 'Post' ? 'checked' : '') . '>
                            
-    	                    <label for="post">' . __('via Post', 'kvoucherpro') . ' <i>( + ' . $show_shipping_costs . ' ' . $currency . ' ' . __('Shipping', 'kvoucherpro') . ')</i></label>
+    	                    <label for="post">' . __('via Post', 'kvoucherpro') . ' <i>( + ' . $show_shipping_costs . ' ' . esc_attr( $currency ) . ' ' . __('Shipping', 'kvoucherpro') . ')</i></label>
                            
     	                    <input type="radio" id="email" name="shipping" value="E-mail" ' . ($_POST['shipping'] == 'E-mail' ? 'checked' : '') . '>
     	                   
@@ -487,7 +488,7 @@ if (! class_exists('KVoucherForm')) {
 
                 $output .= '<input type="hidden" id="post" name ="shipping" value="Post">';
 
-                $output .= '<input type="hidden" id="shipping_costs" name ="shipping_costs" value="' . get_option('kvoucher_plugin_company_textfiels')['shipping_costs'] . '">';
+                $output .= '<input type="hidden" id="shipping_costs" name ="shipping_costs" value="' . esc_attr( get_option('kvoucher_plugin_company_textfiels')['shipping_costs'] ) . '">';
             }
 
             return $output;
@@ -520,80 +521,80 @@ if (! class_exists('KVoucherForm')) {
         {
             $data = array(
 
-                'price' => $_POST['price'],
+                'price' => esc_attr( $_POST['price'] ),
 
-                'shipping' => $_POST['shipping'],
+                'shipping' => esc_attr( $_POST['shipping'] ),
 
-                'shipping_costs' => str_replace(',', '.', $_POST['shipping_costs']),
+                'shipping_costs' => str_replace(',', '.', esc_attr( $_POST['shipping_costs'] )),
 
-                'kind_of_adress' => $_POST['kind_of_adress'],
+                'kind_of_adress' => esc_attr( $_POST['kind_of_adress'] ),
 
-                'for_title' => $_POST['for_title'],
+                'for_title' => esc_attr( $_POST['for_title'] ),
 
-                'for_fname' => self::kvoucherSubStr($_POST['for_fname'], 30),
+                'for_fname' => self::kvoucherSubStr(esc_attr( $_POST['for_fname'] ), 30),
 
-                'for_nname' => self::kvoucherSubStr($_POST['for_nname'], 30),
+                'for_nname' => self::kvoucherSubStr(esc_attr( $_POST['for_nname'] ), 30),
 
-                'occasion' => self::kvoucherSubStr($_POST['occasion'], 30),
+                'occasion' => self::kvoucherSubStr(esc_attr( $_POST['occasion'] ), 30),
 
-                'title' => $_POST['title'],
+                'title' => esc_attr( $_POST['title'] ),
 
-                'fname' => self::kvoucherSubStr($_POST['fname'], 30),
+                'fname' => self::kvoucherSubStr( esc_attr( $_POST['fname'] ), 30),
 
-                'nname' => self::kvoucherSubStr($_POST['nname'], 30),
+                'nname' => self::kvoucherSubStr( esc_attr( $_POST['nname'] ), 30),
 
-                'company' => self::kvoucherSubStr($_POST['company'], 40),
+                'company' => self::kvoucherSubStr( esc_attr( $_POST['company'] ), 40),
 
-                'streetname' => self::kvoucherSubStr($_POST['streetname'], 50),
+                'streetname' => self::kvoucherSubStr(esc_attr( $_POST['streetname'] ), 50),
 
-                'plz' => self::kvoucherSubStr($_POST['plz'], 8),
+                'plz' => self::kvoucherSubStr(esc_attr( $_POST['plz'] ), 8),
 
-                'city' => self::kvoucherSubStr($_POST['city'], 50),
+                'city' => self::kvoucherSubStr( esc_attr( $_POST['city'] ), 50),
 
-                'country' => self::kvoucherSubStr($_POST['country'], 50),
+                'country' => self::kvoucherSubStr( esc_attr( $_POST['country'] ), 50),
 
-                'phone' => self::kvoucherSubStr($_POST['phone'], 20),
+                'phone' => self::kvoucherSubStr(esc_attr( $_POST['phone'] ), 20),
 
-                'email' => self::kvoucherSubStr($_POST['email'], 50),
+                'email' => self::kvoucherSubStr(esc_attr( $_POST['email'] ), 50),
 
-                'dif_title' => $_POST['dif_title'],
+                'dif_title' => esc_attr( $_POST['dif_title'] ),
 
-                'dif_fname' => self::kvoucherSubStr($_POST['dif_fname'], 30),
+                'dif_fname' => self::kvoucherSubStr(esc_attr( $_POST['dif_fname'] ), 30),
 
-                'dif_nname' => self::kvoucherSubStr($_POST['dif_nname'], 30),
+                'dif_nname' => self::kvoucherSubStr(esc_attr( $_POST['dif_nname'] ), 30),
 
-                'dif_streetname' => self::kvoucherSubStr($_POST['dif_streetname'], 50),
+                'dif_streetname' => self::kvoucherSubStr(esc_attr( $_POST['dif_streetname'] ), 50),
 
-                'dif_plz' => self::kvoucherSubStr($_POST['dif_plz'], 8),
+                'dif_plz' => self::kvoucherSubStr( esc_attr( $_POST['dif_plz'] ), 8),
 
-                'dif_city' => self::kvoucherSubStr($_POST['dif_city'], 50),
+                'dif_city' => self::kvoucherSubStr(esc_attr( $_POST['dif_city'] ), 50),
 
-                'dif_country' => self::kvoucherSubStr($_POST['dif_country'], 50),
+                'dif_country' => self::kvoucherSubStr(esc_attr( $_POST['dif_country'] ), 50),
 
-                'dif_email' => self::kvoucherSubStr($_POST['dif_email'], 50),
+                'dif_email' => self::kvoucherSubStr(esc_attr( $_POST['dif_email'] ), 50),
 
-                'checkbox_del_shipping_adress' => $_POST['checkbox_del_shipping_adress'],
+                'checkbox_del_shipping_adress' => esc_attr( $_POST['checkbox_del_shipping_adress'] ),
 
-                'action' => $_POST['action']
+                'action' => esc_html( $_POST['action'] )
             );
 
             return base64_encode(http_build_query($data));
         }
 
-        // end kvoucherkindOfShipping()
-        private static function paypalButtons()
+        // end kvkindOfShipping()
+        private static function kvpaypalButtons()
         {
             $data = self::getPostData();
 
             $currency = self::kvoucherGetCurrencyforPaypalApi();
 
-            $shipping_costs = floatval(str_replace(',', '.', $_POST['shipping_costs']));
+            $shipping_costs = floatval(str_replace(',', '.', esc_html( $_POST['shipping_costs'] )));
 
-            $value = floatval($_POST['price']);
+            $value = floatval(esc_html( $_POST['price'] ));
 
             $summe = $shipping_costs + $value;
 
-            $output .= sprintf('<script src="https://www.paypal.com/sdk/js?client-id=%s&currency=' . $currency . '"></script>', get_option('kvoucher_plugin_paypal_textfiels')['paypal_client_id']);
+            $output .= sprintf('<script src="https://www.paypal.com/sdk/js?client-id=%s&currency=' . esc_html( $currency ) . '"></script>', esc_html( get_option('kvoucher_plugin_paypal_textfiels')['paypal_client_id'] ));
 
             $output .= '<fieldset id="paypal-button-container"></fieldset>';
 
@@ -604,7 +605,7 @@ if (! class_exists('KVoucherForm')) {
                              return actions.order.create({
                                  purchase_units: [{
                                      amount: {
-                                         value: "' . $summe . '"
+                                         value: "' .   esc_js( $summe )  . '"
                                      }
                                  }]
                              });
@@ -614,11 +615,11 @@ if (! class_exists('KVoucherForm')) {
                              return actions.order.capture().then(function(details) {
                                  // This function shows a transaction success message to your buyer.
                                              
-                                 var data = "' . $data . '";
+                                 var data = "' . esc_js( $data ) . '";
                                      
-                                 saveUserData(data);
+                                 kvsaveUserData(data);
 
-                                 openThxMsg();
+                                 kvopenThxMsg();
                                      
                              });
                          }
@@ -629,14 +630,14 @@ if (! class_exists('KVoucherForm')) {
             return $output;
         }
 
-        // end paypalButtons()
-        public static function kvoucherBillingAdress()
+        // end kvpaypalButtons()
+        public static function kvBillingAdress()
         {
             $output = '<div id="kvoucherBillingAdress">';
 
             $output .= '<noscript style="color:red;">' . __('Please enable javascript in your browser. Otherwise it is not possible to buy a voucher.', 'kvoucherpro') . '</noscript>';
 
-            $check_required_data = self::kvoucherCheckAllCompanyData(); // check all required company data
+            $check_required_data = self::kvCheckAllCompanyData(); // check all required company data
 
             if ($check_required_data == true) {
 
@@ -644,15 +645,15 @@ if (! class_exists('KVoucherForm')) {
 
                     $output .= '<form action="" method="post">';
 
-                    $output .= self::kvoucherPostToHiddenField();
+                    $output .= self::kvPostToHiddenField();
 
-                    $output .= self::kvoucherBillingAdressPrice();
+                    $output .= self::kvBillingAdressPrice();
 
-                    $output .= self::kvoucherkindOfShipping();
+                    $output .= self::kvkindOfShipping();
 
-                    $output .= self::kvoucherCouponFor();
+                    $output .= self::kvCouponFor();
 
-                    $output .= '<fieldset>' . self::kvoucherButton('save2', __('Next', 'kvoucherpro')) . '</fieldset>';
+                    $output .= '<fieldset>' . self::kvButton('save2', __('Next', 'kvoucherpro')) . '</fieldset>';
 
                     $output .= '</form>';
                 }
@@ -676,23 +677,23 @@ if (! class_exists('KVoucherForm')) {
 
                     $output .= '<form action="" method="post">';
 
-                    $output .= self::kvoucherPostToHiddenField();
+                    $output .= self::kvPostToHiddenField();
 
-                    $output .= self::kvoucherBillingAdressAdress();
+                    $output .= self::kvBillingAdressAdress();
 
-                    $output .= self::kvoucherCheckBillingAdressDeliveryShipping();
+                    $output .= self::kvCheckBillingAdressDeliveryShipping();
 
-                    $output .= self::kvoucherBillingAdressDeliveryShipping();
+                    $output .= self::kvBillingAdressDeliveryShipping();
 
-                    $output .= self::kvoucherTermsOfService();
+                    $output .= self::kvTermsOfService();
 
-                    $output .= '<fieldset><button onclick="submitForms(1)">' . __('Back', 'kvoucherpro') . '</button> ' . self::kvoucherButton('save3', __('Next', 'kvoucherpro')) . '</fieldset>';
+                    $output .= '<fieldset><button onclick="kvsubmitForms(1)">' . __('Back', 'kvoucherpro') . '</button> ' . self::kvButton('save3', __('Next', 'kvoucherpro')) . '</fieldset>';
 
                     $output .= '</form>';
 
                     $output .= '<form action="" method="post" id="1">';
 
-                    $output .= self::kvoucherPostToHiddenField();
+                    $output .= self::kvPostToHiddenField();
 
                     $output .= '<input type="hidden" name="action" value="back1">';
 
@@ -703,19 +704,19 @@ if (! class_exists('KVoucherForm')) {
 
                     if ($_POST['action'] == 'save3') {
 
-                        $output .= self::kvoucherPayCoupon(); // show all date
+                        $output .= self::kvPayCoupon(); // show all date
 
                         $output .= '<form action="" method="post">';
 
-                        $output .= self::kvoucherPostToHiddenField();
+                        $output .= self::kvPostToHiddenField();
 
-                        $output .= '<fieldset>' . self::kvoucherButton('back2', __('Back', 'kvoucherpro')) . '</fieldset>'; // show button back
+                        $output .= '<fieldset>' . self::kvButton('back2', __('Back', 'kvoucherpro')) . '</fieldset>'; // show button back
 
                         $output .= '</form>';
 
-                        $output .= self::kvoucherThxForBuy();
+                        $output .= self::kvThxForBuy();
 
-                        $output .= '<fieldset>' . self::paypalButtons() . '</fieldset>'; // show paypal buttons
+                        $output .= '<fieldset>' . self::kvpaypalButtons() . '</fieldset>'; // show paypal buttons
                     }
                 }
             } else {

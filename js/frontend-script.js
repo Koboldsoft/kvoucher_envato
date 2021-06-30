@@ -1,11 +1,11 @@
-function submitForms(id) {
+function kvsubmitForms(id) {
 
 	document.getElementById(id).submit();
 
 }
 
 // open terms of conditions (toc)
-function openToc() {
+function kvopenToc() {
 
 	document.getElementById("toc").style.display = "block";
 
@@ -22,7 +22,7 @@ function openToc() {
 
 }
 
-function openThxMsg() {
+function kvopenThxMsg() {
 
 	var browser_height = window.innerHeight * 0.90;
 
@@ -37,11 +37,11 @@ function openThxMsg() {
 
 }
 
-function closeToc() {
+function kvcloseToc() {
 	document.getElementById("toc").style.display = "none";
 }
 
-function toggleDisableDelShippingAdress(checkbox) {
+function kvtoggleDisableDelShippingAdress(checkbox) {
 
 	var fieldset = document.getElementById("fieldset_del_shipping_adress");
 
@@ -56,7 +56,7 @@ function toggleDisableDelShippingAdress(checkbox) {
 	}
 }
 
-function toggleEnableDelCompany(radiobox) {
+function kvtoggleEnableDelCompany(radiobox) {
 
 	var fieldset = document.getElementById("company_input_field");
 
@@ -68,7 +68,7 @@ function toggleEnableDelCompany(radiobox) {
 
 }
 
-function toggleDisableDelCompany(radiobox) {
+function kvtoggleDisableDelCompany(radiobox) {
 
 	var fieldset = document.getElementById("company_input_field");
 
@@ -80,7 +80,7 @@ function toggleDisableDelCompany(radiobox) {
 
 }
 
-function dif_del_adress() {
+function kvdif_del_adress() {
 	var checkbox = document
 			.getElementById('checkbox_different_delivery_shipping_adress');
 	console.log(checkbox);
@@ -106,13 +106,13 @@ function dif_del_adress() {
 	}
 }
 
-var saveUserData;
+var kvsaveUserData;
 
 //this is jQuery function
 jQuery(function(){
-	saveUserData = function( data )
+	kvsaveUserData = function( data )
   {
-  	 // We'll pass this variable to the PHP function usr_data_request
+  	 // We'll pass this variable to the PHP function kvusr_data_request
       
        
       // This does the ajax request
@@ -120,7 +120,7 @@ jQuery(function(){
       	type: 'POST',
           url: usr_data_obj.ajaxurl,
           data: {
-              'action': 'usr_data_request',
+              'action': 'kvusr_data_request',
               'data' : data,
               'nonce' : usr_data_obj.nonce
           },

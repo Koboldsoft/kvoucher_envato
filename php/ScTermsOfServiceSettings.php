@@ -20,7 +20,7 @@ add_action('admin_init', 'kvoucher_initialize_terms_of_service_options');
 // callback section
 function sandbox_terms_of_service_callback()
 {
-    echo '<p>'.__('Provide your Terms of Service','kvoucherpro').'</p><i>('.__('You can use HTML Code','kvoucherpro').')</i>';
+    echo '<p>'.__('Provide your Terms of Service','kvoucherpro').'</p>';
 }
 
 function kvoucher_textfield_terms_of_service_callback()
@@ -35,7 +35,7 @@ function kvoucher_textfield_terms_of_service_callback()
     ;
     
     // Render the output
-    echo '<textarea cols="90" rows="20" id="terms_of_service" name="kvoucher_plugin_terms_of_service_textfields[terms_of_service]" placeholder="your terms of service here">'.$terms_of_service.'</textarea>';
+    echo '<textarea cols="90" rows="20" id="terms_of_service" name="kvoucher_plugin_terms_of_service_textfields[terms_of_service]" placeholder="your terms of service here">'.esc_html ($terms_of_service).'</textarea>';
 }
 
 function kvoucher_plugin_sanitize_terms_of_service_options($input)

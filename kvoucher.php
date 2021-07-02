@@ -312,14 +312,6 @@ function kvcheckCompanyData()
     }
 }
 
-function kvcheckcUrlinstalled()
-{
-    if (! in_array('curl', get_loaded_extensions())) {
-
-        echo '<i style="color:red">' . __('cUrl is not installed on the web server but is required', 'kvoucherpro') . '!</i><br>';
-    }
-}
-
 function kvcheckTermsOfServiceData()
 {
     $terms_of_service_data = array();
@@ -369,8 +361,6 @@ function kvplugin_display()
 	<h2><?php _e('KVoucher Options','kvoucherpro')?></h2>
 	
 		<?php settings_errors(); ?>
-        
-        <?php kvcheckcUrlinstalled();?>
         
         <?php kvcheckCompanyData(); ?>
         

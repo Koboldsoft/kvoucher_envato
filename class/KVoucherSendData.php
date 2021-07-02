@@ -44,19 +44,18 @@ class KVoucherSendData{
             
             $data = self::kvencrytURLVarables($this->data);
             
-            $ch = curl_init("https://couponsystem.koboldsoft.com/createpdf.php"); // cURL ínitialisieren
+            $args = array(
+                'method'      => 'POST',
+                'body'        => $data,
+                'timeout'     => '5',
+                'redirection' => '5',
+                'httpversion' => '1.0',
+                'blocking'    => true,
+                'headers'     => array(),
+                'cookies'     => array(),
+            );
             
-            curl_setopt( $ch, CURLOPT_HEADER, 0 ); // Header soll nicht in Ausgabe enthalten sein
-            
-            curl_setopt( $ch, CURLOPT_POST, 1 ); // POST-Request
-            
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $data ) ; // POST-Felder festlegen, die gesendet werden sollen
-            
-            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-            
-            curl_exec( $ch ); // Ausführen
-            
-            curl_close( $ch ); // Object close
+            $response = wp_remote_post( 'https://couponsystem.koboldsoft.com/createpdf.php', $args );
             
             
         }

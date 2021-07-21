@@ -9,7 +9,7 @@
  * Text Domain: kvoucherpro
  * Domain Path: /languages
  * 
- * * @fs_premium_only /class/KVoucherCustomers_List.php
+ * * @fs_premium_only /class/KV_Customers_List.php
  */
 if (! function_exists('kvo_fs')) {
 
@@ -55,35 +55,35 @@ defined('ABSPATH') or die('Are you ok?');
 
 // load FrontendStuff class
 define('PLUGIN_ROOT_DIR', plugin_dir_path(__FILE__));
-include (PLUGIN_ROOT_DIR . 'class/KVoucherFrontStuff.php');
+include (PLUGIN_ROOT_DIR . 'class/KV_FrontStuff.php');
 
 
 if ( kvo_fs()->can_use_premium_code__premium_only() ) {
-    // load KVoucherCustomers_List class
-    include (PLUGIN_ROOT_DIR . 'class/KVoucherCustomers_List.php');
+    // load KV_Customers_List class
+    include (PLUGIN_ROOT_DIR . 'class/KV_Customers_List.php');
 }
 
 
 // load KoboldcouponCustomers class
-include (PLUGIN_ROOT_DIR . 'class/KVoucherCustomers.php');
+include (PLUGIN_ROOT_DIR . 'class/KV_Customers.php');
 
 // load KVoucherSaveUsrData class
-include (PLUGIN_ROOT_DIR . 'class/KVoucherSaveUsrData.php');
+include (PLUGIN_ROOT_DIR . 'class/KV_SaveUsrData.php');
 
 // load KVoucherSendData class
-include (PLUGIN_ROOT_DIR . 'class/KVoucherSendData.php');
+include (PLUGIN_ROOT_DIR . 'class/KV_SendData.php');
 
 // ####################################################################################################################
 
-use FrontendStuff\KVoucherForm;
+use KVoucherFrontendStuff\KV_Form;
 
-use KVoucherSaveUsrData\KVoucherSaveData;
+use KVoucherSaveUsrData\KV_SaveData;
 
-use KVoucherSendUsrData\KVoucherSendData;
+use KVoucherSendUsrData\KV_SendData;
 
-register_activation_hook(__FILE__, 'kvoucher_install');
+register_activation_hook(__FILE__, 'kv_install');
 
-function kvoucher_install()
+function kv_install()
 {
     global $wpdb;
 
@@ -141,13 +141,13 @@ function kvoucher_install()
     }
 }
 
-function kvoucherpro_load_plugin_textdomain()
+function kv_oucherpro_load_plugin_textdomain()
 {
     load_plugin_textdomain('kvoucherpro', FALSE, basename(dirname(__FILE__)) . '/languages/');
 }
-add_action('plugins_loaded', 'kvoucherpro_load_plugin_textdomain');
+add_action('plugins_loaded', 'kv_oucherpro_load_plugin_textdomain');
 
-function kvencryptData($dataToEncrypt)
+function kv_encryptData($dataToEncrypt)
 {
     $cipher = 'aes-256-ofb';
 
@@ -165,22 +165,22 @@ function kvencryptData($dataToEncrypt)
     }
 }
 
-function kvencrytURLVarables($array)
+function kv_encrytURLVarables($array)
 {
-    $data = kvencryptData(http_build_query($array));
+    $data = kv_encryptData(http_build_query($array));
 
     return $data;
 }
 
-function kvencryptURL($url)
+function kv_encryptURL($url)
 {
-    $data = kvencryptData($url);
+    $data = kv_encryptData($url);
 
     return $data;
 }
 
 // functions company settings here ##############################################################
-function kvinsertSettings()
+function kv_insertSettings()
 {
     require_once 'php/ScCompanySettings.php';
 
@@ -191,14 +191,44 @@ function kvinsertSettings()
     require_once 'php/ScTermsOfServiceSettings.php';
 }
 
-kvinsertSettings();
+kv_insertSettings();
 
-// ##############################################################################################
+add_action( 'wp_head', 'kv_header_scripts' );
+
+function kv_GetCurrencyforPaypalApi()
+{
+    $currency = get_option('kvoucher_plugin_company_textfiels')['currency'];
+    
+    switch ($currency) {
+        case (empty($currency) || $currency == null || $currency == ''):
+            return "EUR";
+            break;
+            
+        case 'euro':
+            return "EUR";
+            break;
+            
+        case 'dollar':
+            return "USD";
+            break;
+            
+        case 'british_pound':
+            return "GBP";
+            break;
+    }
+}
+
+
+function kv_header_scripts(){
+    
+    echo sprintf('<script src="https://www.paypal.com/sdk/js?client-id=%s&currency='.kv_GetCurrencyforPaypalApi().'"></script>', sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels')['paypal_client_id'] ));
+}
 
 // load scripts #######################################
-function kvload_frontend_scripts()
+function kv_load_frontend_scripts()
 {
     wp_enqueue_media();
+    
     // load js admin-script
     wp_register_script('frontend_js_script', plugins_url('/js/frontend-script.js', __FILE__), array(
         'jquery'
@@ -216,7 +246,7 @@ function kvload_frontend_scripts()
     wp_enqueue_style('frontend_css_script');
 }
 
-function kvusr_data_request()
+function kv_usr_data_request()
 {
     $nonce = $_POST['nonce'];
 
@@ -227,24 +257,24 @@ function kvusr_data_request()
 
     if (isset($_POST)) {
         
-        $coupon_data = KVoucherSaveData::kvsaveData( $_POST['data'] );
+        $coupon_data = KV_SaveData::kv_saveData( $_POST['data'] );
         
-        $send = new KVoucherSendData($coupon_data);
+        $send = new KV_SendData($coupon_data);
         
-        $send->kvsendDataCurl(); // send data
+        $send->kv_sendDataCurl(); // send data
         
         }
 
     die();
 }
 
-add_action( 'wp_ajax_kvusr_data_request', 'kvusr_data_request' );
+add_action( 'wp_ajax_kv_usr_data_request', 'kv_usr_data_request' );
 
-add_action('wp_ajax_nopriv_kvusr_data_request', 'kvusr_data_request');
+add_action('wp_ajax_nopriv_kv_usr_data_request', 'kv_usr_data_request');
 
 // create a session
 
-function kvload_backend_scripts()
+function kv_load_backend_scripts()
 {
     wp_enqueue_media();
     // load js admin-script
@@ -252,39 +282,36 @@ function kvload_backend_scripts()
 
     wp_enqueue_script('backend_js_script');
 }
-add_action('admin_enqueue_scripts', 'kvload_backend_scripts');
+add_action('admin_enqueue_scripts', 'kv_load_backend_scripts');
 
-add_action('wp_enqueue_scripts', 'kvload_frontend_scripts');
+add_action('wp_enqueue_scripts', 'kv_load_frontend_scripts');
 
 // add fronpage site #############################################
-function kvoucher_add_frontpage()
+function kv_oucher_add_frontpage()
 {
-    add_shortcode('kvoucher', 'KVoucherFrontendStuff\KVoucherForm::kvBillingAdress');
+    add_shortcode('kvoucher', 'KVoucherFrontendStuff\KV_Form::kv_BillingAdress');
 }
 
-add_action('init', 'kvoucher_add_frontpage');
+add_action('init', 'kv_oucher_add_frontpage');
 
 
 // ################################################################
 
-add_action('admin_menu', 'kvoucher_settings_menu');
+add_action('admin_menu', 'kv_settings_menu');
 
-function kvoucher_settings_menu()
+function kv_settings_menu()
 {
     add_menu_page('KVoucher', // The title to be displayed in the browser window for this page.
     'KVoucher', // The text to be displayed for this menu item
     'administrator', // Which type of users can see this menu item
     'kvoucher_options', // The unique ID - that is, the slug - for this menu item
-    'kvplugin_display', // The name of the function to call when rendering this menu's page
+    'kv_plugin_display', // The name of the function to call when rendering this menu's page
     plugin_dir_url(__FILE__) . 'img/kvoucherpro.png');
 }
 
-function kvoucher_edit_coupons_init()
-{
-    include 'edit_coupons.php';
-}
 
-function kvcheckCompanyData()
+
+function kv_checkCompanyData()
 {
     $company_data = array();
 
@@ -307,12 +334,12 @@ function kvcheckCompanyData()
     foreach ($required_data_company as $required => $value) {
 
         if (empty($company_data[$value]) || $company_data[$value] == null || $company_data[$value] == '') {
-            echo '<i style="color:red">' . $required . ' ' . __('is required!', 'kvoucherpro') . '</i><br>';
+            echo '<i style="color:red">' . esc_html( $required ) . ' ' . esc_html( __('is required!', 'kvoucherpro') ) . '</i><br>';
         }
     }
 }
 
-function kvcheckTermsOfServiceData()
+function kv_checkTermsOfServiceData()
 {
     $terms_of_service_data = array();
 
@@ -331,7 +358,7 @@ function kvcheckTermsOfServiceData()
     }
 }
 
-function kvcheck_paypal_data()
+function kv_check_paypal_data()
 {
     $paypal_data = array();
 
@@ -345,12 +372,17 @@ function kvcheck_paypal_data()
     foreach ($required_data as $required => $value) {
 
         if (empty($paypal_data[$value]) || $paypal_data[$value] == null || $paypal_data[$value] == '') {
-            echo '<i style="color:red">' . $required . ' ' . __('is required!', 'kvoucherpro') . '</i><br>';
+            echo '<i style="color:red">' . esc_html( $required ) . ' ' . __('is required!', 'kvoucherpro') . '</i><br>';
         }
     }
 }
 
-function kvplugin_display()
+add_filter( 'safe_style_css', function( $styles ) {
+    $styles[] = 'display';
+    return $styles;
+} );
+
+function kv_plugin_display()
 {
     ?>
 <!-- Create a header in the default WordPress 'wrap' container -->
@@ -362,11 +394,11 @@ function kvplugin_display()
 	
 		<?php settings_errors(); ?>
         
-        <?php kvcheckCompanyData(); ?>
+        <?php kv_checkCompanyData(); ?>
         
-        <?php kvcheck_paypal_data(); ?>
+        <?php kv_check_paypal_data(); ?>
         
-        <?php kvcheckTermsOfServiceData()?>
+        <?php kv_checkTermsOfServiceData()?>
         
         <?php $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'company_options'; ?>
          

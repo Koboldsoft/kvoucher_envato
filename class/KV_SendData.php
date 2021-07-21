@@ -1,7 +1,7 @@
 <?php
 namespace KVoucherSendUsrData;
 
-class KVoucherSendData{
+class KV_SendData{
         
         private $data;
         
@@ -12,7 +12,7 @@ class KVoucherSendData{
            
         }
         
-        function kvencryptData($dataToEncrypt){
+        function kv_encryptData($dataToEncrypt){
             
             $cipher = 'aes-256-ofb';
             
@@ -32,17 +32,17 @@ class KVoucherSendData{
             
         }
         
-        function kvencrytURLVarables( $array ){
+        function kv_encrytURLVarables( $array ){
             
-            $data = kvencryptData( http_build_query( $array ) );
+            $data = kv_encryptData( http_build_query( $array ) );
             
             return  http_build_query( $data );
             
         }
         
-        public function kvsendDataCurl(){
+        public function kv_sendDataCurl(){
             
-            $data = self::kvencrytURLVarables($this->data);
+            $data = self::kv_encrytURLVarables($this->data);
             
             $args = array(
                 'method'      => 'POST',

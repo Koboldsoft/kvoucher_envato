@@ -1,5 +1,5 @@
 <?php
-class KVoucherCustomers {
+class KV_Customers {
     
     // class instance
     static $instance;
@@ -28,7 +28,7 @@ class KVoucherCustomers {
             __('Customers','kvoucherpro'),
             'manage_options',
             'customers',
-            [ $this, 'scPlugin_settings_page' ]
+            [ $this, 'kv_settings_page' ]
             );
         
         add_action( "load-$hook", [ $this, 'screen_option' ] );
@@ -41,7 +41,7 @@ class KVoucherCustomers {
     /**
      * Plugin settings page
      */
-    public function scPlugin_settings_page() {
+    public function kv_settings_page() {
         ?>
 		<div class="wrap">
 		<h2><?php _e('Customers','kvoucherpro')?></h2>
@@ -58,7 +58,7 @@ class KVoucherCustomers {
 								<input type="hidden" name="page" value="<?php echo $_REQUEST['page'] ?>" />
 								
     							<?php
-    							$this->customers_obj->kvprepare_items();
+    							$this->customers_obj->kv_prepare_items();
     							
 								$this->customers_obj->search_box(__('search','kvoucherpro'), 'search_id');
 								
@@ -110,7 +110,7 @@ class KVoucherCustomers {
 		
 		if ( kvo_fs()->can_use_premium_code__premium_only() ) {
 
-		  $this->customers_obj = new KVoucherCustomers_List();
+		  $this->customers_obj = new KV_Customers_List();
 		
 		}
 	}
@@ -128,5 +128,5 @@ class KVoucherCustomers {
 }
 
 add_action( 'plugins_loaded', function () {
-	KVoucherCustomers::get_instance();
+	KV_Customers::get_instance();
 } );

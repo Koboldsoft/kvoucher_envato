@@ -1,5 +1,5 @@
 <?php
-function kvoucher_initialize_style_options()
+function kv_initialize_style_options()
 {
     
     // If the social options don't exist, create them.
@@ -8,29 +8,29 @@ function kvoucher_initialize_style_options()
     } // end if
     add_settings_section('style_settings_section', // ID used to identify this section and with which to register options
         __('Style Options','kvoucherpro'), // Title to be displayed on the administration page
-        'sandbox_style_options_callback', // Callback used to render the description of the section
+        'kv_sandbox_style_options_callback', // Callback used to render the description of the section
         'kvoucher_plugin_style_textfiels' // Page on which to add this section of options
         );
     
-    add_settings_section('style_preview_button_section',__('Previews','kvoucherpro'),'sandbox_style_button_preview_callback','kvoucher_plugin_style_textfiels');
+    add_settings_section('style_preview_button_section',__('Previews','kvoucherpro'),'kv_sandbox_style_button_preview_callback','kvoucher_plugin_style_textfiels');
     
-    add_settings_field('font_color', __('Font-Color','kvoucherpro' ), 'kvoucher_textfield_style_font_color_callback', 'kvoucher_plugin_style_textfiels', 'style_settings_section');
+    add_settings_field('font_color', __('Font-Color','kvoucherpro' ), 'kv_textfield_style_font_color_callback', 'kvoucher_plugin_style_textfiels', 'style_settings_section');
     
-    add_settings_field('background_color', __('Background-Color','kvoucherpro' ), 'kvoucher_textfield_style_background_color_callback', 'kvoucher_plugin_style_textfiels', 'style_settings_section');
+    add_settings_field('background_color', __('Background-Color','kvoucherpro' ), 'kv_textfield_style_background_color_callback', 'kvoucher_plugin_style_textfiels', 'style_settings_section');
     
-    add_settings_field('logo', 'Logo', 'kvoucher_textfield_style_logo_callback', 'kvoucher_plugin_style_textfiels', 'style_settings_section');
+    add_settings_field('logo', 'Logo', 'kv_textfield_style_logo_callback', 'kvoucher_plugin_style_textfiels', 'style_settings_section');
     
-    register_setting('kvoucher_plugin_style_textfiels', 'kvoucher_plugin_style_textfiels', 'kvoucher_plugin_sanitize_style_options');
+    register_setting('kvoucher_plugin_style_textfiels', 'kvoucher_plugin_style_textfiels', 'kv_plugin_sanitize_style_options');
 } // end kvoucher_initialize_style_options
-add_action('admin_init', 'kvoucher_initialize_style_options');
+add_action('admin_init', 'kv_initialize_style_options');
 
 // callback section
-function sandbox_style_options_callback()
+function kv_sandbox_style_options_callback()
 {
     echo '<p>'.__('Provide your Custom-Style','kvoucherpro' ).'</p>';
 }
 
-function sandbox_style_button_preview_callback(){
+function kv_sandbox_style_button_preview_callback(){
     
     $data['coupon_data']['lang'] = get_locale();
     
@@ -56,7 +56,7 @@ function sandbox_style_button_preview_callback(){
     
     $data['style_data'] = get_option('kvoucher_plugin_style_textfiels');
     
-    $arrquery = @kvencrytURLVarables( $data );
+    $arrquery = @kv_encrytURLVarables( $data );
     
     echo '<a style="margin: 0px 5px 0px 0px;" href="https://couponsystem.koboldsoft.com/preview.php?preview=coupon&'.http_build_query( $arrquery ).'" target="_blank" title="'.__('Preview Coupon','kvoucherpro').'">'.__('Preview Coupon','kvoucherpro').'</a>';
 
@@ -64,7 +64,7 @@ function sandbox_style_button_preview_callback(){
     
 }
 
-function kvoucher_textfield_style_background_color_callback()
+function kv_textfield_style_background_color_callback()
 {
     if(empty(get_option('kvoucher_plugin_style_textfiels')['background_color'])){
         
@@ -72,7 +72,7 @@ function kvoucher_textfield_style_background_color_callback()
         
     }else{
         
-        $background_color = get_option('kvoucher_plugin_style_textfiels')['background_color'];
+        $background_color = sanitize_text_field( get_option('kvoucher_plugin_style_textfiels')['background_color'] );
         
     };
     
@@ -93,7 +93,7 @@ function kvoucher_textfield_style_background_color_callback()
     
 }
 
-function kvoucher_textfield_style_font_color_callback()
+function kv_textfield_style_font_color_callback()
 {
     if(empty(get_option('kvoucher_plugin_style_textfiels')['font_color'])){
         $font_color ='#000000';
@@ -115,7 +115,7 @@ function kvoucher_textfield_style_font_color_callback()
     }
 }
 
-function kvoucher_textfield_style_logo_callback()
+function kv_textfield_style_logo_callback()
 {
     if(empty(get_option('kvoucher_plugin_style_textfiels')['logo'])){
         $logo ='';
@@ -127,7 +127,7 @@ function kvoucher_textfield_style_logo_callback()
     echo '<input id="upload_image_button" class="button button-primary" class="button" type="button" value="'.__('Upload Image','kvoucherpro').'" />';
 }
 
-function kvoucher_plugin_sanitize_style_options($input)
+function kv_plugin_sanitize_style_options($input)
 {
     if( isset( $input['background_color'] ) )
         $new_input['background_color'] = sanitize_text_field($input['background_color']);

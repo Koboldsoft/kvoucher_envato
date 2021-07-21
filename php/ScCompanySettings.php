@@ -1,87 +1,87 @@
 <?php
 
-function kvoucher_initialize_company_options()
+function kv_initialize_company_options()
 {
     if (false == get_option('kvoucher_plugin_company_textfiels')) {
         add_option('kvoucher_plugin_company_textfiels');
     } // end if
 
     // First, we register a section. This is necessary since all future options must belong to a
-    add_settings_section('company_settings_section', __( 'Company Options', 'kvoucherpro'),'kvoucher_general_company_callback','kvoucher_plugin_company_textfiels');
+    add_settings_section('company_settings_section', __( 'Company Options', 'kvoucherpro'),'kv_general_company_callback','kvoucher_plugin_company_textfiels');
 
-    add_settings_field('company', __( 'Company', 'kvoucherpro').'*', 'kvoucher_textfield_company_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('company', __( 'Company', 'kvoucherpro').'*', 'kv_textfield_company_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('first_name',__( 'First Name', 'kvoucherpro').'*','kvoucher_textfield_first_name_callback','kvoucher_plugin_company_textfiels','company_settings_section');
+    add_settings_field('first_name',__( 'First Name', 'kvoucherpro').'*','kv_textfield_first_name_callback','kvoucher_plugin_company_textfiels','company_settings_section');
 
-    add_settings_field('last_name',__( 'Last Name', 'kvoucherpro').'*', 'kvoucher_textfield_last_name_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('last_name',__( 'Last Name', 'kvoucherpro').'*', 'kv_textfield_last_name_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('street_name',__( 'No. /Streetname', 'kvoucherpro').'*', 'kvoucher_textfield_street_name_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('street_name',__( 'No. /Streetname', 'kvoucherpro').'*', 'kv_textfield_street_name_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('postal_code',__( 'Postal-Code', 'kvoucherpro').'*', 'kvoucher_textfield_postal_code_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('postal_code',__( 'Postal-Code', 'kvoucherpro').'*', 'kv_textfield_postal_code_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('city', __( 'City', 'kvoucherpro').'*', 'kvoucher_textfield_city_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('city', __( 'City', 'kvoucherpro').'*', 'kv_textfield_city_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
     
-    add_settings_field('country', __( 'Country', 'kvoucherpro').'*', 'kvoucher_textfield_country_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('country', __( 'Country', 'kvoucherpro').'*', 'kv_textfield_country_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('tax_number', __( 'Tax number', 'kvoucherpro'), 'kvoucher_textfield_tax_number_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('tax_number', __( 'Tax number', 'kvoucherpro'), 'kv_textfield_tax_number_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('phone_number', __( 'Phonenumber', 'kvoucherpro').'*', 'kvoucher_textfield_phone_number_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('phone_number', __( 'Phonenumber', 'kvoucherpro').'*', 'kv_textfield_phone_number_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('company_url', __( 'Company Domain', 'kvoucherpro').'*', 'kvoucher_textfield_company_url_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('company_url', __( 'Company Domain', 'kvoucherpro').'*', 'kv_textfield_company_url_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('company_email',__( 'Company E-mail', 'kvoucherpro').'*', 'kvoucher_textfield_company_email_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('company_email',__( 'Company E-mail', 'kvoucherpro').'*', 'kv_textfield_company_email_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
     
-    add_settings_field('validity', __( 'Validity', 'kvoucherpro'), 'kvoucher_textfield_validity_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('validity', __( 'Validity', 'kvoucherpro'), 'kv_textfield_validity_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
     
-    add_settings_field('currency', __( 'Currency', 'kvoucherpro'), 'kvoucher_textfield_currency_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('currency', __( 'Currency', 'kvoucherpro'), 'kv_textfield_currency_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
     
-    add_settings_field('shipping', __( 'Shipping', 'kvoucherpro').'*', 'kvoucher_textfield_company_shipping_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('shipping', __( 'Shipping', 'kvoucherpro').'*', 'kv_textfield_company_shipping_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
     
-    add_settings_field('shipping_costs',__( 'Shipping costs by post', 'kvoucherpro'), 'kvoucher_textfield_shipping_costs_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('shipping_costs',__( 'Shipping costs by post', 'kvoucherpro'), 'kv_textfield_shipping_costs_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
-    add_settings_field('value_added_tax',__( 'Value added tax in percent', 'kvoucherpro').'*', 'kvoucher_textfield_value_added_tax_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
+    add_settings_field('value_added_tax',__( 'Value added tax in percent', 'kvoucherpro').'*', 'kv_textfield_value_added_tax_callback', 'kvoucher_plugin_company_textfiels', 'company_settings_section');
 
     // Finally, we register the fields with WordPress
 
-    register_setting('kvoucher_plugin_company_textfiels', 'kvoucher_plugin_company_textfiels', 'kvoucher_plugin_sanitize_company_options');
-} // end kvoucher_initialize_company_options
-add_action('admin_init', 'kvoucher_initialize_company_options');
+    register_setting('kvoucher_plugin_company_textfiels', 'kvoucher_plugin_company_textfiels', 'kv_plugin_sanitize_company_options');
+} // end kv_initialize_company_options
+add_action('admin_init', 'kv_initialize_company_options');
 
 /*
  * ------------------------------------------------------------------------ *
  * Section Callbacks
  * ------------------------------------------------------------------------
  */
-function kvoucher_general_company_callback()
+function kv_general_company_callback()
 {
     _e( 'Register your company data.', 'kvoucherpro');
     
 }
 
-// end kvoucher_general_company_callback
+// end kv_general_company_callback
 
 /*
  * ------------------------------------------------------------------------ *
  * Field Callbacks
  * ------------------------------------------------------------------------
  */
-function kvoucher_textfield_company_callback()
+function kv_textfield_company_callback()
 {
     
     if (empty(get_option('kvoucher_plugin_company_textfiels')['company'])) {
         $company = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
         
     } else {
-        $company = get_option('kvoucher_plugin_company_textfiels')['company'];
+        $company = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['company'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="text" id="show_company" name="kvoucher_plugin_company_textfiels[company]" value="' . esc_attr($company) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="show_company" name="kvoucher_plugin_company_textfiels[company]" value="' . esc_attr($company) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 }
 
-function kvoucher_textfield_shipping_costs_callback()
+function kv_textfield_shipping_costs_callback()
 {
     
     if (empty(get_option('kvoucher_plugin_company_textfiels')['shipping_costs'])) {
@@ -90,122 +90,122 @@ function kvoucher_textfield_shipping_costs_callback()
         
     } else {
         
-        $shipping_costs = get_option('kvoucher_plugin_company_textfiels')['shipping_costs'];
+        $shipping_costs = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['shipping_costs'] );
         
     }
     
-    echo '<input type="text" id="shipping_costs" maxlength="8" size="8" name="kvoucher_plugin_company_textfiels[shipping_costs]" value="' . esc_attr( $shipping_costs ) . '"/> <b id="curr_shipping">'.esc_attr( getCurrency() ).'</b>';
+    echo '<input type="text" id="shipping_costs" maxlength="8" size="8" name="kvoucher_plugin_company_textfiels[shipping_costs]" value="' . esc_attr( $shipping_costs ) . '"/> <b id="curr_shipping">'.esc_attr( kv_getCurrency() ).'</b>';
     
 
 }
 
-// end kvoucher_textfield_company_callback
-function kvoucher_textfield_first_name_callback($args)
+// end kv_textfield_company_callback
+function kv_textfield_first_name_callback($args)
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['first_name'])) {
         $first_name = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $first_name = get_option('kvoucher_plugin_company_textfiels')['first_name'];
+        $first_name = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['first_name'] );
     }
     ;
 
-    echo '<input type="text" id="show_firstname" name="kvoucher_plugin_company_textfiels[first_name]" value="' . esc_attr($first_name) . '" required/>'. esc_attr( $msg );
+    echo '<input type="text" id="show_firstname" name="kvoucher_plugin_company_textfiels[first_name]" value="' . esc_attr($first_name) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 
 }
 
-// end kvoucher_textfield_first_name_callback
-function kvoucher_textfield_last_name_callback()
+// end kv_textfield_first_name_callback
+function kv_textfield_last_name_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['last_name'])) {
         $last_name = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $last_name = get_option('kvoucher_plugin_company_textfiels')['last_name'];
+        $last_name = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['last_name'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="text" id="last_name" name="kvoucher_plugin_company_textfiels[last_name]" value="' . esc_attr($last_name) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="last_name" name="kvoucher_plugin_company_textfiels[last_name]" value="' . esc_attr($last_name) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 }
 
-// end kvoucher_textfield_first_name_callback
-function kvoucher_textfield_street_name_callback()
+// end kv_textfield_first_name_callback
+function kv_textfield_street_name_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['street_name'])) {
         $street_name = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $street_name = get_option('kvoucher_plugin_company_textfiels')['street_name'];
+        $street_name = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['street_name'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="text" id="street_name" name="kvoucher_plugin_company_textfiels[street_name]" value="' . esc_attr($street_name) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="street_name" name="kvoucher_plugin_company_textfiels[street_name]" value="' . esc_attr($street_name) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 }
 
-// end kvoucher_textfield_street_name_callback
+// end kv_textfield_street_name_callback
 
 //
-function kvoucher_textfield_postal_code_callback()
+function kv_textfield_postal_code_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['postal_code'])) {
         $postal_code = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $postal_code = get_option('kvoucher_plugin_company_textfiels')['postal_code'];
+        $postal_code = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['postal_code'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[postal_code]" value="' . esc_attr($postal_code) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[postal_code]" value="' . esc_attr($postal_code) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 
 }
 
 // end kvoucher_textfield_post_code_callback
-function kvoucher_textfield_city_callback()
+function kv_textfield_city_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['city'])) {
         $city = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $city = get_option('kvoucher_plugin_company_textfiels')['city'];
+        $city = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['city'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[city]" value="' . esc_attr( $city ) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[city]" value="' . esc_attr( $city ) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 
 }
 
-function kvoucher_textfield_country_callback()
+function kv_textfield_country_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['country'])) {
         $country = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $country = get_option('kvoucher_plugin_company_textfiels')['country'];
+        $country =  sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['country'] );
         $msg = '';
     }
     ;
     
-    echo '<input type="text" id="country" placeholder="'.__( 'your country', 'kvoucherpro').'" name="kvoucher_plugin_company_textfiels[country]" value="' . esc_attr( $country ) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="country" placeholder="'.__( 'your country', 'kvoucherpro').'" name="kvoucher_plugin_company_textfiels[country]" value="' . esc_attr( $country ) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 ;
 }
 
-// end kvoucher_textfield_city_callback
-function kvoucher_textfield_tax_number_callback($args)
+// end kv_textfield_city_callback
+function kv_textfield_tax_number_callback($args)
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['tax_number'])) {
         $tax_number = '';
         
     } else {
-        $tax_number = get_option('kvoucher_plugin_company_textfiels')['tax_number'];
+        $tax_number = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['tax_number'] );
         
     }
 
@@ -213,57 +213,57 @@ function kvoucher_textfield_tax_number_callback($args)
 
 }
 
-// end kvoucher_textfield_tax_number_callback
-function kvoucher_textfield_phone_number_callback()
+// end kv_textfield_tax_number_callback
+function kv_textfield_phone_number_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['phone_number'])) {
         $phone_number = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $phone_number = get_option('kvoucher_plugin_company_textfiels')['phone_number'];
+        $phone_number = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['phone_number'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[phone_number]" value="' . esc_attr( $phone_number ) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="postal_code" name="kvoucher_plugin_company_textfiels[phone_number]" value="' . esc_attr( $phone_number ) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 }
 
-// end kvoucher_textfield_phone_number_callback
-function kvoucher_textfield_company_url_callback()
+// end kv_textfield_phone_number_callback
+function kv_textfield_company_url_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['company_url'])) {
         $company_url = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $company_url = get_option('kvoucher_plugin_company_textfiels')['company_url'];
+        $company_url = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['company_url'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="text" id="company_url" placeholder="example.com" name="kvoucher_plugin_company_textfiels[company_url]" value="' . esc_attr($company_url) . '" required/>'.esc_attr( $msg );
+    echo '<input type="text" id="company_url" placeholder="example.com" name="kvoucher_plugin_company_textfiels[company_url]" value="' . esc_attr($company_url) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 }
 
 // end kvoucher_textfield_companx_url_callback
-function kvoucher_textfield_company_email_callback()
+function kv_textfield_company_email_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['company_email'])) {
         $company_email = '';
-        $msg = ' <small style="color:red">'.__( 'required', 'kvoucherpro').'!<small/>';
+        $msg = sanitize_text_field( __( 'required !', 'kvoucherpro') );
     } else {
-        $company_email = get_option('kvoucher_plugin_company_textfiels')['company_email'];
+        $company_email = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['company_email'] );
         $msg = '';
     }
     ;
 
-    echo '<input type="email" id="company_email" placeholder="example@example.com" name="kvoucher_plugin_company_textfiels[company_email]" value="' . esc_attr($company_email) . '" required/>'.esc_attr( $msg );
+    echo '<input type="email" id="company_email" placeholder="example@example.com" name="kvoucher_plugin_company_textfiels[company_email]" value="' . esc_attr($company_email) . '" required/><small style="color:red">'.esc_html( $msg ).'<small/>';
 
 }
 
-// end kvoucher_textfield_company_email_callback
+// end kv_textfield_company_email_callback
 
-function kvoucher_textfield_company_shipping_callback(){
+function kv_textfield_company_shipping_callback(){
     
     if (empty(get_option('kvoucher_plugin_company_textfiels')['shipping'])) {
         
@@ -284,7 +284,7 @@ function kvoucher_textfield_company_shipping_callback(){
     
 }
 
-function kvoucher_textfield_currency_callback(){
+function kv_textfield_currency_callback(){
     
     if (empty(get_option('kvoucher_plugin_company_textfiels')['currency'])) {
         
@@ -306,7 +306,7 @@ function kvoucher_textfield_currency_callback(){
     
 }
 
-function kvoucher_textfield_validity_callback(){
+function kv_textfield_validity_callback(){
     
     if (empty(get_option('kvoucher_plugin_company_textfiels')['validity'])) {
         
@@ -331,7 +331,7 @@ function kvoucher_textfield_validity_callback(){
 }
 
 
-function kvoucher_textfield_value_added_tax_callback()
+function kv_textfield_value_added_tax_callback()
 {
     if (empty(get_option('kvoucher_plugin_company_textfiels')['value_added_tax'])) {
         
@@ -347,7 +347,7 @@ function kvoucher_textfield_value_added_tax_callback()
     
 }
 
-function kvoucher_plugin_sanitize_company_options($input)
+function kv_plugin_sanitize_company_options($input)
 {
     $new_input = array();
     if (isset($input['company']))
@@ -385,7 +385,7 @@ function kvoucher_plugin_sanitize_company_options($input)
 
     if (isset($input['value_added_tax']))
         
-        $new_input['value_added_tax'] =  kvoucherPregMatchValueaddedTax($input['value_added_tax']);
+        $new_input['value_added_tax'] =  kv_PregMatchValueaddedTax(sanitize_text_field($input['value_added_tax']));
     
     if (isset($input['shipping']))
             
@@ -401,12 +401,12 @@ function kvoucher_plugin_sanitize_company_options($input)
     
     if (isset($input['shipping_costs']))
             
-        $new_input['shipping_costs'] =  kvoucherPregMatchShippingCosts($input['shipping_costs']);
+        $new_input['shipping_costs'] =  kv_PregMatchShippingCosts($input['shipping_costs']);
 
     return $new_input;
 }
 
-function kvoucherPregMatchShippingCosts($shipping_costs){
+function kv_PregMatchShippingCosts($shipping_costs){
     
     $shipping_costs = str_replace('.', ',', $shipping_costs);
     
@@ -424,7 +424,7 @@ function kvoucherPregMatchShippingCosts($shipping_costs){
     
 }
 
-function kvoucherPregMatchValueaddedTax($valueaddedtax){
+function kv_PregMatchValueaddedTax($valueaddedtax){
     
     $valueaddedtax = str_replace('.', ',', $valueaddedtax);
     
@@ -442,9 +442,9 @@ function kvoucherPregMatchValueaddedTax($valueaddedtax){
     
 }
 
-function getCurrency(){
+function kv_getCurrency(){
     
-    @$currency = get_option('kvoucher_plugin_company_textfiels')['currency'];
+    @$currency = sanitize_text_field( get_option('kvoucher_plugin_company_textfiels')['currency'] );
     
     if( empty( $currency ) ){ $output = "€"; };
     

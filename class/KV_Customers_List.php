@@ -3,17 +3,17 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-class KVoucherCustomers_List extends WP_List_Table {
+class KV_Customers_List extends WP_List_Table {
     
-    /*
-    private function kvencrytURLVarables($array){
+    
+    private function kv_encrytURLVarables($array){
         
-        $data = kvencryptData( http_build_query( $array ),'~B-$mAf5~jm<Fz!p' );
+        $data = kv_encryptData( http_build_query( $array ),'~B-$mAf5~jm<Fz!p' );
         
         return http_build_query( array( 'data' => $data['data'],'iv' => $data['iv'] ) );
         
     }
-    */
+    
     
     /** Class constructor */
     public function __construct() {
@@ -34,7 +34,7 @@ class KVoucherCustomers_List extends WP_List_Table {
      *
      * @return mixed
      */
-    public static function kvget_customers($view, $per_page = 10, $page_number = 1 ) {
+    public static function kv_get_customers($view, $per_page = 10, $page_number = 1 ) {
         
         global $wpdb;
         if($view == ''){
@@ -67,7 +67,7 @@ class KVoucherCustomers_List extends WP_List_Table {
         return $result;
     }
     
-    public function kvget_customers_search( $per_page = 10, $page_number = 1 , $search_id){
+    public function kv_get_customers_search( $per_page = 10, $page_number = 1 , $search_id){
         
         global $wpdb;
         
@@ -104,7 +104,7 @@ class KVoucherCustomers_List extends WP_List_Table {
      *
      * @param int $id customer ID
      */
-    public static function kvget_customer( $id ) {
+    public static function kv_get_customer( $id ) {
         global $wpdb;
         
         $result = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}usr_kvoucher WHERE id = %d", $id )  );
@@ -119,7 +119,7 @@ class KVoucherCustomers_List extends WP_List_Table {
      *
      * @return null|string
      */
-    public static function kvrecord_count($search_id,$view) {
+    public static function kv_record_count($search_id,$view) {
         
         global $wpdb;
         
@@ -283,7 +283,7 @@ class KVoucherCustomers_List extends WP_List_Table {
         
         $coupon_data['style_data'] = get_option('kvoucher_plugin_style_textfiels');
         
-        $dataencrypt = kvencrytURLVarables($coupon_data);
+        $dataencrypt = kv_encrytURLVarables($coupon_data);
         
         if (strcmp($item['shipping'], 'E-mail') === 0) {
         
@@ -359,16 +359,16 @@ class KVoucherCustomers_List extends WP_List_Table {
     /**
      * Handles data query and filter, sorting, and pagination.
      */
-    public function kvprepare_items() {
+    public function kv_prepare_items() {
         
         $this->_column_headers = $this->get_column_info();
         
         /** Process bulk action */
-        $this->kvprocess_bulk_action();
+        $this->kv_process_bulk_action();
         
         $this->process_show_status();
         
-        $total_items  = self::kvrecord_count($_REQUEST['s'],$_REQUEST['view']);
+        $total_items  = self::kv_record_count($_REQUEST['s'],$_REQUEST['view']);
         
         $per_page = $this->get_items_per_page( 'customers_per_page', 10 );
         
@@ -383,7 +383,7 @@ class KVoucherCustomers_List extends WP_List_Table {
             
             $this->views();
             
-            $this->items = self::kvget_customers_search( $per_page, $current_page , $_REQUEST['s'] );
+            $this->items = self::kv_get_customers_search( $per_page, $current_page , $_REQUEST['s'] );
             
         }else{
             
@@ -396,12 +396,12 @@ class KVoucherCustomers_List extends WP_List_Table {
             
            $this->views();
         
-           $this->items = self::kvget_customers($_REQUEST['view'], $per_page, $current_page );
+           $this->items = self::kv_get_customers($_REQUEST['view'], $per_page, $current_page );
             
         }
     }
     
-    public function kvsetSingleButtonAction($action,$text,$color,$confirmtext){
+    public function kv_setSingleButtonAction($action,$text,$color,$confirmtext){
         
         $output = '<input style="margin-right:5px;background:'.$color.';border-color:'.$color.';box-shadow: 0 1px 0 '.$color.';text-shadow: 0 1px 0 '.$color.'" id="submit" name="coupon_action_'.$action.'" class="button button-primary" type="submit" onclick="return confirm('.$confirmtext.');" value="'.$text.'">';
         
@@ -410,7 +410,7 @@ class KVoucherCustomers_List extends WP_List_Table {
         
     }
     
-    public function kvsetAction($id,$action){
+    public function kv_setAction($id,$action){
         
         global $wpdb;
         
@@ -429,7 +429,7 @@ class KVoucherCustomers_List extends WP_List_Table {
         
     }
     
-    private function kvcheckCustomer($id,$key){
+    private function kv_checkCustomer($id,$key){
         
         if (strcmp($id, $key) !== 0) {
             
@@ -448,7 +448,7 @@ class KVoucherCustomers_List extends WP_List_Table {
         return $status_links;
     }
     
-    private function kvcheckCurrency($currency){
+    private function kv_checkCurrency($currency){
         
         switch ($currency) {
             
@@ -469,7 +469,7 @@ class KVoucherCustomers_List extends WP_List_Table {
     }
     
     
-    public function kvprocess_bulk_action() {
+    public function kv_process_bulk_action() {
         
         //Detect when a bulk action is being triggered...
         
@@ -481,7 +481,7 @@ class KVoucherCustomers_List extends WP_List_Table {
                 die( 'Go get a life script kiddies' );
             }
             else {
-                self::kvsetAction( absint( $_GET['customer'] ),'2' );
+                self::kv_setAction( absint( $_GET['customer'] ),'2' );
                 
                 // esc_url_raw() is used to prevent converting ampersand in url to "#038;"
                 // add_query_arg() return the current url
@@ -500,15 +500,15 @@ class KVoucherCustomers_List extends WP_List_Table {
             
             $id = $_REQUEST['customer'];
             
-            if(isset($_REQUEST['coupon_action_redeem'])){ self::kvsetAction($id,'1');}
+            if(isset($_REQUEST['coupon_action_redeem'])){ self::kv_setAction($id,'1');}
             
-            if(isset($_REQUEST['coupon_action_sto'])){ self::kvsetAction($id,'2');}
+            if(isset($_REQUEST['coupon_action_sto'])){ self::kv_setAction($id,'2');}
             
-            if(isset($_REQUEST['coupon_action_ret'])){ self::kvsetAction($id,'0');}
+            if(isset($_REQUEST['coupon_action_ret'])){ self::kv_setAction($id,'0');}
             
-            $result = self::kvget_customer(absint(  $id) );
+            $result = self::kv_get_customer(absint(  $id) );
             
-            self::kvcheckCustomer($_REQUEST['key'], $result -> key_kvoucher);
+            self::kv_checkCustomer($_REQUEST['key'], $result -> key_kvoucher);
             
             echo ($result->action == '0' ? "<p style='color:green;'>".__('The voucher has not yet been redeemed','kvoucherpro')."</p>." : "");
             
@@ -516,11 +516,11 @@ class KVoucherCustomers_List extends WP_List_Table {
             
             echo ($result->action == '2' ? "<p style='color:Orange;'>".__('The voucher has been canceled','kvoucherpro')."</p>." : "");
             
-            if( $result->action == '0' ){ echo self::kvsetSingleButtonAction('redeem',__('Redeem voucher','kvoucherpro'),'#0085ba',__("'Are you sure you want to redeem the voucher?'",'kvoucherpro')); };
+            if( $result->action == '0' ){ echo self::kv_setSingleButtonAction('redeem',__('Redeem voucher','kvoucherpro'),'#0085ba',__("'Are you sure you want to redeem the voucher?'",'kvoucherpro')); };
             
-            if( $result->action == '0' ){ echo self::kvsetSingleButtonAction('sto',__('Cancel voucher','kvoucherpro'),'Red',__("'Are you sure you want to cancel the voucher?'",'kvoucherpro')); };
+            if( $result->action == '0' ){ echo self::kv_setSingleButtonAction('sto',__('Cancel voucher','kvoucherpro'),'Red',__("'Are you sure you want to cancel the voucher?'",'kvoucherpro')); };
             
-            if( $result->action != '0' ){ echo self::kvsetSingleButtonAction('ret',__('Mark the voucher as OPEN again','kvoucherpro'),'#0085ba',__("'Are you sure you want to mark the voucher as OPEN again?'",'kvoucherpro')); };
+            if( $result->action != '0' ){ echo self::kv_setSingleButtonAction('ret',__('Mark the voucher as OPEN again','kvoucherpro'),'#0085ba',__("'Are you sure you want to mark the voucher as OPEN again?'",'kvoucherpro')); };
             
             echo '</p>';
             
@@ -552,7 +552,7 @@ class KVoucherCustomers_List extends WP_List_Table {
             
             echo '<tbody>';
             
-            echo '<tr><th scope="row">'.__('Value','kvoucherpro').':</th><td>'. number_format( $result->price, 2, ',', ' ') .' '.self::kvcheckCurrency($result->currency).'</td></tr>';
+            echo '<tr><th scope="row">'.__('Value','kvoucherpro').':</th><td>'. number_format( $result->price, 2, ',', ' ') .' '.self::kv_checkCurrency($result->currency).'</td></tr>';
             
             echo '<tr><th scope="row">'.__('Shipping','kvoucherpro').':</th><td>'. $result->shipping .'</td></tr>';
             
@@ -618,7 +618,7 @@ class KVoucherCustomers_List extends WP_List_Table {
                 // loop over the array of record IDs and delete them
                 foreach ( $cancel_ids as $id ) {
                     
-                            self::kvsetAction( $id,'2' );
+                            self::kv_setAction( $id,'2' );
                         
                    }
                 

@@ -1,11 +1,11 @@
-function kvsubmitForms(id) {
+function kv_submitForms(id) {
 
 	document.getElementById(id).submit();
 
 }
 
 // open terms of conditions (toc)
-function kvopenToc() {
+function kv_openToc() {
 
 	document.getElementById("toc").style.display = "block";
 
@@ -22,7 +22,7 @@ function kvopenToc() {
 
 }
 
-function kvopenThxMsg() {
+function kv_openThxMsg() {
 
 	var browser_height = window.innerHeight * 0.90;
 
@@ -37,7 +37,7 @@ function kvopenThxMsg() {
 
 }
 
-function kvcloseToc() {
+function kv_closeToc() {
 	document.getElementById("toc").style.display = "none";
 }
 
@@ -56,7 +56,7 @@ function kvtoggleDisableDelShippingAdress(checkbox) {
 	}
 }
 
-function kvtoggleEnableDelCompany(radiobox) {
+function kv_toggleEnableDelCompany(radiobox) {
 
 	var fieldset = document.getElementById("company_input_field");
 
@@ -68,7 +68,7 @@ function kvtoggleEnableDelCompany(radiobox) {
 
 }
 
-function kvtoggleDisableDelCompany(radiobox) {
+function kv_toggleDisableDelCompany(radiobox) {
 
 	var fieldset = document.getElementById("company_input_field");
 
@@ -80,7 +80,7 @@ function kvtoggleDisableDelCompany(radiobox) {
 
 }
 
-function kvdif_del_adress() {
+function kv_dif_del_adress() {
 	var checkbox = document
 			.getElementById('checkbox_different_delivery_shipping_adress');
 	console.log(checkbox);
@@ -106,13 +106,13 @@ function kvdif_del_adress() {
 	}
 }
 
-var kvsaveUserData;
+var kv_saveUserData;
 
 //this is jQuery function
 jQuery(function(){
-	kvsaveUserData = function( data )
+	kv_saveUserData = function( data )
   {
-  	 // We'll pass this variable to the PHP function kvusr_data_request
+  	 // We'll pass this variable to the PHP function kv_usr_data_request
       
        
       // This does the ajax request
@@ -120,7 +120,7 @@ jQuery(function(){
       	type: 'POST',
           url: usr_data_obj.ajaxurl,
           data: {
-              'action': 'kvusr_data_request',
+              'action': 'kv_usr_data_request',
               'data' : data,
               'nonce' : usr_data_obj.nonce
           },

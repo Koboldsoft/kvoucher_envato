@@ -14,19 +14,14 @@ if (! class_exists('KV_Form')) {
 
                 if ($content != 'action') {
 
-                    $output .= '<input type="hidden" name="' . esc_html($content) . '" value="' . esc_html($value) . '">';
+                    echo ' <input type="hidden" name="' . esc_html($content) . '" value="' . esc_html($value) . '">';
                 }
-                
             }
-            
-            return $output;
         }
 
-        private static function kv_Button($value, $label)
+        private function kv_Button($value, $label)
         {
-            $output = '<button style="margin:5px;" type="submit" value="' . esc_html($value) . '" name="action">' . esc_html($label) . '</button>';
-            
-            return $output;
+            echo '<button style="margin:5px;" type="submit" value="' . esc_html($value) . '" name="action">' . esc_html($label) . '</button>';
 
         }
 
@@ -41,13 +36,11 @@ if (! class_exists('KV_Form')) {
         {
             
 
-                $output = '<label for="check">' . __('Specify a different delivery address', 'kvoucherpro') . '</label>
+                echo '<label for="check">' . __('Specify a different delivery address', 'kvoucherpro') . '</label>
 
                        <input type="hidden" name="checkbox_del_shipping_adress" value="0" />
 
                        <input type="checkbox" onchange="kvtoggleDisableDelShippingAdress(this)" name="checkbox_del_shipping_adress" value="1" ' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'checked' : '') . ' id="checkbox_del_shipping_adress">';
-                
-                return $output;
             
 
             
@@ -141,7 +134,7 @@ if (! class_exists('KV_Form')) {
         {
             $currency = self::kv_GetCurrencyPaypalHTMLoutput();
 
-            $output = '<style>
+            echo '<style>
 
                         .radio-toolbar input[type="radio"] { opacity: 0;position: fixed;width: 0; }
                         
@@ -153,13 +146,16 @@ if (! class_exists('KV_Form')) {
 
                         input[type=text], select, textarea{ width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; resize: vertical; }
                        
-                      </style>
+                      </style>';
 
-                        <fieldset class="radio-toolbar">
+            // This IF block will be auto removed from the Free Version and will only get executed if the user on a trial or have a valid license.
+           
+
+                echo '<fieldset class="radio-toolbar">
 
                        <legend>' . __('Value', 'kvoucherpro') . '</legend>
 
-                       <input class="price" type="radio" id="twenty" name="price" value="20" ' . ( empty($_POST['price']) || $_POST['price'] == '20' ? 'checked' : '') . '>
+                       <input class="price" type="radio" id="twenty" name="price" value="20" ' . (empty($_POST['price']) || $_POST['price'] == '20' ? 'checked' : '') . '>
                 
     	               <label for="twenty">20,00 ' . esc_html($currency) . '</label>
                 
@@ -191,15 +187,13 @@ if (! class_exists('KV_Form')) {
                 
 	                   </fieldset>';
             
-            return $output;
-            
 
          }
 
         // end kv_BillingAdressPrice()
         private static function kv_BillingAdressAdress()
         {
-            $output = '<fieldset>
+            echo '<fieldset>
                 
                         <legend>' . __('Billing address', 'kvoucherpro') . '</legend>
                 
@@ -230,15 +224,13 @@ if (! class_exists('KV_Form')) {
                         <p><label style="width: 140px;" for="email">' . __('E-mail', 'kvoucherpro') . '*:</label><input type="email" maxlength="50" name="email" id="email" value="' . (! empty($_POST['email']) ? esc_html($_POST['email']) : '') . '" required="required" placeholder="' . __('E-mail', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
                         </fieldset>';
-            
-            return $output;
         }
 
         // end kv_BillingAdressAdress()
         private static function kv_BillingAdressDeliveryShipping()
 
         {
-            $output =  '<fieldset id="fieldset_del_shipping_adress"' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'style="display:block' : 'disabled="disabled" style="display:none') . '">
+            echo '<fieldset id="fieldset_del_shipping_adress"' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'style="display:block' : 'disabled="disabled" style="display:none') . '">
 
                       <legend>' . __('Differing Shipping Address', 'kvoucherpro') . '</legend>
 
@@ -261,8 +253,6 @@ if (! class_exists('KV_Form')) {
                       <p><label style="width: 140px;" for="dif_email">' . __('E-mail', 'kvoucherpro') . '*:</label><input type="email" name="dif_email" id="dif_email" value ="' . (! empty($_POST['dif_email']) ? esc_html($_POST['dif_email']) : '') . '" required="required" placeholder="' . __('E-mail', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
                       </fieldset>';
-            
-            return $output;
         }
 
         // end kv_BillingAdressDeliveryShipping()
@@ -289,7 +279,7 @@ if (! class_exists('KV_Form')) {
 
             $summe = $wert + $shipping_costs;
 
-            $output = '<fieldset>
+            echo '<fieldset>
 
                         <legend>' . __('Voucher for', 'kvoucherpro') . '</legend>
 
@@ -303,7 +293,7 @@ if (! class_exists('KV_Form')) {
             
                         ' . __('Value', 'kvoucherpro') . ': ' . number_format(esc_html($_POST['price'], 2, ',', '.')) . ' ' . esc_html($currency) . '</fieldset>';
 
-            $output .= '<fieldset>
+            echo '<fieldset>
 
                      <legend>' . __('Billing Adress', 'kvoucherpro') . '</legend>
 
@@ -327,7 +317,7 @@ if (! class_exists('KV_Form')) {
             
                         ' . __('Shipping', 'kvoucherpro') . ': ' . esc_html($_POST['shipping']) . '<br></fieldset>';
 
-            $output .= '<fieldset>
+            echo '<fieldset>
                         
                         <legend>' . __('Shipping Adress', 'kvoucherpro') . '</legend>' .
             
@@ -344,8 +334,6 @@ if (! class_exists('KV_Form')) {
                         ($_POST['checkbox_del_shipping_adress'] == '1' ? __('E-mail', 'kvoucherpro') . ': ' . esc_html($_POST['dif_email']) . '<br>' : __('E-mail', 'kvoucherpro') . ': ' . esc_html($_POST['email']) . '<br>') . __('Shipping', 'kvoucherpro') . ': ' . esc_html($_POST['shipping']) . 
             
                 '</fieldset>';
-            
-                        return $output;
         }
 
         // end kv_PayCoupon()
@@ -361,23 +349,21 @@ if (! class_exists('KV_Form')) {
                 $terms = '';
             }
 
-            $output = '<p><label for="checkbox_terms_of_sevice">' . __('Please confirm our', 'kvoucherpro') . ' ' . (self::kv_CheckTermsOfServiceData() == true ? '<a onclick="kv_openToc();">' . __('terms and conditions', 'kvoucherpro') . '</a>' : 'AGB´s') . '</label>
+            echo '<p><label for="checkbox_terms_of_sevice">' . __('Please confirm our', 'kvoucherpro') . ' ' . (self::kv_CheckTermsOfServiceData() == true ? '<a onclick="kv_openToc();">' . __('terms and conditions', 'kvoucherpro') . '</a>' : 'AGB´s') . '</label>
                        <input type="checkbox" required="required" name="checkbox_terms_of_sevice" value="1" ' . (! empty($_POST['checkbox_terms_of_sevice']) || $_POST['checkbox_terms_of_sevice'] == '1' ? 'checked' : '') . ' id="checkbox_terms_of_sevice"></p>';
 
-            $output .= '<div id="toc">
+            echo '<div id="toc">
 
                             <div style="background-color: #ffffff; color: #000000;" id="toc_content">' . esc_html($terms) . '</div>
 
                             <div style="background-color: #ffffff" id="toc_close"><a style="color: DodgerBlue;" onclick="kv_closeToc();">' . __('close', 'kvoucherpro') . '</a></div>
             
                         </div>';
-            
-            return $output;
         }
 
         private static function kv_ThxForBuy()
         {
-            $output = '<div id="thanks_message">
+            echo '<div id="thanks_message">
 
                                <p style="text-align: center; background-color: #ffffff; color: #000000;">' . __('Thank you for shopping at', 'kvoucherpro') . ' ' . esc_html(get_bloginfo('name')) . '</p>
 
@@ -386,14 +372,12 @@ if (! class_exists('KV_Form')) {
 		                      <a style="color: DodgerBlue;" href="' . (esc_html($_SERVER['REQUEST_URI'])) . '">' . __('Back to selection', 'kvoucherpro') . '</a>
 
                       </div>';
-            
-            return $output;
         }
 
         // end kv_TermsOfService()
-        private static function kv_CouponFor()
+        private function kv_CouponFor()
         {
-            $output = '<fieldset>
+            echo '<fieldset>
                         
                        <legend>' . __('Voucher for', 'kvoucherpro') . '</legend>
 
@@ -410,8 +394,6 @@ if (! class_exists('KV_Form')) {
                         <p><label style="width: 140px;" for="occasion">' . __('Occasion', 'kvoucherpro') . ': </label><input type="text" maxlength="30" name="occasion" id="occasion" value="' . (! empty($_POST['occasion']) ? $_POST['occasion'] : '') . '" placeholder="' . __('Occasion', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
                         </fieldset>';
-            
-            return $output;
         }
 
         private static function kv_kindOfShipping()
@@ -425,7 +407,7 @@ if (! class_exists('KV_Form')) {
             // if shipping selectected in the admin area post+email
             if (get_option('kvoucher_plugin_company_textfiels')['shipping'] == 'post+email') {
 
-                $output = '<fieldset>
+                echo '<fieldset>
                 
                        <legend>' . __('Shipping', 'kvoucherpro') . '</legend>
                 
@@ -443,7 +425,7 @@ if (! class_exists('KV_Form')) {
             // if shipping selectected in the admin area email
             if (get_option('kvoucher_plugin_company_textfiels')['shipping'] == 'email') {
 
-                $output = '<fieldset>
+                echo '<fieldset>
                     
                        <legend>' . __('Shipping', 'kvoucherpro') . '</legend>
                            
@@ -451,15 +433,15 @@ if (! class_exists('KV_Form')) {
                                
                        </fieldset>';
 
-                $output .= '<input type="hidden" id="email" name ="shipping" value="E-mail">';
+                echo '<input type="hidden" id="email" name ="shipping" value="E-mail">';
 
-                $output .= '<input type="hidden" id="shipping_costs" name ="shipping_costs" value="0.00">';
+                echo '<input type="hidden" id="shipping_costs" name ="shipping_costs" value="0.00">';
             }
 
             // if shipping selectected in the admin area post
             if (get_option('kvoucher_plugin_company_textfiels')['shipping'] == 'post') {
 
-                $output = '<fieldset>
+                echo '<fieldset>
                     
                        <legend>' . __('Shipping', 'kvoucherpro') . '</legend>
                            
@@ -467,12 +449,10 @@ if (! class_exists('KV_Form')) {
                                
                        </fieldset>';
 
-                $output .= '<input type="hidden" id="post" name ="shipping" value="Post">';
+                echo '<input type="hidden" id="post" name ="shipping" value="Post">';
 
-                $output .= '<input type="hidden" id="shipping_costs" name ="shipping_costs" value="' . esc_html(get_option('kvoucher_plugin_company_textfiels')['shipping_costs']) . '">';
+                echo '<input type="hidden" id="shipping_costs" name ="shipping_costs" value="' . esc_html(get_option('kvoucher_plugin_company_textfiels')['shipping_costs']) . '">';
             }
-            
-            return $output;
         }
 
         private static function kv_GetCurrencyforPaypalApi()
@@ -573,9 +553,9 @@ if (! class_exists('KV_Form')) {
 
             $summe = $shipping_costs + $value;
 
-            $output = '<fieldset id="paypal-button-container"></fieldset>';
+            echo '<fieldset id="paypal-button-container"></fieldset>';
 
-            $output .= '<script>
+            echo '<script>
                      paypal.Buttons({
                          createOrder: function(data, actions) {
                              // This function sets up the details of the transaction, including the amount and line item details.
@@ -603,46 +583,38 @@ if (! class_exists('KV_Form')) {
                      }).render("#paypal-button-container");
                      //This function displays Smart Payment Buttons on your web page.
                      </script>';
-            
-            return $output;
         }
 
         // end kv_paypalButtons()
-        
-        
-        
         public static function kv_BillingAdress()
-        
         {
-            var_dump($_POST);
-            
-            $output = '<div id="kvoucherBillingAdress">';
+            echo '<div id="kvoucherBillingAdress">';
 
-            $output .=  '<noscript style="color:red;">' . __('Please enable javascript in your browser. Otherwise it is not possible to buy a voucher.', 'kvoucherpro') . '</noscript>';
+            echo '<noscript style="color:red;">' . __('Please enable javascript in your browser. Otherwise it is not possible to buy a voucher.', 'kvoucherpro') . '</noscript>';
 
             $check_required_data = self::kv_CheckAllCompanyData(); // check all required company data
 
             if ($check_required_data == true) {
 
-                if (! isset($_POST['action']) || $_POST['action'] == 'save1' || $_POST['action'] == 'back1' || empty($_POST['action']) ) {
+                if ($_POST['action'] == 'save1' || $_POST['action'] == 'back1' || empty($_POST['action']) || ! isset($_POST['action'])) {
 
-                    $output .= '<form action="" method="post">';
+                    echo '<form action="" method="post">';
 
-                    $output .= self::kv_PostToHiddenField();
+                    self::kv_PostToHiddenField();
 
-                    $output .= self::kv_BillingAdressPrice();
+                    self::kv_BillingAdressPrice();
 
-                    $output .= self::kv_kindOfShipping();
+                    self::kv_kindOfShipping();
 
-                    $output .= self::kv_CouponFor();
+                    self::kv_CouponFor();
                     
-                    $output .= '<fieldset>';
+                    echo '<fieldset>';
 
-                    $output .= self::kv_Button('save2', __('Next', 'kvoucherpro'));
+                    self::kv_Button('save2', __('Next', 'kvoucherpro'));
                     
-                    $output .= '</fieldset>';
+                    echo '</fieldset>';
 
-                    $output .= '</form>';
+                    echo '</form>';
                 }
 
                 if ($_POST['action'] == 'save2' || $_POST['action'] == 'back2') {
@@ -662,68 +634,68 @@ if (! class_exists('KV_Form')) {
                         }
                     }
 
-                    $output .= '<form action="" method="post">';
+                    echo '<form action="" method="post">';
 
-                    $output .= self::kv_PostToHiddenField();
+                    self::kv_PostToHiddenField();
 
-                    $output .= self::kv_BillingAdressAdress();
+                    self::kv_BillingAdressAdress();
 
-                    $output .= self::kv_CheckBillingAdressDeliveryShipping();
+                    self::kv_CheckBillingAdressDeliveryShipping();
 
-                    $output .= self::kv_BillingAdressDeliveryShipping();
+                    self::kv_BillingAdressDeliveryShipping();
                     
-                    $output .= self::kv_TermsOfService();
+                    self::kv_TermsOfService();
                     
-                    $output .= '<fieldset>';
+                    echo '<fieldset>';
 
-                    $output .= '<button style="margin:5px" onclick="kv_submitForms(1)">' . __('Back', 'kvoucherpro') . '</button>';
+                    echo '<button style="margin:5px" onclick="kv_submitForms(1)">' . __('Back', 'kvoucherpro') . '</button>';
                     
-                    $output .= self::kv_Button('save3', __('Next', 'kvoucherpro'));
+                    self::kv_Button('save3', __('Next', 'kvoucherpro'));
                     
-                    $output .= '</fieldset>';
+                    echo '</fieldset>';
 
-                    $output .= '</form>';
+                    echo '</form>';
 
-                    $output .= '<form action="" method="post" id="1">';
+                    echo '<form action="" method="post" id="1">';
 
-                    $output .= self::kv_PostToHiddenField();
+                    self::kv_PostToHiddenField();
 
-                    $output .= '<input type="hidden" name="action" value="back1">';
+                    echo '<input type="hidden" name="action" value="back1">';
 
-                    $output .= '</form>';
+                    echo '</form>';
                 }
 
                 if ($_POST['action'] == 'save3' || $_POST['action'] == 'back3') {
 
                     if ($_POST['action'] == 'save3') {
 
-                        $output .= self::kv_PayCoupon(); // show all date
+                        self::kv_PayCoupon(); // show all date
 
-                        $output .= '<form action="" method="post">';
+                        echo '<form action="" method="post">';
 
-                        $output .= self::kv_PostToHiddenField();
+                        self::kv_PostToHiddenField();
                         
-                        $output .= '<fieldset>';
+                        echo '<fieldset>';
 
-                        $output .= self::kv_Button('back2', __('Back', 'kvoucherpro'));// show button back
+                        self::kv_Button('back2', __('Back', 'kvoucherpro'));// show button back
                         
-                        $output .= '</fieldset>';
+                        echo '</fieldset>';
 
-                        $output .= '</form>';
+                        echo '</form>';
 
-                        $output .= self::kv_ThxForBuy();
+                        self::kv_ThxForBuy();
 
-                        $output .= self::kv_paypalButtons(); // show paypal buttons
+                        self::kv_paypalButtons(); // show paypal buttons
                     }
                 }
             } else {
 
-                $output .= '<p>' . __('Unfortunately, our online voucher service is currently not available. Please accept our apologies', 'kvoucherpro') . '.</p>';
+                echo '<p>' . __('Unfortunately, our online voucher service is currently not available. Please accept our apologies', 'kvoucherpro') . '.</p>';
             }
 
-            $output .= '</div>';
+            echo '</div>';
 
-           return $output;
+            // return $output;
         } // end
     } // end class KV_Form
 } // end if class_exists('KV_Form')

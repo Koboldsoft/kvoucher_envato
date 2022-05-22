@@ -177,8 +177,6 @@ function kv_GetCurrencyforPaypalApi()
 
 function kv_header_scripts(){
     
-    var_dump( get_option('kvoucher_plugin_paypal_textfiels'));
-    
     if( ! empty( sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels') ) ) ) {
     
         echo sprintf('<script src="https://www.paypal.com/sdk/js?client-id=%s&currency='.kv_GetCurrencyforPaypalApi().'"></script>', sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels')['paypal_client_id'] ));
@@ -248,12 +246,12 @@ add_action('admin_enqueue_scripts', 'kv_load_backend_scripts');
 add_action('wp_enqueue_scripts', 'kv_load_frontend_scripts');
 
 // add fronpage site #############################################
-function kv_oucher_add_frontpage()
+function kv_voucher_add_frontpage()
 {
     add_shortcode('kvoucher', 'KVoucherFrontendStuff\KV_Form::kv_BillingAdress');
 }
 
-add_action('init', 'kv_oucher_add_frontpage');
+add_action('init', 'kv_voucher_add_frontpage');
 
 
 // ################################################################

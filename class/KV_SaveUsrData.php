@@ -35,26 +35,13 @@ if (! class_exists('SaveUsrData')) {
                 // emailadress wp-admin
                 $email_admin = get_option('admin_email');
                 
-                if (kvo_fs()->can_use_premium_code__premium_only()) {
+                $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_kvoucher");
                     
-                    $last_id = $wpdb->get_row("SELECT MAX(ID) as MAX_ID FROM " . $wpdb->prefix . "usr_kvoucher");
-                    
-                    $id = $last_id->MAX_ID + 1;
-                }
-                
-                if (kvo_fs()->is_not_paying()) {
-                    
-                    $last_id = get_option('kvoucher_coupon_id');
-                    
-                    $id = $last_id + 1;
-                    
-                    update_option('kvoucher_coupon_id', $id);
-                }
+                $id = $last_id->MAX_ID + 1;
                 
                 if (isset($arr['price'])) {
                     $price = sanitize_text_field($arr['price']);
                 }
-                ;
                 
                 if (isset($arr['shipping'])) {
                     $shipping = sanitize_text_field($arr['shipping']);
@@ -254,14 +241,6 @@ if (! class_exists('SaveUsrData')) {
                 
                 $coupon_data['style_data'] = get_option('kvoucher_plugin_style_textfiels');
                 
-                if (kvo_fs()->is_not_paying()) {
-                    
-                    $coupon_data['style_data']['background_color'] = '#ffffff';
-                    
-                    $coupon_data['style_data']['font_color'] = '#000000';
-                    
-                }
-                
                 $coupon_data['buyer_data']['title'] = $title;
                 
                 $coupon_data['buyer_data']['fname'] = $fname;
@@ -316,13 +295,8 @@ if (! class_exists('SaveUsrData')) {
                 
                 $coupon_data['buyer_data']['dif_email'] = $dif_email;
                 
-                // This IF block will be auto removed from the Free Version and will only get executed if the user on a trial or have a valid license.
-                if (kvo_fs()->can_use_premium_code__premium_only()) {
+                $coupon_data['buyer_data']['key_kvoucher'] = $key_kvoucher;
                     
-                    $coupon_data['buyer_data']['key_kvoucher'] = $key_kvoucher;
-                    
-                }
-                
                 $coupon_data['buyer_data']['date'] = $date;
                 
                 $coupon_data['buyer_data']['futuredate'] = $futuredate;

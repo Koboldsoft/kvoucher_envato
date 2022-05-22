@@ -1,4 +1,5 @@
 <?php
+var_dump
 namespace KVoucherFrontendStuff;
 
 if (! class_exists('KV_Form')) {
@@ -614,8 +615,6 @@ if (! class_exists('KV_Form')) {
         public static function kv_BillingAdress()
         
         {
-            var_dump($_POST);
-            
             $output = '<div id="kvoucherBillingAdress">';
 
             $output .=  '<noscript style="color:red;">' . __('Please enable javascript in your browser. Otherwise it is not possible to buy a voucher.', 'kvoucherpro') . '</noscript>';

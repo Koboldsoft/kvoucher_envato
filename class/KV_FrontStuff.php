@@ -1,5 +1,5 @@
 <?php
-var_dump
+
 namespace KVoucherFrontendStuff;
 
 if (! class_exists('KV_Form')) {
@@ -20,7 +20,10 @@ if (! class_exists('KV_Form')) {
                 
             }
             
-            return $output;
+            if(isset ($output )){
+                
+                return $output ;
+            }
         }
 
         private static function kv_Button($value, $label)
@@ -32,7 +35,7 @@ if (! class_exists('KV_Form')) {
         }
 
         // end kv_Button($value, $label)
-        private function kv_SubStr($string, $length)
+        private static function kv_SubStr($string, $length)
         {
             return substr($string, 0, $length);
         }
@@ -46,7 +49,7 @@ if (! class_exists('KV_Form')) {
 
                        <input type="hidden" name="checkbox_del_shipping_adress" value="0" />
 
-                       <input type="checkbox" onchange="kvtoggleDisableDelShippingAdress(this)" name="checkbox_del_shipping_adress" value="1" ' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'checked' : '') . ' id="checkbox_del_shipping_adress">';
+                       <input type="checkbox" onchange="kvtoggleDisableDelShippingAdress(this)" name="checkbox_del_shipping_adress" value="1" ' . ( isset ($_POST['checkbox_del_shipping_adress']) && $_POST['checkbox_del_shipping_adress'] == '1' ? 'checked' : '') . ' id="checkbox_del_shipping_adress">';
                 
                 return $output;
             
@@ -164,27 +167,27 @@ if (! class_exists('KV_Form')) {
                 
     	               <label for="twenty">20,00 ' . esc_html($currency) . '</label>
                 
-    	               <input class="price" type="radio" id="thirty" name="price" value="30" ' . ($_POST['price'] == '30' ? 'checked' : '') . '>
+    	               <input class="price" type="radio" id="thirty" name="price" value="30" ' . ( isset($_POST['price']) && $_POST['price'] == '30' ? 'checked' : '') . '>
                 
     	               <label for="thirty">30,00 ' . esc_html($currency) . '</label>
                 
-    	               <input class="price" type="radio" id="fifty" name="price" value="50" ' . ($_POST['price'] == '50' ? 'checked' : '') . '>
+    	               <input class="price" type="radio" id="fifty" name="price" value="50" ' . ( isset($_POST['price']) && $_POST['price'] == '50' ? 'checked' : '') . '>
                 
     	               <label for="fifty">50,00 ' . esc_html($currency) . '</label>
                 
-    	               <input class="price" type="radio" id="seventyfive" name="price" value="75" ' . ($_POST['price'] == '75' ? 'checked' : '') . '>
+    	               <input class="price" type="radio" id="seventyfive" name="price" value="75" ' . ( isset($_POST['price']) && $_POST['price'] == '75' ? 'checked' : '') . '>
                 
     	               <label for="seventyfive">75,00 ' . esc_html($currency) . '</label>
                 
-    	               <input class="price" type="radio" id="onehundred" name="price" value="100" ' . ($_POST['price'] == '100' ? 'checked' : '') . '>
+    	               <input class="price" type="radio" id="onehundred" name="price" value="100" ' . ( isset($_POST['price']) && $_POST['price'] == '100' ? 'checked' : '') . '>
                 
     	               <label for="onehundred">100,00 ' . esc_html($currency) . '</label>
                 
-    	               <input class="price" type="radio" id="onehundredfifty" name="price" value="150" ' . ($_POST['price'] == '150' ? 'checked' : '') . '>
+    	               <input class="price" type="radio" id="onehundredfifty" name="price" value="150" ' . ( isset($_POST['price']) && $_POST['price'] == '150' ? 'checked' : '') . '>
                 
     	               <label for="onehundredfifty">150,00 ' . esc_html($currency) . '</label>
                 
-    	               <input class="price" type="radio" id="twohundred" name="price" value="200" ' . ($_POST['price'] == '200' ? 'checked' : '') . '>
+    	               <input class="price" type="radio" id="twohundred" name="price" value="200" ' . ( isset($_POST['price']) && $_POST['price'] == '200' ? 'checked' : '') . '>
                 
     	               <label for="twohundred">200,00 ' . esc_html($currency) . '</label>
 
@@ -206,13 +209,13 @@ if (! class_exists('KV_Form')) {
                 
                         <label for="privat">' . __('Privat', 'kvoucherpro') . ':</label><input type="radio" onchange="kv_toggleDisableDelCompany(this)" id="radiobox_company_dis" id="privat" name="kind_of_adress" value="Privat" ' . (empty($_POST['kind_of_adress']) || $_POST['kind_of_adress'] == 'Privat' ? 'checked' : '') . '>
                 
-                        <label for="firma">' . __('Company', 'kvoucherpro') . ':</label><input class="kind_of_adress" type="radio" onchange="kv_toggleEnableDelCompany(this)" id="radiobox_company_en" name="kind_of_adress" value="Firma" ' . ($_POST['kind_of_adress'] == 'Firma' ? 'checked' : '') . '><br>
+                        <label for="firma">' . __('Company', 'kvoucherpro') . ':</label><input class="kind_of_adress" type="radio" onchange="kv_toggleEnableDelCompany(this)" id="radiobox_company_en" name="kind_of_adress" value="Firma" ' . (isset ($_POST['kind_of_adress']) && $_POST['kind_of_adress'] == 'Firma' ? 'checked' : '') . '><br>
                 
 		                <label for="herr">' . __('Mr', 'kvoucherpro') . ':</label><input type="radio" id="herr" name="title" value="Herr" ' . (empty($_POST['title']) || $_POST['title'] == 'Herr' ? 'checked' : '') . '>
                 
-                        <label for="frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="frau" name="title" value="Frau" ' . ($_POST['title'] == 'Frau' ? 'checked' : '') . '>
+                        <label for="frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="frau" name="title" value="Frau" ' . (isset ($_POST['title']) && $_POST['title'] == 'Frau' ? 'checked' : '') . '>
 
-                        <p style=' . ($_POST['kind_of_adress'] == 'Firma' ? '"display:block"' : '"display:none"') . ' id="company_input_field"><label style="width: 140px;" for="company">' . __('Company', 'kvoucherpro') . ': </label><input type="text" maxlength="40" name="company" id="company" value="' . (! empty($_POST['company']) ? esc_html($_POST['company']) : '') . '"  placeholder="' . __('Company', 'kvoucherpro') . '" style="max-width: 300px;"></p>
+                        <p style=' . ( isset ( $_POST['kind_of_adress'] ) && $_POST['kind_of_adress'] == 'Firma' ? '"display:block"' : '"display:none"') . ' id="company_input_field"><label style="width: 140px;" for="company">' . __('Company', 'kvoucherpro') . ': </label><input type="text" maxlength="40" name="company" id="company" value="' . (! empty($_POST['company']) ? esc_html($_POST['company']) : '') . '"  placeholder="' . __('Company', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
                         <p><label style="width: 140px;" for="fname">' . __('First Name', 'kvoucherpro') . '*: </label><input type="text" maxlength="30" name="fname" id="fname" required="required" value="' . (! empty($_POST['fname']) ? esc_html($_POST['fname']) : '') . '"  placeholder="' . __('First Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
@@ -239,13 +242,13 @@ if (! class_exists('KV_Form')) {
         private static function kv_BillingAdressDeliveryShipping()
 
         {
-            $output =  '<fieldset id="fieldset_del_shipping_adress"' . (! empty($_POST['checkbox_del_shipping_adress']) || $_POST['checkbox_del_shipping_adress'] == '1' ? 'style="display:block' : 'disabled="disabled" style="display:none') . '">
+            $output =  '<fieldset id="fieldset_del_shipping_adress"' . ( isset($_POST['checkbox_del_shipping_adress']) && $_POST['checkbox_del_shipping_adress'] == '1' ? 'style="display:block' : 'disabled="disabled" style="display:none') . '">
 
                       <legend>' . __('Differing Shipping Address', 'kvoucherpro') . '</legend>
 
                       <label for="dif_herr">' . __('Mr', 'kvoucherpro') . ':</label><input type="radio" id="dif_herr" name="dif_title" value="Herr" ' . (empty($_POST['dif_title']) || $_POST['dif_title'] == 'Herr' ? 'checked' : '') . '>
                 
-                      <label for="dif_frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="dif_frau" name="dif_title" value="Frau" ' . ($_POST['dif_title'] == 'Frau' ? 'checked' : '') . '>
+                      <label for="dif_frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="dif_frau" name="dif_title" value="Frau" ' . ( isset ($_POST['dif_title']) && $_POST['dif_title'] == 'Frau' ? 'checked' : '') . '>
 
                       <p><label style="width: 140px;" for="dif_fname">' . __('First Name', 'kvoucherpro') . '*: </label><input type="text" name="dif_fname" id="dif_fname" value ="' . (! empty($_POST['dif_fname']) ? esc_html($_POST['dif_fname']) : '') . '" required="required"  placeholder="' . __('First Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
 
@@ -322,7 +325,7 @@ if (! class_exists('KV_Form')) {
 
                         ' . __('E-mail', 'kvoucherpro') . ': ' . esc_html($_POST['email']) . '<br>
             
-                        ' . __('Shipping costs', 'kvoucherpro') . ': ' . number_format(esc_html($_POST['shipping_costs']), 2, ',', '.') . ' ' . esc_html($currency) . '<br>
+                        ' . __('Shipping costs', 'kvoucherpro') . ': ' . number_format(esc_html((float)$_POST['shipping_costs']), 2, ',', '.') . ' ' . esc_html($currency) . '<br>
             
                         ' . __('Total', 'kvoucherpro') . ': ' . number_format(esc_html($summe), 2, ',', '.') . ' ' . esc_html($currency) . '<br>
             
@@ -363,7 +366,7 @@ if (! class_exists('KV_Form')) {
             }
 
             $output = '<p><label for="checkbox_terms_of_sevice">' . __('Please confirm our', 'kvoucherpro') . ' ' . (self::kv_CheckTermsOfServiceData() == true ? '<a onclick="kv_openToc();">' . __('terms and conditions', 'kvoucherpro') . '</a>' : 'AGB´s') . '</label>
-                       <input type="checkbox" required="required" name="checkbox_terms_of_sevice" value="1" ' . (! empty($_POST['checkbox_terms_of_sevice']) || $_POST['checkbox_terms_of_sevice'] == '1' ? 'checked' : '') . ' id="checkbox_terms_of_sevice"></p>';
+                       <input type="checkbox" required="required" name="checkbox_terms_of_sevice" value="1" ' . ( isset($_POST['checkbox_terms_of_sevice']) && $_POST['checkbox_terms_of_sevice'] == '1' ? 'checked' : '') . ' id="checkbox_terms_of_sevice"></p>';
 
             $output .= '<div id="toc">
 
@@ -402,7 +405,7 @@ if (! class_exists('KV_Form')) {
 
                        <label for="for_herr">' . __('Mr', 'kvoucherpro') . ':</label><input type="radio" id="for_herr" name="for_title" value="Herr" ' . (empty($_POST['for_title']) || $_POST['for_title'] == 'Herr' ? 'checked' : '') . '>
                 
-                        <label for="for_frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="for_frau" name="for_title" value="Frau" ' . ($_POST['for_title'] == 'Frau' ? 'checked' : '') . '>
+                        <label for="for_frau">' . __('Mrs', 'kvoucherpro') . ':</label><input type="radio" id="for_frau" name="for_title" value="Frau" ' . ( isset($_POST['for_title']) && $_POST['for_title'] == 'Frau' ? 'checked' : '') . '>
                 
                         <p><label style="width: 140px;" for="for_fname">' . __('First Name', 'kvoucherpro') . '*: </label><input type="text" maxlength="30" name="for_fname" id="for_fname" required="required" value="' . (! empty($_POST['for_fname']) ? $_POST['for_fname'] : '') . '"  placeholder="' . __('First Name', 'kvoucherpro') . '" style="max-width: 300px;"></p>
                 
@@ -434,7 +437,7 @@ if (! class_exists('KV_Form')) {
                            
     	                    <label for="post">' . __('via Post', 'kvoucherpro') . ' <i>( + ' . esc_html($show_shipping_costs) . ' ' . esc_html($currency) . ' ' . __('Shipping', 'kvoucherpro') . ')</i></label>
                            
-    	                    <input type="radio" id="email" name="shipping" value="E-mail" ' . ($_POST['shipping'] == 'E-mail' ? 'checked' : '') . '>
+    	                    <input type="radio" id="email" name="shipping" value="E-mail" ' . ( isset($_POST['shipping']) && $_POST['shipping'] == 'E-mail' ? 'checked' : '') . '>
     	                   
     	                    <label for="email">' . __('via E-mail (PDF)', 'kvoucherpro') . '</label>
             
@@ -644,7 +647,7 @@ if (! class_exists('KV_Form')) {
                     $output .= '</form>';
                 }
 
-                if ($_POST['action'] == 'save2' || $_POST['action'] == 'back2') {
+                if ( isset( $_POST['action'] ) && ( $_POST['action'] == 'save2' || $_POST['action'] == 'back2') ) {
 
                     if ($_POST['action'] == 'save2') {
 
@@ -692,7 +695,7 @@ if (! class_exists('KV_Form')) {
                     $output .= '</form>';
                 }
 
-                if ($_POST['action'] == 'save3' || $_POST['action'] == 'back3') {
+                if ( isset( $_POST['action'] ) && ( $_POST['action'] == 'save3' || $_POST['action'] == 'back3') ) {
 
                     if ($_POST['action'] == 'save3') {
 

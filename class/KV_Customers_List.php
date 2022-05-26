@@ -288,9 +288,16 @@ class KV_Customers_List extends WP_List_Table {
         if (strcmp($item['shipping'], 'E-mail') === 0) {
         
             $output = '<a alt='.__('Coupon','kvoucherpro').'" target="_blank" title="'.__('Coupon','kvoucherpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=coupon&'.http_build_query( $dataencrypt ).'"><img style="margin-right:5px" src="' . esc_url( plugins_url( 'img/file-pdf-solid.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
+            
+            $output .= '<a alt="'.__('Bill','kvoucherpro').'" target="_blank" title="'.__('Bill','kvoucherpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=bill&'.http_build_query( $dataencrypt ).'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
+        }
+        
+        if (strcmp($item['shipping'], 'Post') === 0) {
+            
+            $output = '<a alt="'.__('Bill','kvoucherpro').'" target="_blank" title="'.__('Bill','kvoucherpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=bill&'.http_build_query( $dataencrypt ).'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
         }
   
-        $output .= '<a alt="'.__('Bill','kvoucherpro').'" target="_blank" title="'.__('Bill','kvoucherpro').'" href="https://couponsystem.koboldsoft.com/documents.php?document=bill&'.http_build_query( $dataencrypt ).'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
+        
   
   //$output .= '<a alt="'.__('Bill','kvoucherpro').'" target="_blank" title="'.__('Bill','kvoucherpro').'" href="http://localhost/createpdf/documents.php?document=bill&'.$dataencrypt.'"><img src="' . esc_url( plugins_url( 'img/file-pdf-regular.svg', dirname(__FILE__) ) ) . '" width="15" ></a>';
 

@@ -177,7 +177,7 @@ function kv_GetCurrencyforPaypalApi()
 
 function kv_header_scripts(){
     
-    if( ! empty( sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels') ) ) ) {
+    if(  is_string( sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels') ) ) )  {
     
         echo sprintf('<script src="https://www.paypal.com/sdk/js?client-id=%s&currency='.kv_GetCurrencyforPaypalApi().'"></script>', sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels')['paypal_client_id'] ));
     }
@@ -216,7 +216,9 @@ function kv_usr_data_request()
 
     if (isset($_POST)) {
         
-        $coupon_data = KV_SaveData::kv_saveData( $_POST['data'] );
+        $data = new KV_SaveData;
+        
+        $coupon_data = $data ->kv_saveData( $_POST['data']);
         
         $send = new KV_SendData($coupon_data);
         

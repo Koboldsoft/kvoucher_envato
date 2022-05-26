@@ -526,9 +526,9 @@ if (! class_exists('KV_Form')) {
 
                 'fname' => self::kv_SubStr(sanitize_text_field($_POST['fname']), 30),
 
-                'nname' => self::kv_SubStr(sanitize_text_field($_POST['nname']), 30),
+                'nname' =>  self::kv_SubStr(sanitize_text_field($_POST['nname']), 30),
 
-                'company' => self::kv_SubStr(sanitize_text_field($_POST['company']), 40),
+                'company' => self::kv_SubStr(sanitize_text_field($_POST['company']), 40) ,
 
                 'streetname' => self::kv_SubStr(sanitize_text_field($_POST['streetname']), 50),
 

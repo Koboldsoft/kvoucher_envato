@@ -2,7 +2,7 @@
 
 namespace KVoucherSaveUsrData;
 
-if (! class_exists('SaveUsrData')) {
+if (! class_exists('KV_SaveData')) {
     
     class KV_SaveData {
         
@@ -173,7 +173,7 @@ if (! class_exists('SaveUsrData')) {
                 }
                 ;
                 
-                $key_kvoucher = md5($id + $arr['fname'] + $arr['nname'] + date("His"));
+                $key_kvoucher = md5($id.$arr['fname'].$arr['nname'].date("His"));
                 
                 $date = date("Y-m-d H:i:s");
                 

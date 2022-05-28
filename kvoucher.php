@@ -153,33 +153,37 @@ add_action( 'wp_head', 'kv_header_scripts' );
 
 function kv_GetCurrencyforPaypalApi()
 {
-    $currency = get_option('kvoucher_plugin_company_textfiels')['currency'];
-    
-    switch ($currency) {
-        case (empty($currency) || $currency == null || $currency == ''):
-            return "EUR";
-            break;
-            
-        case 'euro':
-            return "EUR";
-            break;
-            
-        case 'dollar':
-            return "USD";
-            break;
-            
-        case 'british_pound':
-            return "GBP";
-            break;
-    }
+    if ( isset( get_option('kvoucher_plugin_company_textfiels')['currency'] ) ) { 
+        
+        $currency = get_option('kvoucher_plugin_company_textfiels')['currency'] ;
+        
+        switch ($currency) {
+            case (empty($currency) || $currency == null || $currency == ''):
+                return "EUR";
+                break;
+                
+            case 'euro':
+                return "EUR";
+                break;
+                
+            case 'dollar':
+                return "USD";
+                break;
+                
+            case 'british_pound':
+                return "GBP";
+                break;
+        }
+    };
 }
 
 
 function kv_header_scripts(){
     
-    if(  is_string( sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels') ) ) )  {
+    if(  ! null == get_option('kvoucher_plugin_paypal_textfiels') && is_string( sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels')['paypal_client_id'] ) ) ) {
     
         echo sprintf('<script src="https://www.paypal.com/sdk/js?client-id=%s&currency='.kv_GetCurrencyforPaypalApi().'"></script>', sanitize_text_field( get_option('kvoucher_plugin_paypal_textfiels')['paypal_client_id'] ));
+        
     }
 }
 
@@ -376,7 +380,7 @@ function kv_plugin_display()
 		<a href="?page=kvoucher_options&tab=style_options"
 			class="nav-tab <?php echo $active_tab == 'style_options' ? 'nav-tab-active' : ''; ?>"><?php _e( 'Style Settings', 'kvoucherpro' );?></a>
 			
-			 <a href="https://koboldsoft.com/kvoucher/" target="_blank" class="nav-tab"><?php _e( 'Install', 'kvoucherpro' );?></a> 
+			 <a href="https://koboldsoft.com/kvoucher/#installation" target="_blank" class="nav-tab"><?php _e( 'Install', 'kvoucherpro' );?></a> 
 
 	</h2>
 

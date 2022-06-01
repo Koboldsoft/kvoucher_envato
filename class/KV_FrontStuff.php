@@ -14,8 +14,16 @@ if (! class_exists('KV_Form')) {
             foreach ($_POST as $content => $value) {
 
                 if ($content != 'action') {
+                    
+                    if (isset ($output)) {
 
-                    $output .= '<input type="hidden" name="' . esc_html($content) . '" value="' . esc_html($value) . '">';
+                        $output .= '<input type="hidden" name="' . esc_html($content) . '" value="' . esc_html($value) . '">';
+                        
+                    }else {
+                        
+                        $output = '<input type="hidden" name="' . esc_html($content) . '" value="' . esc_html($value) . '">';
+                        
+                    }
                 }
                 
             }
@@ -291,7 +299,7 @@ if (! class_exists('KV_Form')) {
             }
             ;
 
-            $summe = $wert + $shipping_costs;
+            $summe = $wert + ( isset ( $shipping_costs ) ? $shipping_costs : 0 );
 
             $output = '<fieldset>
 
@@ -528,7 +536,7 @@ if (! class_exists('KV_Form')) {
 
                 'nname' =>  self::kv_SubStr(sanitize_text_field($_POST['nname']), 30),
 
-                'company' => self::kv_SubStr(sanitize_text_field($_POST['company']), 40) ,
+                'company' => self::kv_SubStr(sanitize_text_field((isset ($_POST['company']) ? $_POST['company'] : null ) ), 40) ,
 
                 'streetname' => self::kv_SubStr(sanitize_text_field($_POST['streetname']), 50),
 
@@ -542,21 +550,21 @@ if (! class_exists('KV_Form')) {
 
                 'email' => self::kv_SubStr(sanitize_email($_POST['email']), 50),
 
-                'dif_title' => esc_attr($_POST['dif_title']),
+                'dif_title' => esc_attr((isset ($_POST['dif_title']) ? $_POST['dif_title'] : null )),
 
-                'dif_fname' => self::kv_SubStr(sanitize_text_field($_POST['dif_fname']), 30),
+                'dif_fname' => self::kv_SubStr(sanitize_text_field((isset ($_POST['dif_fname']) ? $_POST['dif_fname'] : null )), 30),
 
-                'dif_nname' => self::kv_SubStr(sanitize_text_field($_POST['dif_nname']), 30),
+                'dif_nname' => self::kv_SubStr(sanitize_text_field((isset ($_POST['dif_nname']) ? $_POST['dif_nname'] : null )), 30),
 
-                'dif_streetname' => self::kv_SubStr(sanitize_text_field($_POST['dif_streetname']), 50),
+                'dif_streetname' => self::kv_SubStr(sanitize_text_field((isset ($_POST['dif_streetname']) ? $_POST['dif_streetname'] : null )), 50),
 
-                'dif_plz' => self::kv_SubStr(sanitize_text_field($_POST['dif_plz']), 8),
+                'dif_plz' => self::kv_SubStr(sanitize_text_field((isset ($_POST['dif_plz']) ? $_POST['dif_plz'] : null )), 8),
 
-                'dif_city' => self::kv_SubStr(sanitize_text_field($_POST['dif_city']), 50),
+                'dif_city' => self::kv_SubStr(sanitize_text_field((isset ($_POST['dif_city']) ? $_POST['dif_city'] : null )), 50),
 
-                'dif_country' => self::kv_SubStr(sanitize_text_field($_POST['dif_country']), 50),
+                'dif_country' => self::kv_SubStr(sanitize_text_field((isset ($_POST['dif_country']) ? $_POST['dif_country'] : null )), 50),
 
-                'dif_email' => self::kv_SubStr(sanitize_email($_POST['dif_email']), 50),
+                'dif_email' => self::kv_SubStr(sanitize_email((isset ($_POST['dif_email']) ? $_POST['dif_email'] : null )), 50),
 
                 'checkbox_del_shipping_adress' => sanitize_text_field($_POST['checkbox_del_shipping_adress']),
 

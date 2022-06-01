@@ -375,7 +375,7 @@ class KV_Customers_List extends WP_List_Table {
         
         $this->process_show_status();
         
-        $total_items  = self::kv_record_count($_REQUEST['s'],$_REQUEST['view']);
+        $total_items  = self::kv_record_count((isset ( $_REQUEST['s'] ) ? $_REQUEST['s'] : null ),( isset( $_REQUEST['view'] ) ? $_REQUEST['view'] : null ) ) ;
         
         $per_page = $this->get_items_per_page( 'customers_per_page', 10 );
         
@@ -403,7 +403,7 @@ class KV_Customers_List extends WP_List_Table {
             
            $this->views();
         
-           $this->items = self::kv_get_customers($_REQUEST['view'], $per_page, $current_page );
+           $this->items = self::kv_get_customers(( isset( $_REQUEST['view'] ) ? $_REQUEST['view'] : null ), $per_page, $current_page );
             
         }
     }

@@ -247,7 +247,12 @@ function kv_load_backend_scripts()
 
     wp_enqueue_script('backend_js_script');
 }
-add_action('admin_enqueue_scripts', 'kv_load_backend_scripts');
+
+if ( is_admin() ) {
+
+    add_action('admin_enqueue_scripts', 'kv_load_backend_scripts');
+    
+}
 
 add_action('wp_enqueue_scripts', 'kv_load_frontend_scripts');
 
@@ -262,7 +267,11 @@ add_action('init', 'kv_voucher_add_frontpage');
 
 // ################################################################
 
-add_action('admin_menu', 'kv_settings_menu');
+if ( is_admin() ) {
+
+    add_action('admin_menu', 'kv_settings_menu');
+    
+}
 
 function kv_settings_menu()
 {

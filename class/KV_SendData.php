@@ -57,7 +57,6 @@ class KV_SendData{
             
             $response = wp_remote_post( 'https://couponsystem.koboldsoft.com/createpdf.php', $args );
             
-            
         }
         
 }      

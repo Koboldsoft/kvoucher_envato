@@ -116,6 +116,8 @@ function kv_encryptData($dataToEncrypt)
         $data['data'] = openssl_encrypt($dataToEncrypt, 'aes-256-ofb', '~B-$mAf5~jm<Fz!p', $options = 0, $iv);
 
         $data['iv'] = $iv;
+        
+        $data['server_name'] = $_SERVER['SERVER_NAME'];
 
         return $data;
     }

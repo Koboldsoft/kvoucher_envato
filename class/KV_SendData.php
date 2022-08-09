@@ -26,6 +26,8 @@ class KV_SendData{
                 
                 $data['iv'] = $iv;
                 
+                $data['server_name'] = $_SERVER['SERVER_NAME'];
+                
                 return $data;
                 
             }
